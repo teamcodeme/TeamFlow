@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Contract — TeamFlow</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" href="../assets/teamflow-icon-sm.png">
+    <script>try{var t=localStorage.getItem('tf-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body data-root="nested">
+    <header class="site-header">
+        <div class="header-top">
+            <button id="sidebar-toggle" class="icon-btn" aria-label="Toggle navigation"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+            <a class="brand" href="../index.html">
+                <img class="brand-logo" src="../assets/teamflow-logo-header.png" alt="TeamFlow" width="157" height="48">
+            </a>
+            <div class="header-search">
+                <span class="search-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+                <input id="docs-search" type="search" placeholder="Search..." autocomplete="off" aria-label="Search documentation">
+                <span class="search-kbd">⌘K</span>
+                <div id="search-results" class="search-results" role="listbox"></div>
+            </div>
+            <div class="header-actions">
+                <button class="ask-btn" type="button" onclick="document.getElementById('docs-search')?.focus()"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5L12 2z"/></svg> <span>Ask Assistant</span></button>
+                <a class="header-link" href="../html/cto-proposal.html">Proposal</a>
+                <a class="header-link" href="../html/demo-scenario.html">Demo</a>
+                <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle theme"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></button>
+            </div>
+        </div>
+        <nav class="header-subnav" aria-label="Section">
+            <a href="../index.html" class="active">Documentation</a>
+            <a href="../html/mvp-scope.html">MVP Scope</a>
+            <a href="../html/api-contract.html">API</a>
+            <a href="../html/data-model.html">Data Model</a>
+            <a href="../html/security-model.html">Security</a>
+            <a href="../html/development-roadmap.html">Roadmap</a>
+        </nav>
+    </header>
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <div class="docs-shell">
+        <aside id="sidebar" class="docs-sidebar">
+            <nav aria-label="Documentation">
+                <div class="nav-group">
+<div class="nav-group-title">Get started</div>
+<ul class="nav-list">
+<li><a href="../index.html">Home</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Overview</div>
+<ul class="nav-list">
+<li><a href="vision.html">Product Vision</a></li>
+<li><a href="problem-statement.html">Problem Statement</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Getting Started</div>
+<ul class="nav-list">
+<li><a href="mvp-scope.html">MVP Scope</a></li>
+<li><a href="user-roles.html">User Roles</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Core Workflows</div>
+<ul class="nav-list">
+<li><a href="requirement-workflow.html">Requirement Workflow</a></li>
+<li><a href="change-request-workflow.html">Change Request Workflow</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Requirements</div>
+<ul class="nav-list">
+<li><a href="functional-requirements.html">Functional Requirements</a></li>
+<li><a href="non-functional-requirements.html">Non-Functional Requirements</a></li>
+<li><a href="api-contract.html">API Contract</a></li>
+<li><a href="data-model.html">Data Model</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Planning & Execution</div>
+<ul class="nav-list">
+<li><a href="development-roadmap.html">Development Roadmap</a></li>
+<li><a href="demo-scenario.html">Demo Scenario</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Quality & Security</div>
+<ul class="nav-list">
+<li><a href="security-model.html">Security Model</a></li>
+<li><a href="test-strategy.html">Test Strategy</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Executive</div>
+<ul class="nav-list">
+<li><a href="cto-proposal.html">CTO Proposal</a></li>
+</ul></div>
+            </nav>
+        </aside>
+
+        <main class="docs-main">
+            <article class="docs-content">
+                <div class="page-eyebrow">Requirements</div>
+                <div class="page-header">
+                    <h1>TeamFlow API Contract</h1>
+                    <div class="page-actions">
+                        <button id="copy-page" class="copy-btn" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> <span>Copy page</span></button>
+                    </div>
+                </div>
+                <h2>1. API Standards</h2>
+            <p><strong>Base path:</strong></p>
+            <pre><code>/api/v1</code></pre>
+
+            <p><strong>Content type:</strong></p>
+            <pre><code>application/json</code></pre>
+
+            <p><strong>Authentication:</strong></p>
+            <pre><code>Authorization: Bearer &lt;token&gt;</code></pre>
+
+            <p><strong>Trace header:</strong></p>
+            <pre><code>X-Trace-ID</code></pre>
+
+            <p>The server must return a trace ID in all responses for debugging and audit purposes.</p>
+
+            <h2>2. Standard Success Response</h2>
+
+            <h3>Single Resource</h3>
+            <pre><code>{
+  "data": {
+    "id": "uuid",
+    "name": "requirement name"
+  },
+  "meta": {
+    "traceId": "trace-id"
+  }
+}</code></pre>
+
+            <h3>Paginated List</h3>
+            <pre><code>{
+  "data": [
+    { "id": "uuid", "name": "item 1" },
+    { "id": "uuid", "name": "item 2" }
+  ],
+  "meta": {
+    "page": 0,
+    "size": 20,
+    "totalElements": 42,
+    "totalPages": 3,
+    "traceId": "trace-id"
+  }
+}</code></pre>
+
+            <h2>3. Standard Error Response</h2>
+            <pre><code>{
+  "code": "REQUIREMENT_VERSION_IMMUTABLE",
+  "message": "An approved requirement version cannot be edited.",
+  "details": {
+    "requirementVersionId": "uuid"
+  },
+  "traceId": "trace-id"
+}</code></pre>
+
+            <h2>4. Common HTTP Status Codes</h2>
+            <ul>
+                <li><strong>200 OK</strong> — Successful GET, PUT, or PATCH</li>
+                <li><strong>201 Created</strong> — Successful POST that creates a resource</li>
+                <li><strong>204 No Content</strong> — Successful DELETE</li>
+                <li><strong>400 Bad Request</strong> — Validation failure or malformed request</li>
+                <li><strong>401 Unauthorized</strong> — Missing or invalid authentication</li>
+                <li><strong>403 Forbidden</strong> — Authenticated but not authorized</li>
+                <li><strong>404 Not Found</strong> — Resource does not exist</li>
+                <li><strong>409 Conflict</strong> — Business conflict or optimistic locking failure</li>
+                <li><strong>422 Unprocessable Entity</strong> — Invalid workflow transition</li>
+                <li><strong>429 Too Many Requests</strong> — Rate limit exceeded</li>
+                <li><strong>500 Internal Server Error</strong> — Unexpected server error</li>
+            </ul>
+
+            <h2>5. Pagination</h2>
+            <p><strong>Query parameters:</strong></p>
+            <pre><code>GET /api/v1/projects/{projectId}/requirements?page=0&size=20&sort=createdAt,desc</code></pre>
+
+            <p>Maximum page size should be configurable (default: 50, max: 100).</p>
+
+            <h2>6. Filtering</h2>
+            <p><strong>Example:</strong></p>
+            <pre><code>GET /api/v1/projects/{projectId}/requirements?status=APPROVED&priority=HIGH&createdAfter=2024-01-01</code></pre>
+
+            <p>Supported filters vary by resource type and are documented in endpoint specifications.</p>
+
+            <h2>7. Optimistic Locking</h2>
+            <p>Editable resources include a <code>rowVersion</code> field:</p>
+            <pre><code>{
+  "id": "uuid",
+  "name": "requirement name",
+  "rowVersion": 3
+}</code></pre>
+
+            <p>A stale update attempt (using outdated <code>rowVersion</code>) returns:</p>
+            <pre><code>409 CONFLICT
+{
+  "code": "STALE_VERSION",
+  "message": "This resource was modified by another user. Please refresh and try again."
+}</code></pre>
+
+            <h2>8. Key Endpoints (Sample)</h2>
+
+            <h3>Authentication</h3>
+            <ul>
+                <li><strong>POST /api/v1/auth/login</strong> — Authenticate and receive bearer token</li>
+                <li><strong>POST /api/v1/auth/logout</strong> — Invalidate current token</li>
+                <li><strong>POST /api/v1/auth/refresh</strong> — Refresh access token</li>
+            </ul>
+
+            <h3>Projects</h3>
+            <ul>
+                <li><strong>GET /api/v1/projects</strong> — List accessible projects</li>
+                <li><strong>POST /api/v1/projects</strong> — Create project</li>
+                <li><strong>GET /api/v1/projects/{projectId}</strong> — Get project details</li>
+                <li><strong>PUT /api/v1/projects/{projectId}</strong> — Update project</li>
+            </ul>
+
+            <h3>Requirements</h3>
+            <ul>
+                <li><strong>GET /api/v1/projects/{projectId}/requirements</strong> — List project requirements</li>
+                <li><strong>POST /api/v1/projects/{projectId}/requirements</strong> — Create requirement</li>
+                <li><strong>GET /api/v1/requirements/{requirementId}</strong> — Get requirement detail</li>
+                <li><strong>PUT /api/v1/requirements/{requirementId}</strong> — Update draft requirement</li>
+                <li><strong>POST /api/v1/requirements/{requirementId}/submit</strong> — Submit for review</li>
+                <li><strong>POST /api/v1/requirements/{requirementId}/approve</strong> — Approve requirement</li>
+                <li><strong>GET /api/v1/requirements/{requirementId}/versions</strong> — List requirement versions</li>
+            </ul>
+
+            <h3>Change Requests</h3>
+            <ul>
+                <li><strong>POST /api/v1/requirements/{requirementId}/changes</strong> — Create change request</li>
+                <li><strong>GET /api/v1/changes/{changeId}</strong> — Get change request detail</li>
+                <li><strong>POST /api/v1/changes/{changeId}/analyze</strong> — Perform impact analysis</li>
+                <li><strong>POST /api/v1/changes/{changeId}/approve</strong> — Approve change request</li>
+            </ul>
+
+            <h3>Tasks</h3>
+            <ul>
+                <li><strong>POST /api/v1/projects/{projectId}/tasks</strong> — Create task</li>
+                <li><strong>GET /api/v1/tasks/{taskId}</strong> — Get task detail</li>
+                <li><strong>PUT /api/v1/tasks/{taskId}</strong> — Update task status</li>
+            </ul>
+
+            <h3>QA</h3>
+            <ul>
+                <li><strong>POST /api/v1/projects/{projectId}/tests</strong> — Create test case</li>
+                <li><strong>POST /api/v1/tests/{testId}/execute</strong> — Record test execution</li>
+                <li><strong>POST /api/v1/tests/{testId}/defects</strong> — Create defect from failed test</li>
+            </ul>
+
+            <h2>9. Error Codes (Sample)</h2>
+            <ul>
+                <li><strong>REQUIREMENT_VERSION_IMMUTABLE</strong> — Attempted to modify an approved requirement version</li>
+                <li><strong>UNAUTHORIZED</strong> — User lacks required permission</li>
+                <li><strong>INVALID_WORKFLOW_TRANSITION</strong> — Status transition not allowed</li>
+                <li><strong>REQUIREMENT_NOT_FOUND</strong> — Referenced requirement does not exist</li>
+                <li><strong>STALE_VERSION</strong> — Optimistic locking conflict</li>
+                <li><strong>DUPLICATE_CHANGE_REQUEST</strong> — Similar change request already open</li>
+            </ul>
+
+            <h2>10. Security Headers</h2>
+            <p>All responses include:</p>
+            <pre><code>Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+Content-Security-Policy: default-src 'self'</code></pre>
+
+            <hr>
+            <p><strong>Next:</strong> <a href="data-model.html">Review the Data Model →</a></p>
+            </article>
+        </main>
+
+        <aside class="docs-toc" aria-label="On this page">
+            <div class="toc-title">On this page</div>
+            <ul id="toc-list" class="toc-list"></ul>
+        </aside>
+    </div>
+
+    <footer class="site-footer">
+        <p>© 2026 TeamFlow Documentation. Requirement governance. Delivery flow. Team confidence.</p>
+    </footer>
+    
+    <script src="../js/docs.js"></script>
+</body>
+</html>

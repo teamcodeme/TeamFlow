@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTO Proposal — TeamFlow</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" href="../assets/teamflow-icon-sm.png">
+    <script>try{var t=localStorage.getItem('tf-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body data-root="nested">
+    <header class="site-header">
+        <div class="header-top">
+            <button id="sidebar-toggle" class="icon-btn" aria-label="Toggle navigation"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+            <a class="brand" href="../index.html">
+                <img class="brand-logo" src="../assets/teamflow-logo-header.png" alt="TeamFlow" width="157" height="48">
+            </a>
+            <div class="header-search">
+                <span class="search-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+                <input id="docs-search" type="search" placeholder="Search..." autocomplete="off" aria-label="Search documentation">
+                <span class="search-kbd">⌘K</span>
+                <div id="search-results" class="search-results" role="listbox"></div>
+            </div>
+            <div class="header-actions">
+                <button class="ask-btn" type="button" onclick="document.getElementById('docs-search')?.focus()"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5L12 2z"/></svg> <span>Ask Assistant</span></button>
+                <a class="header-link" href="../html/cto-proposal.html">Proposal</a>
+                <a class="header-link" href="../html/demo-scenario.html">Demo</a>
+                <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle theme"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></button>
+            </div>
+        </div>
+        <nav class="header-subnav" aria-label="Section">
+            <a href="../index.html" class="active">Documentation</a>
+            <a href="../html/mvp-scope.html">MVP Scope</a>
+            <a href="../html/api-contract.html">API</a>
+            <a href="../html/data-model.html">Data Model</a>
+            <a href="../html/security-model.html">Security</a>
+            <a href="../html/development-roadmap.html">Roadmap</a>
+        </nav>
+    </header>
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <div class="docs-shell">
+        <aside id="sidebar" class="docs-sidebar">
+            <nav aria-label="Documentation">
+                <div class="nav-group">
+<div class="nav-group-title">Get started</div>
+<ul class="nav-list">
+<li><a href="../index.html">Home</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Overview</div>
+<ul class="nav-list">
+<li><a href="vision.html">Product Vision</a></li>
+<li><a href="problem-statement.html">Problem Statement</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Getting Started</div>
+<ul class="nav-list">
+<li><a href="mvp-scope.html">MVP Scope</a></li>
+<li><a href="user-roles.html">User Roles</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Core Workflows</div>
+<ul class="nav-list">
+<li><a href="requirement-workflow.html">Requirement Workflow</a></li>
+<li><a href="change-request-workflow.html">Change Request Workflow</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Requirements</div>
+<ul class="nav-list">
+<li><a href="functional-requirements.html">Functional Requirements</a></li>
+<li><a href="non-functional-requirements.html">Non-Functional Requirements</a></li>
+<li><a href="api-contract.html">API Contract</a></li>
+<li><a href="data-model.html">Data Model</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Planning & Execution</div>
+<ul class="nav-list">
+<li><a href="development-roadmap.html">Development Roadmap</a></li>
+<li><a href="demo-scenario.html">Demo Scenario</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Quality & Security</div>
+<ul class="nav-list">
+<li><a href="security-model.html">Security Model</a></li>
+<li><a href="test-strategy.html">Test Strategy</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Executive</div>
+<ul class="nav-list">
+<li><a href="cto-proposal.html">CTO Proposal</a></li>
+</ul></div>
+            </nav>
+        </aside>
+
+        <main class="docs-main">
+            <article class="docs-content">
+                <div class="page-eyebrow">Executive</div>
+                <div class="page-header">
+                    <h1>CTO Proposal</h1>
+                    <div class="page-actions">
+                        <button id="copy-page" class="copy-btn" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> <span>Copy page</span></button>
+                    </div>
+                </div>
+                <h2>1. Proposal Title</h2>
+            <p><strong>Proposal to Pilot TeamFlow — Requirement Governance, Delivery Planning, and QA Traceability Platform</strong></p>
+
+            <h2>2. Executive Summary</h2>
+            <p>Our software delivery process currently depends on requirements, clarifications, planning decisions, development tasks, QA activities, and change instructions being managed across multiple channels.</p>
+
+            <p>This makes it difficult to identify the currently approved requirement, preserve previous decisions, calculate the impact of changes, and ensure that developers and QA engineers work against the same version.</p>
+
+            <p>I propose an internal pilot of TeamFlow, a requirement-governance and delivery-assurance platform designed to provide one traceable workflow from business requirement to release.</p>
+
+            <p>The platform will allow Business Analysts to create structured requirements, Project Managers to plan approved work, Developers to implement tasks linked to exact requirement versions, QA Engineers to create and execute linked test cases, and Management to review the impact of scope changes before approval.</p>
+
+            <p><strong>The most important control:</strong> Once a requirement version is approved, it becomes locked. Any later modification must create a formal change request and a new version. The original approved requirement remains visible.</p>
+
+            <h2>3. Current Operational Risk</h2>
+            <p>The current process may result in:</p>
+            <ul>
+                <li>Requirements changing after development begins</li>
+                <li>Original requirements being overwritten or forgotten</li>
+                <li>Developers and QA working against different instructions</li>
+                <li>Delivery estimates becoming unreliable</li>
+                <li>Rework not being measured</li>
+                <li>Important decisions remaining in meetings or messages</li>
+                <li>Management seeing a delay without seeing its cause</li>
+                <li>Disagreement about what was originally approved</li>
+                <li>Reduced release confidence</li>
+            </ul>
+
+            <h2>4. Proposed Solution: TeamFlow</h2>
+            <p>TeamFlow will provide:</p>
+            <ul>
+                <li><strong>Structured requirements</strong> with business objectives, workflows, rules, and acceptance criteria</li>
+                <li><strong>Requirement review and approval</strong> with multi-stage workflows</li>
+                <li><strong>Locked approved versions</strong> that cannot be silently modified</li>
+                <li><strong>Version history and comparison</strong> showing all changes</li>
+                <li><strong>Clarification and decision logs</strong> for official documentation</li>
+                <li><strong>Formal change requests</strong> with full audit trail</li>
+                <li><strong>Impact analysis</strong> (business, technical, QA, schedule)</li>
+                <li><strong>PM planning</strong> with approved work linked to exact versions</li>
+                <li><strong>Developer tasks</strong> linked to requirement versions</li>
+                <li><strong>QA test cases and executions</strong> linked to requirement versions</li>
+                <li><strong>Defect management</strong> linked to requirements and tests</li>
+                <li><strong>Release readiness</strong> based on linked requirements, tasks, tests, and defects</li>
+                <li><strong>Audit history</strong> of all decisions and changes</li>
+                <li><strong>Management dashboards</strong> showing requirement stability, scope changes, and rework</li>
+            </ul>
+
+            <h2>5. Key Governance Rule</h2>
+            <blockquote>
+                <p><strong>No approved requirement can be silently changed.</strong></p>
+            </blockquote>
+
+            <p>A post-approval modification will require:</p>
+            <ol>
+                <li>A change request</li>
+                <li>A stated reason</li>
+                <li>Impact analysis (business, project, technical, QA)</li>
+                <li>Review by relevant roles</li>
+                <li>Authorized approval</li>
+                <li>A new requirement version</li>
+                <li>Updated tasks and tests marked for review</li>
+                <li>Permanent audit history</li>
+            </ol>
+
+            <h2>6. Business Benefits</h2>
+
+            <h3>Better Delivery Predictability</h3>
+            <p>Project Managers can include change impact in delivery plans instead of discovering rework after the fact.</p>
+
+            <h3>Reduced Rework</h3>
+            <p>Developers receive a stable approved requirement version. Unplanned changes are formally managed.</p>
+
+            <h3>Better QA Alignment</h3>
+            <p>Test cases reference the same requirement version that developers implemented. Changes trigger automatic test review marking.</p>
+
+            <h3>Evidence-Based Management</h3>
+            <p>Management can see objective information about changes, rework, risk, and delays instead of relying on verbal updates.</p>
+
+            <h3>Improved Accountability</h3>
+            <p>All participants use the same process and approval history. Decisions are recorded, not disputed later.</p>
+
+            <h3>Knowledge Retention</h3>
+            <p>Decisions remain available even when employees move between projects or leave the organization.</p>
+
+            <h3>Release Confidence</h3>
+            <p>Release readiness is based on linked requirements, tasks, tests, defects, and approvals—not estimates.</p>
+
+            <h2>7. Pilot Scope</h2>
+            <ul>
+                <li>Internal pilot with one project team (10-15 people)</li>
+                <li>Duration: 8 weeks</li>
+                <li>MVP capabilities (15 modules as defined in MVP scope)</li>
+                <li>Hosted on internal infrastructure</li>
+                <li>No external SaaS dependencies</li>
+                <li>Reset and repeatable demo scenario</li>
+            </ul>
+
+            <h2>8. Success Criteria</h2>
+            <p>The pilot will be considered successful when:</p>
+            <ul>
+                <li>At least 90% of development tasks are linked to approved requirement versions</li>
+                <li>100% of post-approval requirement changes go through formal change requests</li>
+                <li>100% of QA test cases are linked to requirement versions</li>
+                <li>Approved requirement versions cannot be edited through the UI or API</li>
+                <li>Management can identify the source and impact of major scope changes</li>
+                <li>Developers can identify the current approved requirement without using external messages</li>
+                <li>QA can determine which test cases require review after a requirement change</li>
+                <li>The system maintains an immutable audit history for important actions</li>
+            </ul>
+
+            <h2>9. Implementation Timeline</h2>
+            <ul>
+                <li><strong>Phase 0 (Weeks 1-4):</strong> Product foundation and architecture</li>
+                <li><strong>Phase 1 (Weeks 5-8):</strong> Repository and platform foundation</li>
+                <li><strong>Phase 2 (Weeks 9-12):</strong> Authentication and project management</li>
+                <li><strong>Phase 3 (Weeks 13-20):</strong> Requirement management core</li>
+                <li><strong>Phase 4 (Weeks 21-28):</strong> Change request management</li>
+                <li><strong>Phase 5 (Weeks 29-36):</strong> Task and QA management</li>
+                <li><strong>Phase 6 (Weeks 37-42):</strong> Reporting and release management</li>
+                <li><strong>Phase 7 (Weeks 43-48):</strong> Pilot deployment and documentation</li>
+            </ul>
+
+            <h2>10. Resource Requirements</h2>
+            <ul>
+                <li><strong>Product/Architecture:</strong> 1 senior engineer</li>
+                <li><strong>Backend Development:</strong> 2 Go developers</li>
+                <li><strong>Frontend Development:</strong> 1 Angular developer</li>
+                <li><strong>QA and Testing:</strong> 1 QA engineer</li>
+                <li><strong>Infrastructure:</strong> 0.5 DevOps engineer</li>
+                <li><strong>Total effort:</strong> ~48 weeks of development (full team for ~12 weeks)</li>
+            </ul>
+
+            <h2>11. Risk Mitigation</h2>
+            <ul>
+                <li><strong>Scope creep:</strong> Fixed MVP scope with clear out-of-scope items</li>
+                <li><strong>Team adoption:</strong> Early pilot with engaged team; clear communication</li>
+                <li><strong>Data quality:</strong> Automated validation and audit logging</li>
+                <li><strong>Performance:</strong> Performance targets defined in non-functional requirements</li>
+                <li><strong>Security:</strong> Backend-enforced authorization; immutable audit logs</li>
+            </ul>
+
+            <h2>12. Post-Pilot Path</h2>
+            <p>If the pilot is successful, TeamFlow can expand to:</p>
+            <ul>
+                <li>Additional project teams (wave 2)</li>
+                <li>Broader organization adoption (wave 3+)</li>
+                <li>GitHub/GitLab integration</li>
+                <li>Advanced portfolio reporting</li>
+                <li>AI-assisted requirements and impact analysis</li>
+                <li>Multi-organization SaaS deployment</li>
+            </ul>
+
+            <h2>13. Recommendation</h2>
+            <p>I recommend proceeding with the TeamFlow pilot. The investment is modest, the governance benefit is significant, and the pilot provides a low-risk way to validate the approach with a real team before broader rollout.</p>
+
+            <p>The core principle—approved requirements cannot be silently changed—addresses a fundamental problem in our delivery process and will measurably improve predictability, reduce rework, and provide the evidence-based decision-making we need.</p>
+
+            <hr>
+            <p style="text-align: center; margin-top: 2rem;">
+                <strong>Complete Documentation Package</strong><br>
+                <a href="../index.html">Return to Home →</a>
+            </p>
+            </article>
+        </main>
+
+        <aside class="docs-toc" aria-label="On this page">
+            <div class="toc-title">On this page</div>
+            <ul id="toc-list" class="toc-list"></ul>
+        </aside>
+    </div>
+
+    <footer class="site-footer">
+        <p>© 2026 TeamFlow Documentation. Requirement governance. Delivery flow. Team confidence.</p>
+    </footer>
+    
+    <script src="../js/docs.js"></script>
+</body>
+</html>

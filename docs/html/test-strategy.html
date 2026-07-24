@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Strategy — TeamFlow</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" href="../assets/teamflow-icon-sm.png">
+    <script>try{var t=localStorage.getItem('tf-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body data-root="nested">
+    <header class="site-header">
+        <div class="header-top">
+            <button id="sidebar-toggle" class="icon-btn" aria-label="Toggle navigation"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+            <a class="brand" href="../index.html">
+                <img class="brand-logo" src="../assets/teamflow-logo-header.png" alt="TeamFlow" width="157" height="48">
+            </a>
+            <div class="header-search">
+                <span class="search-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+                <input id="docs-search" type="search" placeholder="Search..." autocomplete="off" aria-label="Search documentation">
+                <span class="search-kbd">⌘K</span>
+                <div id="search-results" class="search-results" role="listbox"></div>
+            </div>
+            <div class="header-actions">
+                <button class="ask-btn" type="button" onclick="document.getElementById('docs-search')?.focus()"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5L12 2z"/></svg> <span>Ask Assistant</span></button>
+                <a class="header-link" href="../html/cto-proposal.html">Proposal</a>
+                <a class="header-link" href="../html/demo-scenario.html">Demo</a>
+                <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle theme"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></button>
+            </div>
+        </div>
+        <nav class="header-subnav" aria-label="Section">
+            <a href="../index.html" class="active">Documentation</a>
+            <a href="../html/mvp-scope.html">MVP Scope</a>
+            <a href="../html/api-contract.html">API</a>
+            <a href="../html/data-model.html">Data Model</a>
+            <a href="../html/security-model.html">Security</a>
+            <a href="../html/development-roadmap.html">Roadmap</a>
+        </nav>
+    </header>
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <div class="docs-shell">
+        <aside id="sidebar" class="docs-sidebar">
+            <nav aria-label="Documentation">
+                <div class="nav-group">
+<div class="nav-group-title">Get started</div>
+<ul class="nav-list">
+<li><a href="../index.html">Home</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Overview</div>
+<ul class="nav-list">
+<li><a href="vision.html">Product Vision</a></li>
+<li><a href="problem-statement.html">Problem Statement</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Getting Started</div>
+<ul class="nav-list">
+<li><a href="mvp-scope.html">MVP Scope</a></li>
+<li><a href="user-roles.html">User Roles</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Core Workflows</div>
+<ul class="nav-list">
+<li><a href="requirement-workflow.html">Requirement Workflow</a></li>
+<li><a href="change-request-workflow.html">Change Request Workflow</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Requirements</div>
+<ul class="nav-list">
+<li><a href="functional-requirements.html">Functional Requirements</a></li>
+<li><a href="non-functional-requirements.html">Non-Functional Requirements</a></li>
+<li><a href="api-contract.html">API Contract</a></li>
+<li><a href="data-model.html">Data Model</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Planning & Execution</div>
+<ul class="nav-list">
+<li><a href="development-roadmap.html">Development Roadmap</a></li>
+<li><a href="demo-scenario.html">Demo Scenario</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Quality & Security</div>
+<ul class="nav-list">
+<li><a href="security-model.html">Security Model</a></li>
+<li><a href="test-strategy.html">Test Strategy</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Executive</div>
+<ul class="nav-list">
+<li><a href="cto-proposal.html">CTO Proposal</a></li>
+</ul></div>
+            </nav>
+        </aside>
+
+        <main class="docs-main">
+            <article class="docs-content">
+                <div class="page-eyebrow">Quality & Security</div>
+                <div class="page-header">
+                    <h1>Test Strategy</h1>
+                    <div class="page-actions">
+                        <button id="copy-page" class="copy-btn" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> <span>Copy page</span></button>
+                    </div>
+                </div>
+                <h2>1. Objective</h2>
+            <p>The purpose of testing is to prove that TeamFlow reliably:</p>
+            <ul>
+                <li>Preserves requirement history</li>
+                <li>Enforces authorization</li>
+                <li>Controls change workflows</li>
+                <li>Supports planning and QA traceability</li>
+                <li>Provides trustworthy management information</li>
+            </ul>
+
+            <h2>2. Test Levels</h2>
+            <ul>
+                <li>Unit testing</li>
+                <li>Repository testing</li>
+                <li>Integration testing</li>
+                <li>API contract testing</li>
+                <li>Frontend component testing</li>
+                <li>End-to-end testing</li>
+                <li>Security testing</li>
+                <li>Performance testing</li>
+                <li>Accessibility testing</li>
+                <li>Usability testing</li>
+                <li>Backup and recovery testing</li>
+                <li>User acceptance testing</li>
+            </ul>
+
+            <h2>3. Test Environments</h2>
+
+            <h3>Local</h3>
+            <p>Used by developers for:</p>
+            <ul>
+                <li>Unit tests</li>
+                <li>Component tests</li>
+                <li>Fast integration tests</li>
+                <li>Manual development checks</li>
+            </ul>
+
+            <h3>CI</h3>
+            <p>Used for:</p>
+            <ul>
+                <li>Formatting and linting</li>
+                <li>Unit tests</li>
+                <li>Integration tests</li>
+                <li>Build verification</li>
+                <li>Migration validation</li>
+                <li>Dependency scan</li>
+                <li>Selected end-to-end tests</li>
+            </ul>
+
+            <h3>QA</h3>
+            <p>Used for:</p>
+            <ul>
+                <li>Full workflow testing</li>
+                <li>Regression testing</li>
+                <li>Browser testing</li>
+                <li>Security checks</li>
+                <li>UAT preparation</li>
+            </ul>
+
+            <h3>Demo</h3>
+            <p>Contains seeded, repeatable data for CTO demonstration with reset capability.</p>
+
+            <h2>4. Unit Testing</h2>
+
+            <h3>Backend Unit Tests</h3>
+            <p>Must cover:</p>
+            <ul>
+                <li>Requirement creation and submission validation</li>
+                <li>Review transitions and approval rules</li>
+                <li>Approved-version immutability</li>
+                <li>New version creation from change requests</li>
+                <li>Change request transitions and impact analysis</li>
+                <li>Separation of duties enforcement</li>
+                <li>Task and test transitions</li>
+                <li>Release readiness calculation</li>
+                <li>Audit event creation</li>
+            </ul>
+
+            <h3>Frontend Unit/Component Tests</h3>
+            <p>Must cover:</p>
+            <ul>
+                <li>Required field validation</li>
+                <li>Role-based action visibility</li>
+                <li>Status badges and state rendering</li>
+                <li>Approval forms and workflows</li>
+                <li>Version comparison rendering</li>
+                <li>Impact total calculation and display</li>
+                <li>Error handling and messages</li>
+                <li>Confirmation dialogs</li>
+                <li>Empty states and loading states</li>
+            </ul>
+
+            <h2>5. Integration Testing</h2>
+            <p>Integration tests must use a real PostgreSQL test database.</p>
+
+            <p><strong>Test:</strong></p>
+            <ul>
+                <li>Database migrations</li>
+                <li>Constraints enforcement</li>
+                <li>Transactions and rollback behavior</li>
+                <li>Repository operations</li>
+                <li>Optimistic locking</li>
+                <li>Current approved version uniqueness</li>
+                <li>Audit log persistence</li>
+                <li>Query filtering and pagination</li>
+                <li>Project isolation</li>
+            </ul>
+
+            <h3>Critical Transaction Test</h3>
+            <p>A comprehensive test that:</p>
+            <ol>
+                <li>Approves a requirement version</li>
+                <li>Stores approval record</li>
+                <li>Creates immutable snapshot</li>
+                <li>Sets current approved version</li>
+                <li>Creates audit event</li>
+                <li>Intentionally fails one step</li>
+                <li>Verifies no partial state remains (rollback works)</li>
+            </ol>
+
+            <h2>6. API Contract Testing</h2>
+            <ul>
+                <li>Verify all endpoints return correct status codes</li>
+                <li>Validate response structures match contract</li>
+                <li>Test pagination parameters and sorting</li>
+                <li>Verify error responses follow standard format</li>
+                <li>Test trace ID inclusion in all responses</li>
+                <li>Verify optimistic locking conflicts return 409</li>
+                <li>Test immutability protection returns correct error</li>
+            </ul>
+
+            <h2>7. End-to-End Testing</h2>
+            <p><strong>Critical workflows to test:</strong></p>
+            <ul>
+                <li>Create → Submit → Review → Approve requirement</li>
+                <li>Create change request on approved version</li>
+                <li>Link tasks and tests to requirement versions</li>
+                <li>Approve change, verify new version created</li>
+                <li>Mark tests REVIEW_REQUIRED when requirement changes</li>
+                <li>Release readiness calculation</li>
+            </ul>
+
+            <h2>8. Security Testing</h2>
+            <ul>
+                <li>Verify cross-project data isolation</li>
+                <li>Test role-based access control</li>
+                <li>Verify unauthorized access is denied</li>
+                <li>Test separation of duties (self-approval prevention)</li>
+                <li>Verify password hashing</li>
+                <li>Test session expiration</li>
+                <li>Verify audit logging of sensitive actions</li>
+                <li>OWASP Top 10 vulnerability scanning</li>
+                <li>SQL injection prevention</li>
+                <li>XSS prevention</li>
+            </ul>
+
+            <h2>9. Performance Testing</h2>
+            <ul>
+                <li>List endpoints return < 2s for 95th percentile</li>
+                <li>Detail endpoints return < 2s for 95th percentile</li>
+                <li>Version comparison returns < 3s</li>
+                <li>Dashboard queries return < 5s</li>
+                <li>System supports 100 concurrent users</li>
+                <li>Identify and resolve performance regressions</li>
+            </ul>
+
+            <h2>10. Test Coverage Goals</h2>
+            <ul>
+                <li>Critical business logic: > 95% code coverage</li>
+                <li>Authorization logic: > 90% code coverage</li>
+                <li>API endpoints: > 85% coverage</li>
+                <li>Workflow state machines: > 95% coverage</li>
+                <li>Data validation: > 90% coverage</li>
+            </ul>
+
+            <h2>11. Test Data and Demo Scenario</h2>
+            <ul>
+                <li>Use repeatable seeded data</li>
+                <li>Demo scenario can be reset with a command</li>
+                <li>Include all 7 demo user roles</li>
+                <li>Demonstrate complete workflow from requirement to release</li>
+                <li>Show change request approval and new version creation</li>
+            </ul>
+
+            <hr>
+            <p><strong>Next:</strong> <a href="development-roadmap.html">Review the Development Roadmap →</a></p>
+            </article>
+        </main>
+
+        <aside class="docs-toc" aria-label="On this page">
+            <div class="toc-title">On this page</div>
+            <ul id="toc-list" class="toc-list"></ul>
+        </aside>
+    </div>
+
+    <footer class="site-footer">
+        <p>© 2026 TeamFlow Documentation. Requirement governance. Delivery flow. Team confidence.</p>
+    </footer>
+    
+    <script src="../js/docs.js"></script>
+</body>
+</html>

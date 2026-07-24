@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MVP Scope — TeamFlow</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" href="../assets/teamflow-icon-sm.png">
+    <script>try{var t=localStorage.getItem('tf-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body data-root="nested">
+    <header class="site-header">
+        <div class="header-top">
+            <button id="sidebar-toggle" class="icon-btn" aria-label="Toggle navigation"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+            <a class="brand" href="../index.html">
+                <img class="brand-logo" src="../assets/teamflow-logo-header.png" alt="TeamFlow" width="157" height="48">
+            </a>
+            <div class="header-search">
+                <span class="search-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+                <input id="docs-search" type="search" placeholder="Search..." autocomplete="off" aria-label="Search documentation">
+                <span class="search-kbd">⌘K</span>
+                <div id="search-results" class="search-results" role="listbox"></div>
+            </div>
+            <div class="header-actions">
+                <button class="ask-btn" type="button" onclick="document.getElementById('docs-search')?.focus()"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5L12 2z"/></svg> <span>Ask Assistant</span></button>
+                <a class="header-link" href="../html/cto-proposal.html">Proposal</a>
+                <a class="header-link" href="../html/demo-scenario.html">Demo</a>
+                <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle theme"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></button>
+            </div>
+        </div>
+        <nav class="header-subnav" aria-label="Section">
+            <a href="../index.html" class="active">Documentation</a>
+            <a href="../html/mvp-scope.html">MVP Scope</a>
+            <a href="../html/api-contract.html">API</a>
+            <a href="../html/data-model.html">Data Model</a>
+            <a href="../html/security-model.html">Security</a>
+            <a href="../html/development-roadmap.html">Roadmap</a>
+        </nav>
+    </header>
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <div class="docs-shell">
+        <aside id="sidebar" class="docs-sidebar">
+            <nav aria-label="Documentation">
+                <div class="nav-group">
+<div class="nav-group-title">Get started</div>
+<ul class="nav-list">
+<li><a href="../index.html">Home</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Overview</div>
+<ul class="nav-list">
+<li><a href="vision.html">Product Vision</a></li>
+<li><a href="problem-statement.html">Problem Statement</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Getting Started</div>
+<ul class="nav-list">
+<li><a href="mvp-scope.html">MVP Scope</a></li>
+<li><a href="user-roles.html">User Roles</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Core Workflows</div>
+<ul class="nav-list">
+<li><a href="requirement-workflow.html">Requirement Workflow</a></li>
+<li><a href="change-request-workflow.html">Change Request Workflow</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Requirements</div>
+<ul class="nav-list">
+<li><a href="functional-requirements.html">Functional Requirements</a></li>
+<li><a href="non-functional-requirements.html">Non-Functional Requirements</a></li>
+<li><a href="api-contract.html">API Contract</a></li>
+<li><a href="data-model.html">Data Model</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Planning & Execution</div>
+<ul class="nav-list">
+<li><a href="development-roadmap.html">Development Roadmap</a></li>
+<li><a href="demo-scenario.html">Demo Scenario</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Quality & Security</div>
+<ul class="nav-list">
+<li><a href="security-model.html">Security Model</a></li>
+<li><a href="test-strategy.html">Test Strategy</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Executive</div>
+<ul class="nav-list">
+<li><a href="cto-proposal.html">CTO Proposal</a></li>
+</ul></div>
+            </nav>
+        </aside>
+
+        <main class="docs-main">
+            <article class="docs-content">
+                <div class="page-eyebrow">Getting Started</div>
+                <div class="page-header">
+                    <h1>TeamFlow MVP Scope</h1>
+                    <div class="page-actions">
+                        <button id="copy-page" class="copy-btn" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> <span>Copy page</span></button>
+                    </div>
+                </div>
+                <h2>1. MVP Objective</h2>
+            <p>The TeamFlow MVP will prove that an organization can control the complete path from business requirement to implementation and QA verification while preserving requirement history and measuring the impact of changes.</p>
+            <p>The MVP must demonstrate the following core capability:</p>
+            <blockquote>
+                <p>An approved requirement cannot be silently edited. Any later modification must create a new version and a controlled change request.</p>
+            </blockquote>
+
+            <h2>2. MVP In-Scope Modules</h2>
+
+            <h3>2.1 Authentication and User Access</h3>
+            <p>The MVP will support:</p>
+            <ul>
+                <li>User login</li>
+                <li>User logout</li>
+                <li>Password management</li>
+                <li>Active and inactive users</li>
+                <li>Role assignment</li>
+                <li>Project membership</li>
+                <li>Role-based navigation</li>
+                <li>Backend authorization</li>
+                <li>Session expiration</li>
+                <li>Audit recording for security-sensitive actions</li>
+            </ul>
+            <p><strong>Initial roles:</strong> SYSTEM_ADMIN, CTO, MANAGEMENT, PROJECT_MANAGER, BUSINESS_ANALYST, TECHNICAL_LEAD, DEVELOPER, QA_ENGINEER, VIEWER</p>
+
+            <h3>2.2 Project Management</h3>
+            <p>The MVP will support:</p>
+            <ul>
+                <li>Create, edit, and archive projects</li>
+                <li>Add and remove project members</li>
+                <li>Assign project roles</li>
+                <li>View project summary and activity history</li>
+                <li>Configure project code and naming conventions</li>
+            </ul>
+
+            <h3>2.3 Requirement Management</h3>
+            <p>The MVP will support creating and editing requirements with:</p>
+            <ul>
+                <li>Business objective, detailed description, actors</li>
+                <li>Main workflow and alternative workflows</li>
+                <li>Business rules and acceptance criteria</li>
+                <li>Assumptions, dependencies, out-of-scope items</li>
+                <li>Priority, target release, attachments, and comments</li>
+            </ul>
+
+            <h3>2.4 Requirement Review and Approval</h3>
+            <p>Multi-stage review process:</p>
+            <ul>
+                <li>BA review, PM review, technical review, QA readiness review</li>
+                <li>Approve, reject, or request changes</li>
+                <li>Approve/reject comments are mandatory</li>
+                <li>Lock approved version and prevent direct edits</li>
+            </ul>
+
+            <h3>2.5 Requirement Version Control</h3>
+            <ul>
+                <li>Automatic version creation with major/minor numbering</li>
+                <li>Version comparison and history</li>
+                <li>Immutable approved versions</li>
+                <li>Track current approved version</li>
+            </ul>
+
+            <h3>2.6 Clarification and Decision Log</h3>
+            <ul>
+                <li>Ask clarifications and assign them</li>
+                <li>Respond and mark resolved</li>
+                <li>Convert responses into official decisions</li>
+                <li>Link decisions to requirement versions</li>
+            </ul>
+
+            <h3>2.7 Change Request Management</h3>
+            <ul>
+                <li>Create change requests linked to approved versions</li>
+                <li>Record business reason and urgency</li>
+                <li>Identify affected modules</li>
+                <li>Review, approve, reject, or defer changes</li>
+                <li>Create new requirement versions from approved changes</li>
+                <li>Preserve original approved versions</li>
+            </ul>
+
+            <h3>2.8 Change Impact Analysis</h3>
+            <p>Capture:</p>
+            <ul>
+                <li>Frontend, backend, database, integration effort</li>
+                <li>QA effort and regression testing needs</li>
+                <li>Rework and migration requirements</li>
+                <li>Affected sprint/release, timeline impact, risk level</li>
+            </ul>
+
+            <h3>2.9 Task Management</h3>
+            <ul>
+                <li>Create epics, tasks, and user stories</li>
+                <li>Link tasks to requirement versions</li>
+                <li>Assign developers and sprints</li>
+                <li>Set priority, estimates, and dependencies</li>
+                <li>Track status: BACKLOG, READY, IN_PROGRESS, BLOCKED, CODE_REVIEW, READY_FOR_QA, DONE, REOPENED, CANCELLED</li>
+                <li>View board and list views</li>
+            </ul>
+
+            <h3>2.10 QA Management</h3>
+            <ul>
+                <li>Create and link test cases to requirements</li>
+                <li>Execute tests and record results</li>
+                <li>Attach evidence</li>
+                <li>Mark tests as REVIEW_REQUIRED when requirements change</li>
+                <li>Display requirement coverage</li>
+            </ul>
+
+            <h3>2.11 Defect Management</h3>
+            <ul>
+                <li>Create defects linked to requirements, tasks, and tests</li>
+                <li>Assign severity and priority</li>
+                <li>Track status and resolution</li>
+                <li>Retest and reopen defects</li>
+            </ul>
+
+            <h3>2.12 Release Readiness</h3>
+            <ul>
+                <li>Create releases and add requirements, tasks, and defects</li>
+                <li>View readiness summary and identify blockers</li>
+                <li>Record approvals from QA, BA, technical, and management</li>
+            </ul>
+
+            <h3>2.13 Dashboards and Reports</h3>
+            <p>The MVP will provide:</p>
+            <ul>
+                <li>Project, team, and management dashboards</li>
+                <li>Requirement status, change request, stability, and rework reports</li>
+                <li>QA coverage and approval bottleneck reports</li>
+                <li>Audit export and CSV export where practical</li>
+            </ul>
+
+            <h3>2.14 Notifications</h3>
+            <ul>
+                <li>In-application notifications for requirements, reviews, approvals, tasks, tests, and defects</li>
+            </ul>
+
+            <h3>2.15 Audit Trail</h3>
+            <p>The MVP must record all important actions including login events, role changes, requirement edits, submissions, approvals, version creation, change requests, task status changes, test executions, and defect transitions.</p>
+
+            <h2>3. Out of Scope for MVP</h2>
+            <ul>
+                <li>Full accounting and budgeting</li>
+                <li>Employee payroll and time-sheet billing</li>
+                <li>Client invoicing and portal</li>
+                <li>Advanced portfolio management</li>
+                <li>Native mobile applications</li>
+                <li>Multi-tenant SaaS billing</li>
+                <li>GitHub/GitLab integration</li>
+                <li>Slack and Microsoft Teams integration</li>
+                <li>Advanced workflow designer</li>
+                <li>Video meetings and source-code hosting</li>
+            </ul>
+
+            <h2>4. MVP Constraints</h2>
+            <ul>
+                <li>Deployable on a modest internal server</li>
+                <li>Work without external AI APIs</li>
+                <li>Enforce important rules in the backend</li>
+                <li>Approved versions must be immutable</li>
+                <li>Audit logs must not be editable</li>
+                <li>Local development without Kubernetes</li>
+                <li>OCI-compatible container deployment</li>
+                <li>Repeatable demo scenario</li>
+            </ul>
+
+            <h2>5. MVP Completion Criteria</h2>
+            <p>The MVP is ready for pilot when:</p>
+            <ul>
+                <li>All critical workflows have automated end-to-end tests</li>
+                <li>The demo scenario can be reset and replayed</li>
+                <li>Approved versions cannot be modified</li>
+                <li>Change requests create traceable new versions</li>
+                <li>Tasks and tests reference requirement versions</li>
+                <li>Role permissions are enforced</li>
+                <li>Audit history is complete</li>
+                <li>Critical security vulnerabilities are resolved</li>
+                <li>Installation and pilot documentation are available</li>
+            </ul>
+
+            <hr>
+            <p><strong>Next:</strong> <a href="user-roles.html">Review User Roles →</a></p>
+            </article>
+        </main>
+
+        <aside class="docs-toc" aria-label="On this page">
+            <div class="toc-title">On this page</div>
+            <ul id="toc-list" class="toc-list"></ul>
+        </aside>
+    </div>
+
+    <footer class="site-footer">
+        <p>© 2026 TeamFlow Documentation. Requirement governance. Delivery flow. Team confidence.</p>
+    </footer>
+    
+    <script src="../js/docs.js"></script>
+</body>
+</html>

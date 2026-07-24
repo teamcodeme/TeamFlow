@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem Statement — TeamFlow</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" href="../assets/teamflow-icon-sm.png">
+    <script>try{var t=localStorage.getItem('tf-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body data-root="nested">
+    <header class="site-header">
+        <div class="header-top">
+            <button id="sidebar-toggle" class="icon-btn" aria-label="Toggle navigation"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+            <a class="brand" href="../index.html">
+                <img class="brand-logo" src="../assets/teamflow-logo-header.png" alt="TeamFlow" width="157" height="48">
+            </a>
+            <div class="header-search">
+                <span class="search-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+                <input id="docs-search" type="search" placeholder="Search..." autocomplete="off" aria-label="Search documentation">
+                <span class="search-kbd">⌘K</span>
+                <div id="search-results" class="search-results" role="listbox"></div>
+            </div>
+            <div class="header-actions">
+                <button class="ask-btn" type="button" onclick="document.getElementById('docs-search')?.focus()"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5L12 2z"/></svg> <span>Ask Assistant</span></button>
+                <a class="header-link" href="../html/cto-proposal.html">Proposal</a>
+                <a class="header-link" href="../html/demo-scenario.html">Demo</a>
+                <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle theme"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></button>
+            </div>
+        </div>
+        <nav class="header-subnav" aria-label="Section">
+            <a href="../index.html" class="active">Documentation</a>
+            <a href="../html/mvp-scope.html">MVP Scope</a>
+            <a href="../html/api-contract.html">API</a>
+            <a href="../html/data-model.html">Data Model</a>
+            <a href="../html/security-model.html">Security</a>
+            <a href="../html/development-roadmap.html">Roadmap</a>
+        </nav>
+    </header>
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <div class="docs-shell">
+        <aside id="sidebar" class="docs-sidebar">
+            <nav aria-label="Documentation">
+                <div class="nav-group">
+<div class="nav-group-title">Get started</div>
+<ul class="nav-list">
+<li><a href="../index.html">Home</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Overview</div>
+<ul class="nav-list">
+<li><a href="vision.html">Product Vision</a></li>
+<li><a href="problem-statement.html">Problem Statement</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Getting Started</div>
+<ul class="nav-list">
+<li><a href="mvp-scope.html">MVP Scope</a></li>
+<li><a href="user-roles.html">User Roles</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Core Workflows</div>
+<ul class="nav-list">
+<li><a href="requirement-workflow.html">Requirement Workflow</a></li>
+<li><a href="change-request-workflow.html">Change Request Workflow</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Requirements</div>
+<ul class="nav-list">
+<li><a href="functional-requirements.html">Functional Requirements</a></li>
+<li><a href="non-functional-requirements.html">Non-Functional Requirements</a></li>
+<li><a href="api-contract.html">API Contract</a></li>
+<li><a href="data-model.html">Data Model</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Planning & Execution</div>
+<ul class="nav-list">
+<li><a href="development-roadmap.html">Development Roadmap</a></li>
+<li><a href="demo-scenario.html">Demo Scenario</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Quality & Security</div>
+<ul class="nav-list">
+<li><a href="security-model.html">Security Model</a></li>
+<li><a href="test-strategy.html">Test Strategy</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Executive</div>
+<ul class="nav-list">
+<li><a href="cto-proposal.html">CTO Proposal</a></li>
+</ul></div>
+            </nav>
+        </aside>
+
+        <main class="docs-main">
+            <article class="docs-content">
+                <div class="page-eyebrow">Overview</div>
+                <div class="page-header">
+                    <h1>TeamFlow Problem Statement</h1>
+                    <div class="page-actions">
+                        <button id="copy-page" class="copy-btn" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> <span>Copy page</span></button>
+                    </div>
+                </div>
+                <h2>1. Background</h2>
+            <p>Software delivery depends on clear requirements, controlled planning, reliable implementation, effective testing, and informed management decisions. In many organizations, these activities are managed across separate tools and communication channels.</p>
+            <p>Requirements may exist in documents, emails, chat messages, meeting notes, spreadsheets, or verbal instructions. Project plans may be maintained separately from QA test cases. When a requirement changes, the new instruction may not be connected to the original requirement, existing tasks, previous approvals, or completed testing.</p>
+            <p>This creates uncertainty and causes avoidable rework.</p>
+
+            <h2>2. Primary Problem</h2>
+            <p>The organization does not currently have a single controlled process for managing requirements from initial creation through approval, development, testing, acceptance, and release.</p>
+            <p>The following failures can therefore occur:</p>
+            <ul>
+                <li>A requirement changes after developers begin implementation.</li>
+                <li>The original approved requirement is overwritten.</li>
+                <li>Developers receive new instructions without formal approval.</li>
+                <li>Project Managers cannot accurately measure scope change.</li>
+                <li>QA engineers test against outdated acceptance criteria.</li>
+                <li>Management sees delays but cannot see the change history that caused them.</li>
+                <li>Important decisions remain inside meetings or private messages.</li>
+                <li>Developers may be blamed for implementing an earlier approved version.</li>
+                <li>The source of rework is not measured.</li>
+                <li>There is no reliable requirement-to-release audit trail.</li>
+            </ul>
+
+            <h2>3. Root Causes</h2>
+
+            <h3>3.1 Fragmented Communication</h3>
+            <p>Requirements and decisions are distributed across:</p>
+            <ul>
+                <li>Meetings</li>
+                <li>Email</li>
+                <li>WhatsApp or other chat applications</li>
+                <li>Direct messages</li>
+                <li>Spreadsheets</li>
+                <li>Documents</li>
+                <li>Verbal conversations</li>
+                <li>Issue trackers</li>
+                <li>Personal notes</li>
+            </ul>
+
+            <h3>3.2 No Requirement Version Governance</h3>
+            <p>Approved requirements can be modified without preserving the previous version or recording why the change occurred.</p>
+
+            <h3>3.3 Weak Approval Control</h3>
+            <p>A requirement may enter development before the BA, PM, Technical Lead, and QA team agree that it is ready.</p>
+
+            <h3>3.4 Missing Change Impact Analysis</h3>
+            <p>When a change is requested, the organization may not evaluate:</p>
+            <ul>
+                <li>Development effort</li>
+                <li>QA effort</li>
+                <li>Rework</li>
+                <li>Database impact</li>
+                <li>Integration impact</li>
+                <li>Release impact</li>
+                <li>Risk</li>
+                <li>Timeline delay</li>
+                <li>Dependencies</li>
+            </ul>
+
+            <h3>3.5 Weak Traceability</h3>
+            <p>Tasks, test cases, defects, and releases may reference only a project or feature name rather than the exact requirement version.</p>
+
+            <h3>3.6 Informal Clarifications</h3>
+            <p>Developers often receive important clarifications verbally or through direct messages. These clarifications are not preserved as official project decisions.</p>
+
+            <h3>3.7 Limited Management Visibility</h3>
+            <p>Management receives progress percentages and delivery dates but may not receive objective information about:</p>
+            <ul>
+                <li>Requirement stability</li>
+                <li>Post-approval changes</li>
+                <li>Approval bottlenecks</li>
+                <li>Reopened work</li>
+                <li>QA retesting</li>
+                <li>Clarification delays</li>
+                <li>Scope growth</li>
+            </ul>
+
+            <h2>4. Effects on the Organization</h2>
+            <p>The current process can cause:</p>
+            <ul>
+                <li>Increased development cost</li>
+                <li>Repeated implementation work</li>
+                <li>Missed deadlines</li>
+                <li>Team frustration</li>
+                <li>Conflict between departments</li>
+                <li>Unclear ownership</li>
+                <li>Reduced confidence in estimates</li>
+                <li>Lower software quality</li>
+                <li>Increased production defects</li>
+                <li>Poor release readiness</li>
+                <li>Knowledge loss when employees leave</li>
+                <li>Difficulty auditing past decisions</li>
+            </ul>
+
+            <h2>5. Affected Stakeholders</h2>
+
+            <h3>Business Analysts</h3>
+            <p>May be accused of providing unclear requirements because there is no consistent requirement template or decision record.</p>
+
+            <h3>Project Managers</h3>
+            <p>Cannot reliably calculate delivery impact when changes are made informally.</p>
+
+            <h3>Developers</h3>
+            <p>May implement the approved requirement and later be asked to redo the work because the requirement changed.</p>
+
+            <h3>QA Engineers</h3>
+            <p>May test a different version from the version implemented by developers.</p>
+
+            <h3>Technical Leads and CTO</h3>
+            <p>May be unable to enforce consistent governance because the necessary evidence is scattered.</p>
+
+            <h3>Management</h3>
+            <p>May make decisions without visibility into the cost, risk, and timeline impact of changes.</p>
+
+            <h3>Clients or Internal Business Owners</h3>
+            <p>May receive inconsistent outcomes because there is no single approved source of truth.</p>
+
+            <h2>6. Required Solution</h2>
+            <p>The organization requires an internal platform that:</p>
+            <ol>
+                <li>Stores structured business requirements.</li>
+                <li>Supports formal review and approval.</li>
+                <li>Locks approved requirement versions.</li>
+                <li>Creates new versions for later changes.</li>
+                <li>Requires formal change requests after approval.</li>
+                <li>Records impact analysis before change approval.</li>
+                <li>Links requirements to tasks, tests, defects, and releases.</li>
+                <li>Records clarifications and decisions.</li>
+                <li>Enforces role-based permissions.</li>
+                <li>Provides immutable audit history.</li>
+                <li>Provides operational and management dashboards.</li>
+                <li>Supports evidence-based project governance.</li>
+            </ol>
+
+            <h2>7. Problem Resolution Statement</h2>
+            <p>TeamFlow will establish a single source of truth for software delivery. It will not prevent change, but it will ensure that every change is recorded, assessed, approved, traceable, and visible to the people affected by it.</p>
+
+            <hr>
+            <p><strong>Next:</strong> <a href="mvp-scope.html">Review the MVP Scope →</a></p>
+            </article>
+        </main>
+
+        <aside class="docs-toc" aria-label="On this page">
+            <div class="toc-title">On this page</div>
+            <ul id="toc-list" class="toc-list"></ul>
+        </aside>
+    </div>
+
+    <footer class="site-footer">
+        <p>© 2026 TeamFlow Documentation. Requirement governance. Delivery flow. Team confidence.</p>
+    </footer>
+    
+    <script src="../js/docs.js"></script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functional Requirements — TeamFlow</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" href="../assets/teamflow-icon-sm.png">
+    <script>try{var t=localStorage.getItem('tf-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body data-root="nested">
+    <header class="site-header">
+        <div class="header-top">
+            <button id="sidebar-toggle" class="icon-btn" aria-label="Toggle navigation"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+            <a class="brand" href="../index.html">
+                <img class="brand-logo" src="../assets/teamflow-logo-header.png" alt="TeamFlow" width="157" height="48">
+            </a>
+            <div class="header-search">
+                <span class="search-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+                <input id="docs-search" type="search" placeholder="Search..." autocomplete="off" aria-label="Search documentation">
+                <span class="search-kbd">⌘K</span>
+                <div id="search-results" class="search-results" role="listbox"></div>
+            </div>
+            <div class="header-actions">
+                <button class="ask-btn" type="button" onclick="document.getElementById('docs-search')?.focus()"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5L12 2z"/></svg> <span>Ask Assistant</span></button>
+                <a class="header-link" href="../html/cto-proposal.html">Proposal</a>
+                <a class="header-link" href="../html/demo-scenario.html">Demo</a>
+                <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle theme"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></button>
+            </div>
+        </div>
+        <nav class="header-subnav" aria-label="Section">
+            <a href="../index.html" class="active">Documentation</a>
+            <a href="../html/mvp-scope.html">MVP Scope</a>
+            <a href="../html/api-contract.html">API</a>
+            <a href="../html/data-model.html">Data Model</a>
+            <a href="../html/security-model.html">Security</a>
+            <a href="../html/development-roadmap.html">Roadmap</a>
+        </nav>
+    </header>
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <div class="docs-shell">
+        <aside id="sidebar" class="docs-sidebar">
+            <nav aria-label="Documentation">
+                <div class="nav-group">
+<div class="nav-group-title">Get started</div>
+<ul class="nav-list">
+<li><a href="../index.html">Home</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Overview</div>
+<ul class="nav-list">
+<li><a href="vision.html">Product Vision</a></li>
+<li><a href="problem-statement.html">Problem Statement</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Getting Started</div>
+<ul class="nav-list">
+<li><a href="mvp-scope.html">MVP Scope</a></li>
+<li><a href="user-roles.html">User Roles</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Core Workflows</div>
+<ul class="nav-list">
+<li><a href="requirement-workflow.html">Requirement Workflow</a></li>
+<li><a href="change-request-workflow.html">Change Request Workflow</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Requirements</div>
+<ul class="nav-list">
+<li><a href="functional-requirements.html">Functional Requirements</a></li>
+<li><a href="non-functional-requirements.html">Non-Functional Requirements</a></li>
+<li><a href="api-contract.html">API Contract</a></li>
+<li><a href="data-model.html">Data Model</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Planning & Execution</div>
+<ul class="nav-list">
+<li><a href="development-roadmap.html">Development Roadmap</a></li>
+<li><a href="demo-scenario.html">Demo Scenario</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Quality & Security</div>
+<ul class="nav-list">
+<li><a href="security-model.html">Security Model</a></li>
+<li><a href="test-strategy.html">Test Strategy</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Executive</div>
+<ul class="nav-list">
+<li><a href="cto-proposal.html">CTO Proposal</a></li>
+</ul></div>
+            </nav>
+        </aside>
+
+        <main class="docs-main">
+            <article class="docs-content">
+                <div class="page-eyebrow">Requirements</div>
+                <div class="page-header">
+                    <h1>Functional Requirements</h1>
+                    <div class="page-actions">
+                        <button id="copy-page" class="copy-btn" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> <span>Copy page</span></button>
+                    </div>
+                </div>
+                <p>This document specifies the detailed functional requirements for each TeamFlow module. Each requirement is numbered (e.g., FR-AUTH-001) for traceability.</p>
+
+            <h2>1. Authentication and Access</h2>
+            <ul>
+                <li><strong>FR-AUTH-001:</strong> The system shall allow active users to authenticate using approved credentials</li>
+                <li><strong>FR-AUTH-002:</strong> The system shall deny access to inactive, locked, or expired accounts</li>
+                <li><strong>FR-AUTH-003:</strong> The system shall support role-based access control</li>
+                <li><strong>FR-AUTH-004:</strong> The system shall support project-specific membership and roles</li>
+                <li><strong>FR-AUTH-005:</strong> The backend shall validate authorization for every protected operation</li>
+                <li><strong>FR-AUTH-006:</strong> The system shall record login success, login failure, logout, password reset, and account lock events</li>
+            </ul>
+
+            <h2>2. User Management</h2>
+            <ul>
+                <li><strong>FR-USER-001:</strong> An authorized administrator shall be able to create, update, activate, and deactivate users</li>
+                <li><strong>FR-USER-002:</strong> An authorized administrator shall be able to assign global roles</li>
+                <li><strong>FR-USER-003:</strong> A Project Manager or authorized administrator shall be able to assign users to projects</li>
+                <li><strong>FR-USER-004:</strong> The system shall prevent removal of the last required project administrator where configured</li>
+            </ul>
+
+            <h2>3. Project Management</h2>
+            <ul>
+                <li><strong>FR-PROJ-001:</strong> Authorized users shall be able to create a project with code, name, description, status, start date, and target end date</li>
+                <li><strong>FR-PROJ-002:</strong> The system shall enforce unique project codes</li>
+                <li><strong>FR-PROJ-003:</strong> Authorized users shall be able to archive a project</li>
+                <li><strong>FR-PROJ-004:</strong> Archived projects shall remain readable according to permissions but shall reject normal operational updates</li>
+                <li><strong>FR-PROJ-005:</strong> The system shall display project-level requirement, task, QA, defect, release, and change metrics</li>
+            </ul>
+
+            <h2>4. Requirement Management</h2>
+            <ul>
+                <li><strong>FR-REQ-001:</strong> A BA shall be able to create a requirement in DRAFT status</li>
+                <li><strong>FR-REQ-002:</strong> A requirement shall include project, title, objective, description, actors, workflow, business rules, acceptance criteria, priority, and author</li>
+                <li><strong>FR-REQ-003:</strong> The system shall validate mandatory fields before submission</li>
+                <li><strong>FR-REQ-004:</strong> The system shall allow attachments and comments</li>
+                <li><strong>FR-REQ-005:</strong> The system shall assign a human-readable requirement number (e.g., REQ-PMB-0042)</li>
+                <li><strong>FR-REQ-006:</strong> The system shall allow filtering by project, status, author, priority, release, and date</li>
+                <li><strong>FR-REQ-007:</strong> The system shall maintain requirement status history</li>
+            </ul>
+
+            <h2>5. Requirement Approval</h2>
+            <ul>
+                <li><strong>FR-APR-001:</strong> The system shall support configurable review stages</li>
+                <li><strong>FR-APR-002:</strong> Reviewers shall be able to approve, reject, request changes, or place the requirement on hold</li>
+                <li><strong>FR-APR-003:</strong> Review comments shall be mandatory for rejection and changes requested</li>
+                <li><strong>FR-APR-004:</strong> The system shall prevent final approval until required reviews are complete</li>
+                <li><strong>FR-APR-005:</strong> The system shall prevent an author from providing prohibited self-approval</li>
+            </ul>
+
+            <h2>6. Version Control</h2>
+            <ul>
+                <li><strong>FR-VER-001:</strong> The system shall create a new version when an approved requirement is modified</li>
+                <li><strong>FR-VER-002:</strong> The system shall assign major (e.g., 2.0) and minor (e.g., 1.1) version numbers</li>
+                <li><strong>FR-VER-003:</strong> The system shall preserve all previous versions</li>
+                <li><strong>FR-VER-004:</strong> The system shall support version comparison showing added, modified, and removed content</li>
+            </ul>
+
+            <h2>7. Change Request Management</h2>
+            <ul>
+                <li><strong>FR-CHG-001:</strong> Users shall be able to create a change request for an approved requirement</li>
+                <li><strong>FR-CHG-002:</strong> The system shall require a business reason for every change request</li>
+                <li><strong>FR-CHG-003:</strong> The system shall track impact analysis: business, project, technical, and QA impact</li>
+                <li><strong>FR-CHG-004:</strong> The system shall support approval workflows for change requests</li>
+                <li><strong>FR-CHG-005:</strong> When a change is approved, the system shall create a new draft requirement version</li>
+            </ul>
+
+            <h2>8. Task Management</h2>
+            <ul>
+                <li><strong>FR-TASK-001:</strong> Project Managers shall be able to create epics, sprints, and tasks</li>
+                <li><strong>FR-TASK-002:</strong> Tasks shall be linkable to specific requirement versions</li>
+                <li><strong>FR-TASK-003:</strong> Tasks shall have status tracking: BACKLOG, READY, IN_PROGRESS, BLOCKED, CODE_REVIEW, READY_FOR_QA, DONE, REOPENED, CANCELLED</li>
+                <li><strong>FR-TASK-004:</strong> Developers shall be able to update task status and add implementation notes</li>
+                <li><strong>FR-TASK-005:</strong> The system shall maintain task status history</li>
+            </ul>
+
+            <h2>9. QA and Testing</h2>
+            <ul>
+                <li><strong>FR-QA-001:</strong> QA engineers shall be able to create test cases linked to requirement versions</li>
+                <li><strong>FR-QA-002:</strong> Test cases shall include preconditions, steps, and expected results</li>
+                <li><strong>FR-QA-003:</strong> QA engineers shall be able to execute tests and record pass, fail, or blocked status</li>
+                <li><strong>FR-QA-004:</strong> The system shall allow attaching evidence (screenshots, logs) to test execution results</li>
+                <li><strong>FR-QA-005:</strong> When a requirement changes, affected test cases shall be marked as REVIEW_REQUIRED</li>
+            </ul>
+
+            <h2>10. Defect Management</h2>
+            <ul>
+                <li><strong>FR-DEF-001:</strong> QA engineers shall be able to create defects from failed tests</li>
+                <li><strong>FR-DEF-002:</strong> Defects shall be linkable to requirements, tasks, and test executions</li>
+                <li><strong>FR-DEF-003:</strong> Defects shall track severity, priority, status, root cause, and resolution</li>
+                <li><strong>FR-DEF-004:</strong> Developers shall be able to retest defects and reopen them if necessary</li>
+            </ul>
+
+            <h2>11. Dashboards and Reports</h2>
+            <ul>
+                <li><strong>FR-DASH-001:</strong> The system shall provide project-level dashboards showing key metrics</li>
+                <li><strong>FR-DASH-002:</strong> The system shall provide management dashboards showing portfolio-level information</li>
+                <li><strong>FR-DASH-003:</strong> The system shall support requirement status, change request, and rework reports</li>
+                <li><strong>FR-DASH-004:</strong> The system shall support export to CSV and audit export formats</li>
+            </ul>
+
+            <h2>12. Audit and Compliance</h2>
+            <ul>
+                <li><strong>FR-AUDIT-001:</strong> The system shall maintain immutable audit logs for all significant actions</li>
+                <li><strong>FR-AUDIT-002:</strong> The system shall record who performed each action, when, and from which system component</li>
+                <li><strong>FR-AUDIT-003:</strong> Approved requirement versions shall not be modifiable through any interface</li>
+                <li><strong>FR-AUDIT-004:</strong> The system shall provide audit log export for compliance purposes</li>
+            </ul>
+
+            <hr>
+            <p><strong>Next:</strong> <a href="non-functional-requirements.html">Review Non-Functional Requirements →</a></p>
+            </article>
+        </main>
+
+        <aside class="docs-toc" aria-label="On this page">
+            <div class="toc-title">On this page</div>
+            <ul id="toc-list" class="toc-list"></ul>
+        </aside>
+    </div>
+
+    <footer class="site-footer">
+        <p>© 2026 TeamFlow Documentation. Requirement governance. Delivery flow. Team confidence.</p>
+    </footer>
+    
+    <script src="../js/docs.js"></script>
+</body>
+</html>

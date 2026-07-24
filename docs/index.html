@@ -1,69 +1,262 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - TeamFlow Documentation</title>
-    <link rel="stylesheet" href="css/styles.css"> 
-    <style>
-        :root {
-            --accent-color: #cc6300;
-            --accent-text-color: #000000;
-        }
-    </style>
+    <title>TeamFlow Documentation — Requirement Governance Platform</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="assets/teamflow-icon-sm.png">
+    <script>try{var t=localStorage.getItem('tf-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 </head>
 <body>
-    <header>
-        <button id="sidebar-toggle" aria-label="Toggle Navigation">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </button>
-        <h1>TeamFlow Documentation</h1>
-    </header>
-    <div class="container">
-        <nav id="sidebar">
-            
-            <ul>
-                <li><a href="index.html"><strong>Home</strong></a></li>
-                
-            </ul>
-        
+    <header class="site-header">
+        <div class="header-top">
+            <button id="sidebar-toggle" class="icon-btn" aria-label="Toggle navigation"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+            <a class="brand" href="index.html">
+                <img class="brand-logo" src="assets/teamflow-logo-header.png" alt="TeamFlow" width="157" height="48">
+            </a>
+            <div class="header-search">
+                <span class="search-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+                <input id="docs-search" type="search" placeholder="Search..." autocomplete="off" aria-label="Search documentation">
+                <span class="search-kbd">⌘K</span>
+                <div id="search-results" class="search-results" role="listbox"></div>
+            </div>
+            <div class="header-actions">
+                <button class="ask-btn" type="button" onclick="document.getElementById('docs-search')?.focus()"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5L12 2z"/></svg> <span>Ask Assistant</span></button>
+                <a class="header-link" href="html/cto-proposal.html">Proposal</a>
+                <a class="header-link" href="html/demo-scenario.html">Demo</a>
+                <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle theme"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></button>
+            </div>
+        </div>
+        <nav class="header-subnav" aria-label="Section">
+            <a href="index.html" class="active">Documentation</a>
+            <a href="html/mvp-scope.html">MVP Scope</a>
+            <a href="html/api-contract.html">API</a>
+            <a href="html/data-model.html">Data Model</a>
+            <a href="html/security-model.html">Security</a>
+            <a href="html/development-roadmap.html">Roadmap</a>
         </nav>
-        <main>
-            
-            <h2>Welcome to the Documentation</h2>
-            <p>Select a page from the navigation or the list below:</p>
-            <ul>
-                
-            </ul>
-        
+    </header>
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <div class="docs-shell">
+        <aside id="sidebar" class="docs-sidebar">
+            <nav aria-label="Documentation">
+                <div class="nav-group">
+<div class="nav-group-title">Get started</div>
+<ul class="nav-list">
+<li><a href="index.html">Home</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Overview</div>
+<ul class="nav-list">
+<li><a href="html/vision.html">Product Vision</a></li>
+<li><a href="html/problem-statement.html">Problem Statement</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Getting Started</div>
+<ul class="nav-list">
+<li><a href="html/mvp-scope.html">MVP Scope</a></li>
+<li><a href="html/user-roles.html">User Roles</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Core Workflows</div>
+<ul class="nav-list">
+<li><a href="html/requirement-workflow.html">Requirement Workflow</a></li>
+<li><a href="html/change-request-workflow.html">Change Request Workflow</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Requirements</div>
+<ul class="nav-list">
+<li><a href="html/functional-requirements.html">Functional Requirements</a></li>
+<li><a href="html/non-functional-requirements.html">Non-Functional Requirements</a></li>
+<li><a href="html/api-contract.html">API Contract</a></li>
+<li><a href="html/data-model.html">Data Model</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Planning & Execution</div>
+<ul class="nav-list">
+<li><a href="html/development-roadmap.html">Development Roadmap</a></li>
+<li><a href="html/demo-scenario.html">Demo Scenario</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Quality & Security</div>
+<ul class="nav-list">
+<li><a href="html/security-model.html">Security Model</a></li>
+<li><a href="html/test-strategy.html">Test Strategy</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Executive</div>
+<ul class="nav-list">
+<li><a href="html/cto-proposal.html">CTO Proposal</a></li>
+</ul></div>
+            </nav>
+        </aside>
+
+        <main class="docs-main">
+            <article class="docs-content">
+                <div class="page-eyebrow">Get started</div>
+                <div class="hero">
+                    <h1>Control your delivery flow</h1>
+                    <p>TeamFlow keeps approved requirements locked. Every change flows through formal review. Every decision is traced—so your team delivers with confidence.</p>
+                    <a href="html/vision.html" class="cta-button">Explore the vision →</a>
+                </div>
+
+                <h2>What is TeamFlow?</h2>
+                <p>TeamFlow is a requirement governance platform that keeps approved requirements stable while enabling controlled, fully traceable changes.</p>
+                <p>Many organizations struggle when requirements change after development starts—causing rework, delays, and disputes about what was approved. TeamFlow introduces <strong>controlled requirement governance</strong>: once a requirement is approved, it becomes immutable. Any modification must create a formal change request that documents the business reason, impact analysis, and approval chain.</p>
+
+                <div class="diagram-card">
+                    <div class="diagram-flow">
+                        <div>
+                            <div class="diagram-label">Delivery teams</div>
+                            <div class="diagram-col">
+                                <div class="diagram-box">Business Analysts</div>
+                                <div class="diagram-box">Project Managers</div>
+                                <div class="diagram-box">Developers &amp; QA</div>
+                            </div>
+                        </div>
+                        <div class="diagram-arrows">
+                            <span>←→</span>
+                            <span>Bidirectional</span>
+                            <span>governance</span>
+                        </div>
+                        <div>
+                            <div class="diagram-label">Platform</div>
+                            <div class="diagram-center">TeamFlow<br>standardized workflow</div>
+                        </div>
+                    </div>
+                    <div class="diagram-flow" style="margin-top:1.25rem;">
+                        <div>
+                            <div class="diagram-label">Controlled artifacts</div>
+                            <div class="diagram-col">
+                                <div class="diagram-box">Requirements</div>
+                                <div class="diagram-box">Change requests</div>
+                            </div>
+                        </div>
+                        <div class="diagram-arrows">
+                            <span>←→</span>
+                            <span>Full</span>
+                            <span>traceability</span>
+                        </div>
+                        <div>
+                            <div class="diagram-label">Delivery outcomes</div>
+                            <div class="diagram-col">
+                                <div class="diagram-box">Tasks &amp; tests</div>
+                                <div class="diagram-box">Releases &amp; audit</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <blockquote>
+                    <p><strong>The TeamFlow promise:</strong> No approved requirement can be silently changed, and every delivery decision can be traced from requirement to release.</p>
+                </blockquote>
+
+                <h2>Key capabilities</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>Immutable requirements</h3>
+                        <p>Approved requirement versions cannot be edited directly. Modifications trigger formal change requests with complete audit trails.</p>
+                        <a href="html/requirement-workflow.html">Learn more →</a>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Controlled changes</h3>
+                        <p>Every change request captures business reason, impact analysis, affected modules, rework estimates, and timeline impact.</p>
+                        <a href="html/change-request-workflow.html">Learn more →</a>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Complete traceability</h3>
+                        <p>Tasks, test cases, and defects link to requirement versions so management can track the source and impact of scope changes.</p>
+                        <a href="html/mvp-scope.html">Learn more →</a>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Governance for everyone</h3>
+                        <p>Business Analysts, PMs, Developers, QA, and Management operate under the same controlled workflow.</p>
+                        <a href="html/user-roles.html">Learn more →</a>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Secure by design</h3>
+                        <p>Role-based access, immutable audit logs, backend-enforced business rules, and zero silent modifications.</p>
+                        <a href="html/security-model.html">Learn more →</a>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Evidence-based decisions</h3>
+                        <p>Dashboards and reports provide objective data on requirement stability, rework impact, and delivery metrics.</p>
+                        <a href="html/mvp-scope.html">Learn more →</a>
+                    </div>
+                </div>
+
+                <h2>Documentation sections</h2>
+                <h3>Overview</h3>
+                <p>Start here to understand the problem TeamFlow solves and the product vision.</p>
+                <ul>
+                    <li><a href="html/vision.html">Product Vision</a> — Product strategy, target users, and long-term roadmap</li>
+                    <li><a href="html/problem-statement.html">Problem Statement</a> — Why TeamFlow exists</li>
+                </ul>
+
+                <h3>Getting Started</h3>
+                <p>Learn what the MVP delivers and who uses it.</p>
+                <ul>
+                    <li><a href="html/mvp-scope.html">MVP Scope</a> — Core modules across auth, requirements, workflows, QA, and reporting</li>
+                    <li><a href="html/user-roles.html">User Roles</a> — Role types with permissions and responsibilities</li>
+                </ul>
+
+                <h3>Core Workflows</h3>
+                <ul>
+                    <li><a href="html/requirement-workflow.html">Requirement Workflow</a> — Create, review, approve, and lock</li>
+                    <li><a href="html/change-request-workflow.html">Change Request Workflow</a> — Request, analyze, approve, and implement</li>
+                </ul>
+
+                <h3>Requirements &amp; technical specs</h3>
+                <ul>
+                    <li><a href="html/functional-requirements.html">Functional Requirements</a></li>
+                    <li><a href="html/non-functional-requirements.html">Non-Functional Requirements</a></li>
+                    <li><a href="html/api-contract.html">API Contract</a></li>
+                    <li><a href="html/data-model.html">Data Model</a></li>
+                </ul>
+
+                <h3>Planning, quality &amp; executive</h3>
+                <ul>
+                    <li><a href="html/development-roadmap.html">Development Roadmap</a></li>
+                    <li><a href="html/demo-scenario.html">Demo Scenario</a></li>
+                    <li><a href="html/security-model.html">Security Model</a></li>
+                    <li><a href="html/test-strategy.html">Test Strategy</a></li>
+                    <li><a href="html/cto-proposal.html">CTO Proposal</a></li>
+                </ul>
+
+                <h2>Quick navigation</h2>
+                <p><strong>New to TeamFlow?</strong> <a href="html/vision.html">Start with the Product Vision</a></p>
+                <p><strong>Want to see it in action?</strong> <a href="html/demo-scenario.html">Open the Demo Scenario</a></p>
+                <p><strong>Planning implementation?</strong> <a href="html/development-roadmap.html">Review the Development Roadmap</a></p>
+                <p><strong>Need technical details?</strong> <a href="html/api-contract.html">Read the API Contract</a></p>
+            </article>
         </main>
+
+        <aside class="docs-toc" aria-label="On this page">
+            <div class="toc-title">On this page</div>
+            <ul id="toc-list" class="toc-list"></ul>
+        </aside>
     </div>
-    <footer>
-        <p>Generated by MD to Deploy</p>
+
+    <footer class="site-footer">
+        <p>© 2026 TeamFlow Documentation. Requirement governance. Delivery flow. Team confidence.</p>
     </footer>
+    
+    <div class="ask-bar" role="search">
+        <input type="text" placeholder="Ask a question..." aria-label="Ask a question" id="ask-input">
+        <button type="button" aria-label="Submit" onclick="document.getElementById('docs-search')?.focus()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+    </div>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const toggle = document.getElementById('sidebar-toggle');
-            const sidebar = document.getElementById('sidebar');
-
-            if (toggle && sidebar) {
-                toggle.addEventListener('click', () => {
-                    sidebar.classList.toggle('active');
-                });
-
-                // Optional: Close sidebar when clicking outside on mobile
-                document.addEventListener('click', (e) => {
-                    if (window.innerWidth <= 768 && 
-                        sidebar.classList.contains('active') && 
-                        !sidebar.contains(e.target) && 
-                        !toggle.contains(e.target)) {
-                        sidebar.classList.remove('active');
-                    }
-                });
-            }
-        });
+      document.getElementById('ask-input')?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const q = e.target.value.trim();
+          const s = document.getElementById('docs-search');
+          if (s && q) { s.value = q; s.dispatchEvent(new Event('input')); s.focus(); }
+        }
+      });
     </script>
+
+    <script src="js/docs.js"></script>
 </body>
 </html>
