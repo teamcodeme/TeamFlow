@@ -1,0 +1,1921 @@
+{
+  "schemaVersion": "1.0",
+  "product": "TeamFlow",
+  "title": "TeamFlow Product Delivery Roadmap",
+  "description": "A dependency-driven roadmap from product foundation through requirement governance, QA, release readiness and CTO pilot.",
+  "updatedAt": "2026-07-24",
+  "currentPhaseId": "phase-00",
+  "phases": [
+    {
+      "id": "phase-00",
+      "title": "Product and Architecture Foundation",
+      "description": "Complete product specifications, architecture decisions, repository guidance and AI-agent instructions.",
+      "status": "in-progress",
+      "order": 0,
+      "progress": 85,
+      "children": [
+        "product-documentation",
+        "roadmap-visualiser-spec",
+        "architecture-documentation",
+        "system-context",
+        "container-diagram",
+        "component-diagram",
+        "architecture-decisions",
+        "claude-instructions",
+        "foundation-review"
+      ],
+      "documentationUrl": "/html/development-roadmap.html#phase-0"
+    },
+    {
+      "id": "phase-01",
+      "title": "Engineering Foundation",
+      "description": "Create the monorepo, Angular application, Go API, PostgreSQL foundation, CI and local developer experience.",
+      "status": "planned",
+      "order": 1,
+      "progress": 0,
+      "children": [
+        "monorepo-bootstrap",
+        "angular-bootstrap",
+        "go-api-bootstrap",
+        "postgres-foundation",
+        "openapi-foundation",
+        "ci-pipeline",
+        "local-dev-environment"
+      ],
+      "documentationUrl": "/html/development-roadmap.html#phase-1"
+    },
+    {
+      "id": "phase-02",
+      "title": "Identity and Project Access",
+      "description": "Implement authentication, RBAC, users, projects, project membership and audit foundations.",
+      "status": "planned",
+      "order": 2,
+      "progress": 0,
+      "children": [
+        "authentication",
+        "user-management",
+        "role-permission-model",
+        "project-management",
+        "project-membership",
+        "authorization-middleware",
+        "audit-foundation"
+      ],
+      "documentationUrl": "/html/user-roles.html"
+    },
+    {
+      "id": "phase-03",
+      "title": "Requirement Governance",
+      "description": "Deliver requirement drafting, review, approval, immutable versions, comparison and audit history.",
+      "status": "planned",
+      "order": 3,
+      "progress": 0,
+      "children": [
+        "requirement-draft",
+        "acceptance-criteria",
+        "requirement-submission",
+        "review-workflow",
+        "requirement-approval",
+        "immutable-version",
+        "version-history",
+        "version-comparison",
+        "requirement-audit",
+        "vertical-slice-1"
+      ],
+      "documentationUrl": "/html/requirement-workflow.html"
+    },
+    {
+      "id": "phase-04",
+      "title": "Clarifications and Decisions",
+      "description": "Record questions, responses, confirmed decisions and blocking clarification rules.",
+      "status": "planned",
+      "order": 4,
+      "progress": 0,
+      "children": [
+        "clarification-create",
+        "clarification-response",
+        "decision-confirmation",
+        "blocking-clarifications"
+      ],
+      "documentationUrl": "/html/requirement-workflow.html#clarifications"
+    },
+    {
+      "id": "phase-05",
+      "title": "Change Request Governance",
+      "description": "Assess and approve post-approval changes with measurable impact and version traceability.",
+      "status": "planned",
+      "order": 5,
+      "progress": 0,
+      "children": [
+        "change-request-create",
+        "impact-analysis",
+        "change-approval",
+        "new-version-from-change",
+        "affected-work-review",
+        "change-metrics"
+      ],
+      "documentationUrl": "/html/change-request-workflow.html"
+    },
+    {
+      "id": "phase-06",
+      "title": "Planning and Developer Workspace",
+      "description": "Provide epics, sprints, tasks, assignment, dependencies, blockers and developer traceability.",
+      "status": "planned",
+      "order": 6,
+      "progress": 0,
+      "children": [
+        "epic-management",
+        "sprint-management",
+        "task-management",
+        "developer-workspace",
+        "dependency-blocker-tracking",
+        "task-history"
+      ],
+      "documentationUrl": "/html/mvp-scope.html"
+    },
+    {
+      "id": "phase-07",
+      "title": "QA and Defect Management",
+      "description": "Link test cases to requirement versions, execute tests and manage defects and retesting.",
+      "status": "planned",
+      "order": 7,
+      "progress": 0,
+      "children": [
+        "test-case-management",
+        "test-execution",
+        "evidence-management",
+        "defect-management",
+        "retest-flow",
+        "coverage-reporting"
+      ],
+      "documentationUrl": "/html/test-strategy.html"
+    },
+    {
+      "id": "phase-08",
+      "title": "Release Readiness",
+      "description": "Aggregate requirements, tasks, tests and defects into auditable release decisions.",
+      "status": "planned",
+      "order": 8,
+      "progress": 0,
+      "children": [
+        "release-management",
+        "readiness-engine",
+        "ba-acceptance",
+        "qa-release-approval",
+        "technical-release-approval",
+        "release-decision"
+      ],
+      "documentationUrl": "/html/mvp-scope.html"
+    },
+    {
+      "id": "phase-09",
+      "title": "Dashboards and Reporting",
+      "description": "Provide project, team and management insights for stability, rework, quality and delivery risk.",
+      "status": "planned",
+      "order": 9,
+      "progress": 0,
+      "children": [
+        "project-dashboard",
+        "team-dashboard",
+        "management-dashboard",
+        "stability-metrics",
+        "rework-metrics",
+        "report-exports"
+      ],
+      "documentationUrl": "/html/cto-proposal.html"
+    },
+    {
+      "id": "phase-10",
+      "title": "Security, Pilot and Deployment",
+      "description": "Harden security and performance, seed demo data, rehearse the CTO demonstration and run a pilot.",
+      "status": "planned",
+      "order": 10,
+      "progress": 0,
+      "children": [
+        "security-testing",
+        "performance-testing",
+        "accessibility-review",
+        "backup-restore",
+        "demo-data",
+        "cto-demo",
+        "pilot"
+      ],
+      "documentationUrl": "/html/demo-scenario.html"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "product-documentation",
+      "title": "Product Documentation",
+      "description": "Publish the complete product, workflow, API, security, testing and pitch documentation.",
+      "type": "module",
+      "status": "completed",
+      "phaseId": "phase-00",
+      "order": 1,
+      "priority": "medium",
+      "owner": "Product",
+      "dependsOn": [],
+      "children": [],
+      "tags": [
+        "phase-00",
+        "module"
+      ],
+      "documentationUrl": "/",
+      "acceptanceCriteria": [
+        "All 15 product documents are published",
+        "Documentation navigation exposes all documents"
+      ],
+      "progress": 100,
+      "estimatedEffort": null
+    },
+    {
+      "id": "roadmap-visualiser-spec",
+      "title": "Roadmap Visualiser Specification",
+      "description": "Define the content-driven interactive roadmap, node schema, layouts, filters and accessibility requirements.",
+      "type": "feature",
+      "status": "completed",
+      "phaseId": "phase-00",
+      "order": 2,
+      "priority": "medium",
+      "owner": "Product/UX",
+      "dependsOn": [
+        "product-documentation"
+      ],
+      "children": [],
+      "tags": [
+        "phase-00",
+        "feature"
+      ],
+      "documentationUrl": "/roadmap-visualiser-spec.md",
+      "acceptanceCriteria": [],
+      "progress": 100,
+      "estimatedEffort": null
+    },
+    {
+      "id": "architecture-documentation",
+      "title": "Architecture Documentation",
+      "description": "Define system context, containers, components, boundaries and runtime interactions.",
+      "type": "module",
+      "status": "completed",
+      "phaseId": "phase-00",
+      "order": 3,
+      "priority": "medium",
+      "owner": "Architecture",
+      "dependsOn": [
+        "product-documentation"
+      ],
+      "children": [
+        "system-context",
+        "container-diagram",
+        "component-diagram"
+      ],
+      "tags": [
+        "phase-00",
+        "module"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": 100,
+      "estimatedEffort": null
+    },
+    {
+      "id": "system-context",
+      "title": "System Context",
+      "description": "Describe users, TeamFlow boundaries and external systems.",
+      "type": "feature",
+      "status": "completed",
+      "phaseId": "phase-00",
+      "order": 4,
+      "priority": "medium",
+      "owner": null,
+      "dependsOn": [
+        "product-documentation"
+      ],
+      "children": [],
+      "tags": [
+        "phase-00",
+        "feature"
+      ],
+      "documentationUrl": "/docs/architecture/system-context.md",
+      "acceptanceCriteria": [],
+      "progress": 100,
+      "estimatedEffort": null
+    },
+    {
+      "id": "container-diagram",
+      "title": "Container Architecture",
+      "description": "Describe browser, web app, API, database, object storage and deployment boundaries.",
+      "type": "feature",
+      "status": "completed",
+      "phaseId": "phase-00",
+      "order": 5,
+      "priority": "medium",
+      "owner": null,
+      "dependsOn": [
+        "system-context"
+      ],
+      "children": [],
+      "tags": [
+        "phase-00",
+        "feature"
+      ],
+      "documentationUrl": "/docs/architecture/container-diagram.md",
+      "acceptanceCriteria": [],
+      "progress": 100,
+      "estimatedEffort": null
+    },
+    {
+      "id": "component-diagram",
+      "title": "Backend Component Architecture",
+      "description": "Define modular-monolith modules, dependency rules and cross-cutting platform services.",
+      "type": "feature",
+      "status": "completed",
+      "phaseId": "phase-00",
+      "order": 6,
+      "priority": "medium",
+      "owner": null,
+      "dependsOn": [
+        "container-diagram"
+      ],
+      "children": [],
+      "tags": [
+        "phase-00",
+        "feature"
+      ],
+      "documentationUrl": "/docs/architecture/component-diagram.md",
+      "acceptanceCriteria": [],
+      "progress": 100,
+      "estimatedEffort": null
+    },
+    {
+      "id": "architecture-decisions",
+      "title": "Architecture Decision Records",
+      "description": "Record the initial architecture decisions and their consequences.",
+      "type": "module",
+      "status": "completed",
+      "phaseId": "phase-00",
+      "order": 7,
+      "priority": "medium",
+      "owner": "Architecture",
+      "dependsOn": [
+        "architecture-documentation"
+      ],
+      "children": [],
+      "tags": [
+        "phase-00",
+        "module"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": 100,
+      "estimatedEffort": null
+    },
+    {
+      "id": "claude-instructions",
+      "title": "Claude Code Instructions",
+      "description": "Provide repository-wide implementation rules, commands, boundaries and definition of done.",
+      "type": "feature",
+      "status": "completed",
+      "phaseId": "phase-00",
+      "order": 8,
+      "priority": "medium",
+      "owner": null,
+      "dependsOn": [
+        "architecture-decisions"
+      ],
+      "children": [],
+      "tags": [
+        "phase-00",
+        "feature"
+      ],
+      "documentationUrl": "/CLAUDE.md",
+      "acceptanceCriteria": [],
+      "progress": 100,
+      "estimatedEffort": null
+    },
+    {
+      "id": "foundation-review",
+      "title": "Foundation Review",
+      "description": "Review the foundation pack and approve the first implementation prompt.",
+      "type": "milestone",
+      "status": "in-progress",
+      "phaseId": "phase-00",
+      "order": 9,
+      "priority": "critical",
+      "owner": "Founder/CTO",
+      "dependsOn": [
+        "claude-instructions",
+        "roadmap-visualiser-spec"
+      ],
+      "children": [],
+      "tags": [
+        "phase-00",
+        "milestone"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [
+        "Architecture pack reviewed",
+        "Roadmap data validates",
+        "Vertical Slice 1 implementation prompt approved"
+      ],
+      "progress": 40,
+      "estimatedEffort": null
+    },
+    {
+      "id": "monorepo-bootstrap",
+      "title": "Monorepo Bootstrap",
+      "description": "Create apps/web, apps/api, packages, database, infrastructure, scripts and CI folders.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-01",
+      "order": 1,
+      "priority": "high",
+      "owner": "Engineering",
+      "dependsOn": [
+        "foundation-review"
+      ],
+      "children": [],
+      "tags": [
+        "phase-01",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": "1–3 days"
+    },
+    {
+      "id": "angular-bootstrap",
+      "title": "Angular Web Bootstrap",
+      "description": "Create the standalone Angular application shell, routing, layout and environment configuration.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-01",
+      "order": 2,
+      "priority": "high",
+      "owner": "Engineering",
+      "dependsOn": [
+        "monorepo-bootstrap"
+      ],
+      "children": [],
+      "tags": [
+        "phase-01",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": "1–3 days"
+    },
+    {
+      "id": "go-api-bootstrap",
+      "title": "Go API Bootstrap",
+      "description": "Create cmd/api, internal platform packages, configuration, structured logging and HTTP server.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-01",
+      "order": 3,
+      "priority": "high",
+      "owner": "Engineering",
+      "dependsOn": [
+        "monorepo-bootstrap"
+      ],
+      "children": [],
+      "tags": [
+        "phase-01",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": "1–3 days"
+    },
+    {
+      "id": "postgres-foundation",
+      "title": "PostgreSQL Foundation",
+      "description": "Configure migrations, database access, transactions and local test database.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-01",
+      "order": 4,
+      "priority": "high",
+      "owner": "Engineering",
+      "dependsOn": [
+        "go-api-bootstrap"
+      ],
+      "children": [],
+      "tags": [
+        "phase-01",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": "1–3 days"
+    },
+    {
+      "id": "openapi-foundation",
+      "title": "OpenAPI Foundation",
+      "description": "Define API conventions, error envelope and generated client workflow.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-01",
+      "order": 5,
+      "priority": "medium",
+      "owner": "Engineering",
+      "dependsOn": [
+        "go-api-bootstrap"
+      ],
+      "children": [],
+      "tags": [
+        "phase-01",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": "1–3 days"
+    },
+    {
+      "id": "ci-pipeline",
+      "title": "CI Pipeline",
+      "description": "Run formatting, linting, unit tests, integration tests and builds for every change.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-01",
+      "order": 6,
+      "priority": "medium",
+      "owner": "Engineering",
+      "dependsOn": [
+        "angular-bootstrap",
+        "go-api-bootstrap"
+      ],
+      "children": [],
+      "tags": [
+        "phase-01",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": "1–3 days"
+    },
+    {
+      "id": "local-dev-environment",
+      "title": "Local Developer Environment",
+      "description": "Provide Make targets and OCI-compatible dependencies for repeatable local development.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-01",
+      "order": 7,
+      "priority": "medium",
+      "owner": "Engineering",
+      "dependsOn": [
+        "postgres-foundation",
+        "ci-pipeline"
+      ],
+      "children": [],
+      "tags": [
+        "phase-01",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": "1–3 days"
+    },
+    {
+      "id": "authentication",
+      "title": "Authentication",
+      "description": "Implement secure login, logout and session handling.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-02",
+      "order": 1,
+      "priority": "high",
+      "owner": "Platform",
+      "dependsOn": [
+        "local-dev-environment"
+      ],
+      "children": [],
+      "tags": [
+        "phase-02",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "user-management",
+      "title": "User Management",
+      "description": "Create, activate and deactivate users.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-02",
+      "order": 2,
+      "priority": "high",
+      "owner": "Platform",
+      "dependsOn": [
+        "authentication"
+      ],
+      "children": [],
+      "tags": [
+        "phase-02",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "role-permission-model",
+      "title": "Role and Permission Model",
+      "description": "Implement global and project-scoped permissions.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-02",
+      "order": 3,
+      "priority": "high",
+      "owner": "Platform",
+      "dependsOn": [
+        "user-management"
+      ],
+      "children": [],
+      "tags": [
+        "phase-02",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "project-management",
+      "title": "Project Management",
+      "description": "Create projects and project lifecycle operations.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-02",
+      "order": 4,
+      "priority": "high",
+      "owner": "Platform",
+      "dependsOn": [
+        "role-permission-model"
+      ],
+      "children": [],
+      "tags": [
+        "phase-02",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "project-membership",
+      "title": "Project Membership",
+      "description": "Assign users and project roles.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-02",
+      "order": 5,
+      "priority": "high",
+      "owner": "Platform",
+      "dependsOn": [
+        "project-management"
+      ],
+      "children": [],
+      "tags": [
+        "phase-02",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "authorization-middleware",
+      "title": "Backend Authorization",
+      "description": "Enforce permissions and project isolation on every endpoint.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-02",
+      "order": 6,
+      "priority": "critical",
+      "owner": "Platform",
+      "dependsOn": [
+        "project-membership"
+      ],
+      "children": [],
+      "tags": [
+        "phase-02",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "audit-foundation",
+      "title": "Audit Foundation",
+      "description": "Append immutable security and business audit events.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-02",
+      "order": 7,
+      "priority": "critical",
+      "owner": "Platform",
+      "dependsOn": [
+        "authorization-middleware"
+      ],
+      "children": [],
+      "tags": [
+        "phase-02",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "requirement-draft",
+      "title": "Requirement Draft",
+      "description": "Create and edit structured requirement drafts.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-03",
+      "order": 1,
+      "priority": "high",
+      "owner": "Requirements Squad",
+      "dependsOn": [
+        "audit-foundation"
+      ],
+      "children": [],
+      "tags": [
+        "phase-03",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "acceptance-criteria",
+      "title": "Acceptance Criteria",
+      "description": "Manage Given/When/Then acceptance criteria.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-03",
+      "order": 2,
+      "priority": "high",
+      "owner": "Requirements Squad",
+      "dependsOn": [
+        "requirement-draft"
+      ],
+      "children": [],
+      "tags": [
+        "phase-03",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "requirement-submission",
+      "title": "Requirement Submission",
+      "description": "Validate Definition of Ready and submit for review.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-03",
+      "order": 3,
+      "priority": "high",
+      "owner": "Requirements Squad",
+      "dependsOn": [
+        "acceptance-criteria"
+      ],
+      "children": [],
+      "tags": [
+        "phase-03",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "review-workflow",
+      "title": "Review Workflow",
+      "description": "Support BA, PM, technical and QA reviews.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-03",
+      "order": 4,
+      "priority": "high",
+      "owner": "Requirements Squad",
+      "dependsOn": [
+        "requirement-submission"
+      ],
+      "children": [],
+      "tags": [
+        "phase-03",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "requirement-approval",
+      "title": "Requirement Approval",
+      "description": "Approve eligible requirement versions transactionally.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-03",
+      "order": 5,
+      "priority": "critical",
+      "owner": "Requirements Squad",
+      "dependsOn": [
+        "review-workflow"
+      ],
+      "children": [],
+      "tags": [
+        "phase-03",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "immutable-version",
+      "title": "Immutable Approved Version",
+      "description": "Reject every attempt to update an approved requirement version.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-03",
+      "order": 6,
+      "priority": "critical",
+      "owner": "Requirements Squad",
+      "dependsOn": [
+        "requirement-approval"
+      ],
+      "children": [],
+      "tags": [
+        "phase-03",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "version-history",
+      "title": "Version History",
+      "description": "Display all versions, statuses and relationships.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-03",
+      "order": 7,
+      "priority": "high",
+      "owner": "Requirements Squad",
+      "dependsOn": [
+        "immutable-version"
+      ],
+      "children": [],
+      "tags": [
+        "phase-03",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "version-comparison",
+      "title": "Version Comparison",
+      "description": "Display field-level differences between versions.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-03",
+      "order": 8,
+      "priority": "high",
+      "owner": "Requirements Squad",
+      "dependsOn": [
+        "version-history"
+      ],
+      "children": [],
+      "tags": [
+        "phase-03",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "requirement-audit",
+      "title": "Requirement Audit History",
+      "description": "Display append-only events for all important transitions.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-03",
+      "order": 9,
+      "priority": "high",
+      "owner": "Requirements Squad",
+      "dependsOn": [
+        "version-comparison"
+      ],
+      "children": [],
+      "tags": [
+        "phase-03",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "vertical-slice-1",
+      "title": "Vertical Slice 1 Complete",
+      "description": "Demonstrate approval, Version 1.0 locking and rejected direct editing.",
+      "type": "milestone",
+      "status": "planned",
+      "phaseId": "phase-03",
+      "order": 10,
+      "priority": "critical",
+      "owner": "Requirements Squad",
+      "dependsOn": [
+        "requirement-audit"
+      ],
+      "children": [],
+      "tags": [
+        "phase-03",
+        "milestone"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "clarification-create",
+      "title": "Raise Clarification",
+      "description": "Deliver raise clarification according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-04",
+      "order": 1,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "vertical-slice-1"
+      ],
+      "children": [],
+      "tags": [
+        "phase-04",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "clarification-response",
+      "title": "Respond to Clarification",
+      "description": "Deliver respond to clarification according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-04",
+      "order": 2,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "clarification-create"
+      ],
+      "children": [],
+      "tags": [
+        "phase-04",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "decision-confirmation",
+      "title": "Confirm Official Decision",
+      "description": "Deliver confirm official decision according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-04",
+      "order": 3,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "clarification-response"
+      ],
+      "children": [],
+      "tags": [
+        "phase-04",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "blocking-clarifications",
+      "title": "Enforce Blocking Rules",
+      "description": "Deliver enforce blocking rules according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-04",
+      "order": 4,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "decision-confirmation"
+      ],
+      "children": [],
+      "tags": [
+        "phase-04",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "change-request-create",
+      "title": "Create Change Request",
+      "description": "Deliver create change request according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-05",
+      "order": 1,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "blocking-clarifications"
+      ],
+      "children": [],
+      "tags": [
+        "phase-05",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "impact-analysis",
+      "title": "Complete Impact Analysis",
+      "description": "Deliver complete impact analysis according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-05",
+      "order": 2,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "change-request-create"
+      ],
+      "children": [],
+      "tags": [
+        "phase-05",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "change-approval",
+      "title": "Approve or Defer Change",
+      "description": "Deliver approve or defer change according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-05",
+      "order": 3,
+      "priority": "critical",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "impact-analysis"
+      ],
+      "children": [],
+      "tags": [
+        "phase-05",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "new-version-from-change",
+      "title": "Create New Requirement Version",
+      "description": "Deliver create new requirement version according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-05",
+      "order": 4,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "change-approval"
+      ],
+      "children": [],
+      "tags": [
+        "phase-05",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "affected-work-review",
+      "title": "Mark Affected Tasks and Tests",
+      "description": "Deliver mark affected tasks and tests according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-05",
+      "order": 5,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "new-version-from-change"
+      ],
+      "children": [],
+      "tags": [
+        "phase-05",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "change-metrics",
+      "title": "Report Change Impact",
+      "description": "Deliver report change impact according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-05",
+      "order": 6,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "affected-work-review"
+      ],
+      "children": [],
+      "tags": [
+        "phase-05",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "epic-management",
+      "title": "Epic Management",
+      "description": "Deliver epic management according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-06",
+      "order": 1,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "change-metrics"
+      ],
+      "children": [],
+      "tags": [
+        "phase-06",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "sprint-management",
+      "title": "Sprint Management",
+      "description": "Deliver sprint management according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-06",
+      "order": 2,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "epic-management"
+      ],
+      "children": [],
+      "tags": [
+        "phase-06",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "task-management",
+      "title": "Task Management",
+      "description": "Deliver task management according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-06",
+      "order": 3,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "sprint-management"
+      ],
+      "children": [],
+      "tags": [
+        "phase-06",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "developer-workspace",
+      "title": "Developer Workspace",
+      "description": "Deliver developer workspace according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-06",
+      "order": 4,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "task-management"
+      ],
+      "children": [],
+      "tags": [
+        "phase-06",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "dependency-blocker-tracking",
+      "title": "Dependencies and Blockers",
+      "description": "Deliver dependencies and blockers according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-06",
+      "order": 5,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "developer-workspace"
+      ],
+      "children": [],
+      "tags": [
+        "phase-06",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "task-history",
+      "title": "Task Status History",
+      "description": "Deliver task status history according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-06",
+      "order": 6,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "dependency-blocker-tracking"
+      ],
+      "children": [],
+      "tags": [
+        "phase-06",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "test-case-management",
+      "title": "Test Case Management",
+      "description": "Deliver test case management according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-07",
+      "order": 1,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "task-history"
+      ],
+      "children": [],
+      "tags": [
+        "phase-07",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "test-execution",
+      "title": "Test Execution",
+      "description": "Deliver test execution according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-07",
+      "order": 2,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "test-case-management"
+      ],
+      "children": [],
+      "tags": [
+        "phase-07",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "evidence-management",
+      "title": "Evidence Attachments",
+      "description": "Deliver evidence attachments according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-07",
+      "order": 3,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "test-execution"
+      ],
+      "children": [],
+      "tags": [
+        "phase-07",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "defect-management",
+      "title": "Defect Management",
+      "description": "Deliver defect management according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-07",
+      "order": 4,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "evidence-management"
+      ],
+      "children": [],
+      "tags": [
+        "phase-07",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "retest-flow",
+      "title": "Retest and Reopen Flow",
+      "description": "Deliver retest and reopen flow according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-07",
+      "order": 5,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "defect-management"
+      ],
+      "children": [],
+      "tags": [
+        "phase-07",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "coverage-reporting",
+      "title": "Requirement Coverage",
+      "description": "Deliver requirement coverage according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-07",
+      "order": 6,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "retest-flow"
+      ],
+      "children": [],
+      "tags": [
+        "phase-07",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "release-management",
+      "title": "Release Management",
+      "description": "Deliver release management according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-08",
+      "order": 1,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "coverage-reporting"
+      ],
+      "children": [],
+      "tags": [
+        "phase-08",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "readiness-engine",
+      "title": "Readiness Calculation",
+      "description": "Deliver readiness calculation according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-08",
+      "order": 2,
+      "priority": "critical",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "release-management"
+      ],
+      "children": [],
+      "tags": [
+        "phase-08",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "ba-acceptance",
+      "title": "BA Acceptance",
+      "description": "Deliver ba acceptance according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-08",
+      "order": 3,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "readiness-engine"
+      ],
+      "children": [],
+      "tags": [
+        "phase-08",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "qa-release-approval",
+      "title": "QA Approval",
+      "description": "Deliver qa approval according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-08",
+      "order": 4,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "ba-acceptance"
+      ],
+      "children": [],
+      "tags": [
+        "phase-08",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "technical-release-approval",
+      "title": "Technical Approval",
+      "description": "Deliver technical approval according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-08",
+      "order": 5,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "qa-release-approval"
+      ],
+      "children": [],
+      "tags": [
+        "phase-08",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "release-decision",
+      "title": "Release Decision",
+      "description": "Deliver release decision according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-08",
+      "order": 6,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "technical-release-approval"
+      ],
+      "children": [],
+      "tags": [
+        "phase-08",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "project-dashboard",
+      "title": "Project Dashboard",
+      "description": "Deliver project dashboard according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-09",
+      "order": 1,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "release-decision"
+      ],
+      "children": [],
+      "tags": [
+        "phase-09",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "team-dashboard",
+      "title": "Team Dashboard",
+      "description": "Deliver team dashboard according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-09",
+      "order": 2,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "project-dashboard"
+      ],
+      "children": [],
+      "tags": [
+        "phase-09",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "management-dashboard",
+      "title": "Management Dashboard",
+      "description": "Deliver management dashboard according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-09",
+      "order": 3,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "team-dashboard"
+      ],
+      "children": [],
+      "tags": [
+        "phase-09",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "stability-metrics",
+      "title": "Requirement Stability Metrics",
+      "description": "Deliver requirement stability metrics according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-09",
+      "order": 4,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "management-dashboard"
+      ],
+      "children": [],
+      "tags": [
+        "phase-09",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "rework-metrics",
+      "title": "Rework Metrics",
+      "description": "Deliver rework metrics according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-09",
+      "order": 5,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "stability-metrics"
+      ],
+      "children": [],
+      "tags": [
+        "phase-09",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "report-exports",
+      "title": "Controlled Report Exports",
+      "description": "Deliver controlled report exports according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-09",
+      "order": 6,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "rework-metrics"
+      ],
+      "children": [],
+      "tags": [
+        "phase-09",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "security-testing",
+      "title": "Security Testing",
+      "description": "Deliver security testing according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-10",
+      "order": 1,
+      "priority": "critical",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "report-exports"
+      ],
+      "children": [],
+      "tags": [
+        "phase-10",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "performance-testing",
+      "title": "Performance Testing",
+      "description": "Deliver performance testing according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-10",
+      "order": 2,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "security-testing"
+      ],
+      "children": [],
+      "tags": [
+        "phase-10",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "accessibility-review",
+      "title": "Accessibility Review",
+      "description": "Deliver accessibility review according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-10",
+      "order": 3,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "performance-testing"
+      ],
+      "children": [],
+      "tags": [
+        "phase-10",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "backup-restore",
+      "title": "Backup and Restore",
+      "description": "Deliver backup and restore according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-10",
+      "order": 4,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "accessibility-review"
+      ],
+      "children": [],
+      "tags": [
+        "phase-10",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "demo-data",
+      "title": "Repeatable Demo Data",
+      "description": "Deliver repeatable demo data according to the published TeamFlow specification.",
+      "type": "feature",
+      "status": "planned",
+      "phaseId": "phase-10",
+      "order": 5,
+      "priority": "high",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "backup-restore"
+      ],
+      "children": [],
+      "tags": [
+        "phase-10",
+        "feature"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "cto-demo",
+      "title": "CTO Demonstration",
+      "description": "Deliver cto demonstration according to the published TeamFlow specification.",
+      "type": "milestone",
+      "status": "planned",
+      "phaseId": "phase-10",
+      "order": 6,
+      "priority": "critical",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "demo-data"
+      ],
+      "children": [],
+      "tags": [
+        "phase-10",
+        "milestone"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    },
+    {
+      "id": "pilot",
+      "title": "Four-Week Pilot",
+      "description": "Deliver four-week pilot according to the published TeamFlow specification.",
+      "type": "milestone",
+      "status": "planned",
+      "phaseId": "phase-10",
+      "order": 7,
+      "priority": "critical",
+      "owner": "TeamFlow Team",
+      "dependsOn": [
+        "cto-demo"
+      ],
+      "children": [],
+      "tags": [
+        "phase-10",
+        "milestone"
+      ],
+      "documentationUrl": null,
+      "acceptanceCriteria": [],
+      "progress": null,
+      "estimatedEffort": null
+    }
+  ]
+}
