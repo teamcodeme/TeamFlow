@@ -191,9 +191,10 @@ relationship ManyToOne {
   ProjectMember{project} to Project required
   ProjectMember{user} to UserAccount required
   Requirement{project} to Project required
-  Requirement{createdBy} to UserAccount required
+  // Use author (not createdBy): @Audited already generates a CreatedBy string audit field.
+  Requirement{author} to UserAccount required
   RequirementVersion{requirement} to Requirement required
-  RequirementVersion{createdBy} to UserAccount required
+  RequirementVersion{author} to UserAccount required
   AcceptanceCriterion{requirementVersion} to RequirementVersion required
   RequirementApproval{requirementVersion} to RequirementVersion required
   RequirementApproval{reviewer} to UserAccount required
