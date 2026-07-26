@@ -45,7 +45,13 @@ Canonical source of truth:
 - `packages/roadmap-data/roadmap.schema.ts`
 - `roadmap-visualiser-spec.md`
 
-The documentation site loads a synced copy at `docs/data/roadmap.json` (produced by `make sync-roadmap` / the Vercel build). Do not edit the docs copy by hand.
+The documentation site loads a synced copy at `docs/data/roadmap.json` via `make sync-roadmap` / `python3 scripts/sync_roadmap.py` (also the Vercel `buildCommand`). Do not edit the docs copy by hand.
+
+Optional schedule enrichment (writes only the canonical JSON):
+
+```bash
+make enrich-roadmap
+```
 
 ## Initial Commands
 

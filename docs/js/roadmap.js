@@ -1,48 +1,14 @@
-/* TeamFlow Roadmap Visualizer — loads packages/roadmap-data via docs/data sync */
+/* TeamFlow roadmap — horizontal Gantt timeline (list / timeline / board) */
 (function () {
   'use strict';
 
   const DATA_URL = 'data/roadmap.json';
   const SCHEMA_VERSION = '1.0';
-  const STATUSES = new Set(['completed', 'in-progress', 'planned', 'blocked', 'deferred', 'cancelled']);
-  const NODE_TYPES = new Set(['phase', 'module', 'feature', 'milestone']);
-
-  let roadmapData = null;
-  let network = null;
-  let nodesDataset = null;
-  let edgesDataset = null;
-  let filteredNodeIds = new Set();
-  let selectedNodeId = null;
-  let viewMode = 'auto'; // auto | graph | list
-  let layoutPositions = {};
-
-  const statusColorMap = {
-    light: {
-      completed: '#22c55e',
-      'in-progress': '#f59e0b',
-      planned: '#3b82f6',
-      blocked: '#ef4444',
-      deferred: '#8b5cf6',
-      cancelled: '#6b7280',
-    },
-    dark: {
-      completed: '#86efac',
-      'in-progress': '#fbbf24',
-      planned: '#93c5fd',
-      blocked: '#fca5a5',
-      deferred: '#d8b4fe',
-      cancelled: '#d1d5db',
-    },
-  };
-
-  const typeShapeMap = {
-    phase: 'box',
-    module: 'box',
-    feature: 'ellipse',
-    milestone: 'diamond',
-  };
-
-  const statusLabel = {
+  const DAY_MS = 86400000;
+  const PX_PER_DAY = 10;
+  const ROW_H = 40;
+  const STATUSES = ['completed', 'in-progress', 'planned', 'blocked', 'deferred', 'cancelled'];
+  const STATUS_LABEL = {
     completed: 'Completed',
     'in-progress': 'In progress',
     planned: 'Planned',
@@ -51,28 +17,59 @@
     cancelled: 'Cancelled',
   };
 
+  let roadmap = null;
+  let nodeMap = {};
+  let phaseMap = {};
+  let viewMode = 'timeline';
+  let selectedId = null;
+  let collapsed = new Set();
+  let filteredIds = new Set();
+  let rangeStart = null;
+  let rangeEnd = null;
+  let visibleRows = [];
+
+  function $(id) {
+    return document.getElementById(id);
+  }
+
   function escapeHtml(value) {
     return String(value == null ? '' : value)
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
+      .replace(/"/g, '&quot;');
   }
 
   function showError(msg) {
-    const errorEl = document.getElementById('roadmap-error');
-    const loadingEl = document.getElementById('roadmap-loading');
-    if (loadingEl) loadingEl.style.display = 'none';
-    if (errorEl) {
-      errorEl.textContent = msg;
-      errorEl.style.display = 'block';
+    const err = $('roadmap-error');
+    const loading = $('roadmap-loading');
+    if (loading) loading.style.display = 'none';
+    if (err) {
+      err.textContent = msg;
+      err.style.display = 'block';
     }
   }
 
-  function hideLoading() {
-    const loadingEl = document.getElementById('roadmap-loading');
-    if (loadingEl) loadingEl.style.display = 'none';
+  function parseISO(s) {
+    if (!s) return null;
+    const d = new Date(s + 'T00:00:00Z');
+    return Number.isNaN(d.getTime()) ? null : d;
+  }
+
+  function daysBetween(a, b) {
+    return Math.round((b.getTime() - a.getTime()) / DAY_MS);
+  }
+
+  function addDays(d, n) {
+    return new Date(d.getTime() + n * DAY_MS);
+  }
+
+  function formatShort(d) {
+    return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+  }
+
+  function formatMonth(d) {
+    return d.toLocaleDateString(undefined, { month: 'short', year: 'numeric', timeZone: 'UTC' });
   }
 
   function validateRoadmap(input) {
@@ -91,21 +88,12 @@
       throw new Error('currentPhaseId references missing phase ' + input.currentPhaseId);
     }
     for (const p of input.phases) {
-      if (!STATUSES.has(p.status)) throw new Error('Invalid phase status for ' + p.id);
-      if (typeof p.progress !== 'number' || p.progress < 0 || p.progress > 100) {
-        throw new Error('Invalid phase progress for ' + p.id);
-      }
       for (const id of p.children || []) {
         if (!nodeIds.has(id)) throw new Error('Phase ' + p.id + ' references missing child ' + id);
       }
     }
     for (const n of input.nodes) {
       if (!phaseIds.has(n.phaseId)) throw new Error('Node ' + n.id + ' references missing phase ' + n.phaseId);
-      if (!STATUSES.has(n.status)) throw new Error('Invalid node status for ' + n.id);
-      if (!NODE_TYPES.has(n.type)) throw new Error('Invalid node type for ' + n.id);
-      if (n.progress != null && (n.progress < 0 || n.progress > 100)) {
-        throw new Error('Invalid progress for ' + n.id);
-      }
       for (const id of [...(n.dependsOn || []), ...(n.children || [])]) {
         if (!nodeIds.has(id)) throw new Error('Node ' + n.id + ' references missing node ' + id);
       }
@@ -115,769 +103,802 @@
     }
   }
 
-  function buildNodeMap() {
-    const nodeMap = {};
-    roadmapData.nodes.forEach((n) => {
+  function itemDates(item) {
+    if (item.type === 'milestone' || (!item.type && item.milestoneDate)) {
+      const m = parseISO(item.milestoneDate || item.endDate || item.startDate);
+      return m ? { start: m, end: m } : null;
+    }
+    const start = parseISO(item.startDate);
+    const end = parseISO(item.endDate || item.startDate);
+    if (!start || !end) return null;
+    return { start, end };
+  }
+
+  function computeRange() {
+    let min = null;
+    let max = null;
+    const consider = (item) => {
+      const d = itemDates(item);
+      if (!d) return;
+      if (!min || d.start < min) min = d.start;
+      if (!max || d.end > max) max = d.end;
+    };
+    roadmap.phases.forEach(consider);
+    roadmap.nodes.forEach(consider);
+    if (!min || !max) {
+      min = new Date('2026-01-01T00:00:00Z');
+      max = new Date('2026-12-31T00:00:00Z');
+    }
+    rangeStart = addDays(min, -3);
+    rangeEnd = addDays(max, 10);
+  }
+
+  function xForDate(d) {
+    return daysBetween(rangeStart, d) * PX_PER_DAY;
+  }
+
+  function totalWidth() {
+    return Math.max(800, daysBetween(rangeStart, rangeEnd) * PX_PER_DAY);
+  }
+
+  function buildMaps() {
+    nodeMap = {};
+    phaseMap = {};
+    roadmap.nodes.forEach((n) => {
       nodeMap[n.id] = n;
     });
-    return nodeMap;
-  }
-
-  function buildPhaseMap() {
-    const phaseMap = {};
-    roadmapData.phases.forEach((p) => {
+    roadmap.phases.forEach((p) => {
       phaseMap[p.id] = p;
     });
-    return phaseMap;
   }
 
-  function getTheme() {
-    return document.documentElement.getAttribute('data-theme') || 'light';
+  function applyFilters(opts) {
+    const options = opts || {};
+    const q = ($('roadmap-search')?.value || '').trim().toLowerCase();
+    const phase = $('filter-phase')?.value || '';
+    const status = $('filter-status')?.value || '';
+    const type = $('filter-type')?.value || '';
+    const owner = $('filter-owner')?.value || '';
+
+    filteredIds = new Set();
+
+    roadmap.nodes.forEach((n) => {
+      const hay = [n.title, n.description, ...(n.tags || [])].join(' ').toLowerCase();
+      const okQ = !q || hay.includes(q);
+      const okP = !phase || n.phaseId === phase;
+      const okS = !status || n.status === status;
+      const okT = !type || n.type === type;
+      const okO = !owner || n.owner === owner || n.assignee === owner;
+      if (okQ && okP && okS && okT && okO) filteredIds.add(n.id);
+    });
+
+    roadmap.phases.forEach((p) => {
+      const hasChild = (p.children || []).some((id) => filteredIds.has(id));
+      const hay = [p.title, p.description].join(' ').toLowerCase();
+      const okQ = !q || hay.includes(q);
+      const okS = !status || p.status === status;
+      const okT = !type || type === 'phase';
+      const okP = !phase || p.id === phase;
+      if (hasChild || (okQ && okS && okT && okP && !owner)) filteredIds.add(p.id);
+      if (hasChild) filteredIds.add(p.id);
+    });
+
+    updateSummary();
+    renderActiveView();
+    if (!options.skipUrl) writeUrl();
   }
 
-  function getStatusColor(status) {
-    const theme = getTheme();
-    return statusColorMap[theme]?.[status] || statusColorMap.light[status] || '#94a3b8';
-  }
-
-  function getEdgeColor() {
-    return getTheme() === 'dark' ? 'rgba(255,255,255,0.28)' : 'rgba(0,0,0,0.22)';
-  }
-
-  function nodeLabel(entity, type) {
-    const title = entity.shortTitle || entity.title;
-    const status = statusLabel[entity.status] || entity.status;
-    const progress =
-      entity.progress != null && entity.progress !== '' ? ' · ' + entity.progress + '%' : '';
-    return title + '\n' + (type || entity.type || 'phase') + ' · ' + status + progress;
-  }
-
-  function computeDagreLayout() {
-    if (typeof dagre === 'undefined' || !dagre.graphlib) {
-      throw new Error('dagre library failed to load.');
+  function updateSummary() {
+    const counts = { completed: 0, 'in-progress': 0, planned: 0, blocked: 0 };
+    filteredIds.forEach((id) => {
+      const n = nodeMap[id];
+      if (n && counts[n.status] != null) counts[n.status]++;
+    });
+    $('metric-completed').textContent = counts.completed;
+    $('metric-in-progress').textContent = counts['in-progress'];
+    $('metric-planned').textContent = counts.planned;
+    $('metric-blocked').textContent = counts.blocked;
+    const cur = phaseMap[roadmap.currentPhaseId];
+    const el = $('metric-current-phase');
+    if (el) el.textContent = cur ? cur.title : '—';
+    const countEl = $('filter-result-count');
+    if (countEl) {
+      const n = [...filteredIds].filter((id) => nodeMap[id]).length;
+      countEl.textContent = n + ' items';
     }
-
-    const g = new dagre.graphlib.Graph();
-    g.setGraph({
-      rankdir: 'TB',
-      nodesep: 48,
-      ranksep: 90,
-      marginx: 24,
-      marginy: 24,
-    });
-    g.setDefaultEdgeLabel(function () {
-      return {};
-    });
-
-    const widths = { phase: 200, module: 180, feature: 160, milestone: 150 };
-
-    roadmapData.phases.forEach((phase) => {
-      g.setNode(phase.id, { width: widths.phase, height: 64 });
-    });
-    roadmapData.nodes.forEach((node) => {
-      g.setNode(node.id, {
-        width: widths[node.type] || 160,
-        height: node.type === 'milestone' ? 70 : 56,
-      });
-    });
-
-    // Phase spine (order)
-    const phases = [...roadmapData.phases].sort((a, b) => a.order - b.order);
-    for (let i = 0; i < phases.length - 1; i++) {
-      g.setEdge(phases[i].id, phases[i + 1].id);
-    }
-
-    // Phase → first-wave children (containment)
-    roadmapData.phases.forEach((phase) => {
-      (phase.children || []).forEach((childId) => {
-        if (g.hasNode(childId)) g.setEdge(phase.id, childId);
-      });
-    });
-
-    // Feature dependency edges
-    roadmapData.nodes.forEach((node) => {
-      (node.dependsOn || []).forEach((depId) => {
-        if (g.hasNode(depId) && g.hasNode(node.id)) g.setEdge(depId, node.id);
-      });
-    });
-
-    dagre.layout(g);
-
-    const positions = {};
-    g.nodes().forEach((id) => {
-      const n = g.node(id);
-      if (n) positions[id] = { x: n.x, y: n.y };
-    });
-    return positions;
   }
 
-  function buildVisNodes() {
-    const visNodes = [];
+  function buildVisibleRows() {
+    const rows = [];
+    [...roadmap.phases]
+      .sort((a, b) => a.order - b.order)
+      .forEach((phase) => {
+        if (!filteredIds.has(phase.id) && !(phase.children || []).some((c) => filteredIds.has(c))) {
+          return;
+        }
+        rows.push({ kind: 'phase', item: phase, depth: 0 });
+        if (collapsed.has(phase.id)) return;
 
-    roadmapData.phases.forEach((phase) => {
-      const color = getStatusColor(phase.status);
-      const pos = layoutPositions[phase.id] || { x: 0, y: phase.order * 120 };
-      visNodes.push({
-        id: phase.id,
-        label: nodeLabel(phase, 'phase'),
-        title: phase.title + ' — ' + (statusLabel[phase.status] || phase.status),
-        shape: 'box',
-        x: pos.x,
-        y: pos.y,
-        fixed: { x: true, y: true },
-        color: {
-          background: color,
-          border: color,
-          highlight: { background: color, border: '#111827' },
-        },
-        font: { size: 12, face: 'Inter, system-ui, sans-serif', multi: true, align: 'center' },
-        margin: 12,
-        widthConstraint: { maximum: 200 },
-        borderWidth: 2,
-      });
-    });
+        const children = (phase.children || [])
+          .map((id) => nodeMap[id])
+          .filter(Boolean)
+          .filter((n) => filteredIds.has(n.id))
+          .sort((a, b) => a.order - b.order);
 
-    roadmapData.nodes.forEach((node) => {
-      const color = getStatusColor(node.status);
-      const shape = typeShapeMap[node.type] || 'ellipse';
-      const pos = layoutPositions[node.id] || { x: 0, y: 0 };
-      visNodes.push({
-        id: node.id,
-        label: nodeLabel(node),
-        title: node.title + ' — ' + (statusLabel[node.status] || node.status),
-        shape: shape,
-        x: pos.x,
-        y: pos.y,
-        fixed: { x: true, y: true },
-        color: {
-          background: color,
-          border: color,
-          highlight: { background: color, border: '#111827' },
-        },
-        font: {
-          size: node.type === 'milestone' ? 11 : 10,
-          face: 'Inter, system-ui, sans-serif',
-          multi: true,
-          align: 'center',
-        },
-        margin: 8,
-        widthConstraint: { maximum: 170 },
-        borderWidth: 2,
-      });
-    });
-
-    return visNodes;
-  }
-
-  function buildVisEdges() {
-    const edges = [];
-    const edgeColor = getEdgeColor();
-    let edgeId = 0;
-
-    const phases = [...roadmapData.phases].sort((a, b) => a.order - b.order);
-    for (let i = 0; i < phases.length - 1; i++) {
-      edges.push({
-        id: 'spine-' + edgeId++,
-        from: phases[i].id,
-        to: phases[i + 1].id,
-        arrows: 'to',
-        dashes: true,
-        color: { color: edgeColor, highlight: '#0066ff' },
-        width: 1.25,
-        smooth: { type: 'cubicBezier', forceDirection: 'vertical', roundness: 0.4 },
-      });
-    }
-
-    roadmapData.nodes.forEach((node) => {
-      (node.dependsOn || []).forEach((depId) => {
-        edges.push({
-          id: 'dep-' + edgeId++,
-          from: depId,
-          to: node.id,
-          arrows: 'to',
-          color: { color: edgeColor, highlight: '#0066ff' },
-          width: 1.5,
-          smooth: { type: 'cubicBezier', forceDirection: 'vertical', roundness: 0.45 },
+        children.forEach((node) => {
+          rows.push({ kind: 'node', item: node, depth: node.type === 'feature' || node.type === 'milestone' ? 2 : 1 });
         });
       });
-    });
-
-    return edges;
+    visibleRows = rows;
+    return rows;
   }
 
-  function refreshNodeColors() {
-    if (!nodesDataset || !edgesDataset) return;
-    const updates = [];
-    roadmapData.phases.forEach((phase) => {
-      const color = getStatusColor(phase.status);
-      updates.push({
-        id: phase.id,
-        color: {
-          background: color,
-          border: color,
-          highlight: { background: color, border: '#111827' },
-        },
-      });
-    });
-    roadmapData.nodes.forEach((node) => {
-      const color = getStatusColor(node.status);
-      updates.push({
-        id: node.id,
-        color: {
-          background: color,
-          border: color,
-          highlight: { background: color, border: '#111827' },
-        },
-      });
-    });
-    nodesDataset.update(updates);
+  function renderTimeline() {
+    const host = $('view-timeline');
+    if (!host) return;
+    const rows = buildVisibleRows();
+    const width = totalWidth();
 
-    const edgeColor = getEdgeColor();
-    const edgeUpdates = edgesDataset.getIds().map((id) => ({
-      id: id,
-      color: { color: edgeColor, highlight: '#0066ff' },
-    }));
-    edgesDataset.update(edgeUpdates);
-  }
-
-  function initGraph() {
-    const container = document.getElementById('roadmap-graph');
-    if (!container) return;
-    if (typeof vis === 'undefined' || !vis.Network) {
-      throw new Error('vis-network library failed to load.');
+    // Month headers
+    const months = [];
+    let cursor = new Date(Date.UTC(rangeStart.getUTCFullYear(), rangeStart.getUTCMonth(), 1));
+    while (cursor <= rangeEnd) {
+      const next = new Date(Date.UTC(cursor.getUTCFullYear(), cursor.getUTCMonth() + 1, 1));
+      const left = Math.max(0, xForDate(cursor));
+      const right = Math.min(width, xForDate(next));
+      months.push({ label: formatMonth(cursor), left, width: Math.max(0, right - left) });
+      cursor = next;
     }
 
-    layoutPositions = computeDagreLayout();
-    nodesDataset = new vis.DataSet(buildVisNodes());
-    edgesDataset = new vis.DataSet(buildVisEdges());
+    const treeRows = rows
+      .map((row) => {
+        const item = row.item;
+        const isPhase = row.kind === 'phase';
+        const hasKids = isPhase && (item.children || []).some((id) => filteredIds.has(id));
+        const expanded = !collapsed.has(item.id);
+        return (
+          '<div class="rm-row' +
+          (isPhase ? ' is-phase' : '') +
+          (selectedId === item.id ? ' is-selected' : '') +
+          '" data-id="' +
+          escapeHtml(item.id) +
+          '" role="button" tabindex="0">' +
+          '<button type="button" class="rm-toggle' +
+          (hasKids ? '' : ' is-leaf') +
+          '" data-toggle="' +
+          escapeHtml(item.id) +
+          '" aria-expanded="' +
+          (expanded ? 'true' : 'false') +
+          '" aria-label="Toggle ' +
+          escapeHtml(item.title) +
+          '">' +
+          '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>' +
+          '</button>' +
+          '<div class="rm-row-main rm-indent-' +
+          row.depth +
+          '">' +
+          '<div class="rm-row-title">' +
+          escapeHtml(item.title) +
+          '</div>' +
+          '<div class="rm-row-meta">' +
+          '<span class="rm-type-chip">' +
+          escapeHtml(isPhase ? 'phase' : item.type) +
+          '</span>' +
+          '<span><span class="status-dot ' +
+          escapeHtml(item.status) +
+          '"></span> ' +
+          escapeHtml(STATUS_LABEL[item.status] || item.status) +
+          '</span>' +
+          (item.progress != null ? '<span>' + item.progress + '%</span>' : '') +
+          '</div></div></div>'
+        );
+      })
+      .join('');
 
-    const options = {
-      physics: { enabled: false },
-      layout: { hierarchical: { enabled: false } },
-      interaction: {
-        navigationButtons: false,
-        keyboard: { enabled: true, bindToWindow: false },
-        hover: true,
-        multiselect: false,
-        tooltipDelay: 200,
-      },
-      nodes: { borderWidth: 2, chosen: true },
-      edges: { selectionWidth: 2 },
-    };
+    const trackRows = rows
+      .map((row) => {
+        const item = row.item;
+        const dates = itemDates(item);
+        if (!dates) {
+          return '<div class="rm-track-row" data-id="' + escapeHtml(item.id) + '"></div>';
+        }
+        const isMilestone = !item.children && item.type === 'milestone';
+        if (isMilestone) {
+          const x = xForDate(dates.start);
+          return (
+            '<div class="rm-track-row" data-id="' +
+            escapeHtml(item.id) +
+            '">' +
+            '<button type="button" class="rm-milestone status-' +
+            escapeHtml(item.status) +
+            '" style="left:' +
+            x +
+            'px" title="' +
+            escapeHtml(item.title) +
+            '" data-select="' +
+            escapeHtml(item.id) +
+            '" aria-label="' +
+            escapeHtml(item.title) +
+            '"></button></div>'
+          );
+        }
+        const left = xForDate(dates.start);
+        const w = Math.max(6, (daysBetween(dates.start, dates.end) + 1) * PX_PER_DAY);
+        const progress = item.progress != null ? Math.max(0, Math.min(100, item.progress)) : null;
+        return (
+          '<div class="rm-track-row" data-id="' +
+          escapeHtml(item.id) +
+          '">' +
+          '<button type="button" class="rm-bar status-' +
+          escapeHtml(item.status) +
+          (row.kind === 'phase' ? ' is-phase' : '') +
+          '" style="left:' +
+          left +
+          'px;width:' +
+          w +
+          'px" data-select="' +
+          escapeHtml(item.id) +
+          '" title="' +
+          escapeHtml(item.title) +
+          '">' +
+          (progress != null ? '<span class="rm-bar-progress" style="width:' + progress + '%"></span>' : '') +
+          '<span class="rm-bar-label">' +
+          escapeHtml(item.shortTitle || item.title) +
+          '</span></button></div>'
+        );
+      })
+      .join('');
 
-    if (network) {
-      network.destroy();
-      network = null;
+    const today = new Date();
+    const todayUTC = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()));
+    const todayX =
+      todayUTC >= rangeStart && todayUTC <= rangeEnd ? xForDate(todayUTC) : null;
+
+    host.innerHTML =
+      '<div class="rm-gantt" style="--rm-day-px:' +
+      PX_PER_DAY +
+      'px">' +
+      '<div class="rm-tree" id="rm-tree">' +
+      '<div class="rm-tree-head">Work item</div>' +
+      treeRows +
+      '</div>' +
+      '<div class="rm-timeline-scroll" id="rm-timeline-scroll">' +
+      '<div class="rm-timeline-canvas" style="width:' +
+      width +
+      'px">' +
+      '<div class="rm-timeline-head-inner">' +
+      months
+        .map(
+          (m) =>
+            '<div class="rm-month" style="width:' +
+            m.width +
+            'px">' +
+            escapeHtml(m.label) +
+            '</div>'
+        )
+        .join('') +
+      '</div>' +
+      '<svg class="rm-deps" id="rm-deps" width="' +
+      width +
+      '" height="' +
+      rows.length * ROW_H +
+      '"></svg>' +
+      (todayX != null ? '<div class="rm-today" style="left:' + todayX + 'px" title="Today"></div>' : '') +
+      trackRows +
+      '</div></div></div>';
+
+    wireTimelineEvents(host);
+    requestAnimationFrame(() => drawDependencies());
+  }
+
+  function wireTimelineEvents(host) {
+    host.querySelectorAll('.rm-row').forEach((row) => {
+      row.addEventListener('click', (e) => {
+        if (e.target.closest('[data-toggle]')) return;
+        selectItem(row.getAttribute('data-id'));
+      });
+      row.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectItem(row.getAttribute('data-id'));
+        }
+      });
+    });
+    host.querySelectorAll('[data-toggle]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = btn.getAttribute('data-toggle');
+        if (collapsed.has(id)) collapsed.delete(id);
+        else collapsed.add(id);
+        renderTimeline();
+      });
+    });
+    host.querySelectorAll('[data-select]').forEach((el) => {
+      el.addEventListener('click', (e) => {
+        e.stopPropagation();
+        selectItem(el.getAttribute('data-select'));
+      });
+    });
+
+    const tree = $('rm-tree');
+    const scroll = $('rm-timeline-scroll');
+    if (tree && scroll) {
+      let syncing = false;
+      tree.addEventListener('scroll', () => {
+        if (syncing) return;
+        syncing = true;
+        scroll.scrollTop = tree.scrollTop;
+        syncing = false;
+      });
+      scroll.addEventListener('scroll', () => {
+        if (syncing) return;
+        syncing = true;
+        tree.scrollTop = scroll.scrollTop;
+        syncing = false;
+      });
     }
+  }
 
-    network = new vis.Network(container, { nodes: nodesDataset, edges: edgesDataset }, options);
+  function drawDependencies() {
+    const svg = $('rm-deps');
+    if (!svg) return;
+    const index = new Map();
+    visibleRows.forEach((row, i) => index.set(row.item.id, i));
 
-    network.on('click', (params) => {
-      if (params.nodes.length > 0) selectNode(params.nodes[0]);
-      else closeDetails();
+    const paths = [];
+    visibleRows.forEach((row) => {
+      if (row.kind !== 'node') return;
+      const node = row.item;
+      (node.dependsOn || []).forEach((depId) => {
+        if (!index.has(depId) || !index.has(node.id)) return;
+        const fromItem = nodeMap[depId];
+        const toItem = node;
+        const fromDates = itemDates(fromItem);
+        const toDates = itemDates(toItem);
+        if (!fromDates || !toDates) return;
+        const y1 = index.get(depId) * ROW_H + ROW_H / 2;
+        const y2 = index.get(node.id) * ROW_H + ROW_H / 2;
+        const x1 =
+          fromItem.type === 'milestone'
+            ? xForDate(fromDates.start)
+            : xForDate(fromDates.end) + PX_PER_DAY;
+        const x2 =
+          toItem.type === 'milestone' ? xForDate(toDates.start) : xForDate(toDates.start);
+        const mid = (x1 + x2) / 2;
+        paths.push(
+          '<path d="M' +
+            x1 +
+            ' ' +
+            y1 +
+            ' C' +
+            mid +
+            ' ' +
+            y1 +
+            ', ' +
+            mid +
+            ' ' +
+            y2 +
+            ', ' +
+            x2 +
+            ' ' +
+            y2 +
+            '" />'
+        );
+      });
     });
+    svg.innerHTML = paths.join('');
+  }
 
-    network.once('stabilizationIterationsDone', () => {
-      network.fit({ animation: false, padding: 40 });
+  function renderList() {
+    const host = $('view-list');
+    if (!host) return;
+    let html = '';
+    let count = 0;
+    [...roadmap.phases]
+      .sort((a, b) => a.order - b.order)
+      .forEach((phase) => {
+        const kids = (phase.children || [])
+          .map((id) => nodeMap[id])
+          .filter((n) => n && filteredIds.has(n.id));
+        if (!kids.length && !filteredIds.has(phase.id)) return;
+        html +=
+          '<section class="rm-list-group"><h3 class="rm-list-group-title">' +
+          escapeHtml(phase.title) +
+          '</h3>';
+        kids.forEach((n) => {
+          count++;
+          const dates = itemDates(n);
+          html +=
+            '<button type="button" class="rm-list-item" data-id="' +
+            escapeHtml(n.id) +
+            '"><div><div class="rm-list-item-title">' +
+            escapeHtml(n.title) +
+            '</div><div class="rm-list-item-meta">' +
+            '<span>' +
+            escapeHtml(n.type) +
+            '</span>' +
+            '<span><span class="status-dot ' +
+            escapeHtml(n.status) +
+            '"></span> ' +
+            escapeHtml(STATUS_LABEL[n.status] || n.status) +
+            '</span>' +
+            (dates
+              ? '<span>' + formatShort(dates.start) + ' → ' + formatShort(dates.end) + '</span>'
+              : '') +
+            (n.owner || n.assignee
+              ? '<span>' + escapeHtml(n.assignee || n.owner) + '</span>'
+              : '') +
+            '</div></div></button>';
+        });
+        html += '</section>';
+      });
+    host.innerHTML = html || '<p class="roadmap-empty">No items match the current filters.</p>';
+    host.querySelectorAll('.rm-list-item').forEach((btn) => {
+      btn.addEventListener('click', () => selectItem(btn.getAttribute('data-id')));
     });
+    const countEl = $('filter-result-count');
+    if (countEl) countEl.textContent = count + ' items';
+  }
 
-    // Immediate fit for fixed-position graphs
-    requestAnimationFrame(() => {
-      if (network) network.fit({ animation: false, padding: 40 });
+  function renderBoard() {
+    const host = $('view-board');
+    if (!host) return;
+    const columns = STATUSES.map((status) => {
+      const cards = roadmap.nodes.filter((n) => filteredIds.has(n.id) && n.status === status);
+      return { status, cards };
+    }).filter((c) => c.cards.length || ['completed', 'in-progress', 'planned', 'blocked'].includes(c.status));
+
+    host.innerHTML = columns
+      .map((col) => {
+        return (
+          '<div class="rm-board-col">' +
+          '<div class="rm-board-col-title"><span>' +
+          escapeHtml(STATUS_LABEL[col.status]) +
+          '</span><span>' +
+          col.cards.length +
+          '</span></div>' +
+          col.cards
+            .map((n) => {
+              const dates = itemDates(n);
+              return (
+                '<button type="button" class="rm-board-card" data-id="' +
+                escapeHtml(n.id) +
+                '"><div class="rm-board-card-title">' +
+                escapeHtml(n.title) +
+                '</div><div class="rm-board-card-meta">' +
+                escapeHtml(n.type) +
+                (dates ? ' · ' + formatShort(dates.end) : '') +
+                (n.owner ? ' · ' + escapeHtml(n.owner) : '') +
+                '</div></button>'
+              );
+            })
+            .join('') +
+          '</div>'
+        );
+      })
+      .join('');
+
+    host.querySelectorAll('.rm-board-card').forEach((btn) => {
+      btn.addEventListener('click', () => selectItem(btn.getAttribute('data-id')));
     });
   }
 
-  function selectNode(nodeId) {
-    selectedNodeId = nodeId;
-    showDetails(nodeId);
-    if (network) network.setSelection({ nodes: [nodeId], edges: [] });
-    writeUrlState();
+  function renderActiveView() {
+    const timeline = $('view-timeline');
+    const list = $('view-list');
+    const board = $('view-board');
+    if (timeline) timeline.hidden = viewMode !== 'timeline';
+    if (list) list.hidden = viewMode !== 'list';
+    if (board) board.hidden = viewMode !== 'board';
+
+    document.querySelectorAll('.view-switch button').forEach((btn) => {
+      btn.setAttribute('aria-pressed', btn.dataset.view === viewMode ? 'true' : 'false');
+    });
+
+    if (viewMode === 'timeline') renderTimeline();
+    else if (viewMode === 'list') renderList();
+    else renderBoard();
+  }
+
+  function selectItem(id) {
+    selectedId = id;
+    showDetails(id);
+    document.querySelectorAll('.rm-row').forEach((row) => {
+      row.classList.toggle('is-selected', row.getAttribute('data-id') === id);
+    });
+    writeUrl();
   }
 
   function closeDetails() {
-    selectedNodeId = null;
-    const detailsEl = document.getElementById('roadmap-details');
-    if (detailsEl) detailsEl.style.display = 'none';
-    if (network) network.setSelection({ nodes: [], edges: [] });
-    writeUrlState();
+    selectedId = null;
+    const panel = $('roadmap-details');
+    if (panel) panel.style.display = 'none';
+    document.querySelectorAll('.rm-row.is-selected').forEach((r) => r.classList.remove('is-selected'));
+    writeUrl();
   }
 
-  function showDetails(nodeId) {
-    const nodeMap = buildNodeMap();
-    const phaseMap = buildPhaseMap();
-    const node = nodeMap[nodeId] || roadmapData.phases.find((p) => p.id === nodeId);
-    if (!node) return;
+  function showDetails(id) {
+    const item = nodeMap[id] || phaseMap[id];
+    const panel = $('roadmap-details');
+    if (!item || !panel) return;
 
-    const detailsEl = document.getElementById('roadmap-details');
-    if (!detailsEl) return;
+    $('details-title').textContent = item.title;
+    $('details-description').textContent = item.description || '';
 
-    document.getElementById('details-title').textContent = node.title;
-    document.getElementById('details-description').textContent = node.description || '';
-
-    const statusBadge = document.getElementById('details-status');
-    statusBadge.className = 'status-badge ' + node.status;
-    statusBadge.innerHTML =
+    const badge = $('details-status');
+    badge.className = 'status-badge ' + item.status;
+    badge.innerHTML =
       '<span class="status-dot ' +
-      escapeHtml(node.status) +
+      escapeHtml(item.status) +
       '"></span> ' +
-      escapeHtml(statusLabel[node.status] || node.status);
+      escapeHtml(STATUS_LABEL[item.status] || item.status);
 
-    if (node.progress != null) {
-      document.getElementById('details-progress-section').style.display = 'block';
-      document.getElementById('details-progress-fill').style.width = node.progress + '%';
-      document.getElementById('details-progress-text').textContent = node.progress + '% complete';
-    } else {
-      document.getElementById('details-progress-section').style.display = 'none';
+    const dates = itemDates(item);
+    const datesSection = $('details-dates-section');
+    if (datesSection) {
+      if (dates) {
+        datesSection.style.display = 'block';
+        $('details-dates').textContent =
+          item.type === 'milestone'
+            ? formatShort(dates.start)
+            : formatShort(dates.start) + ' → ' + formatShort(dates.end) +
+              (item.durationDays != null ? ' · ' + item.durationDays + ' days' : '');
+      } else {
+        datesSection.style.display = 'none';
+      }
     }
 
-    if (node.phaseId) {
-      const phase = phaseMap[node.phaseId];
-      document.getElementById('details-phase-section').style.display = 'block';
-      document.getElementById('details-phase').textContent = phase?.title || node.phaseId;
+    if (item.progress != null) {
+      $('details-progress-section').style.display = 'block';
+      $('details-progress-fill').style.width = item.progress + '%';
+      $('details-progress-text').textContent = item.progress + '% complete';
     } else {
-      document.getElementById('details-phase-section').style.display = 'none';
+      $('details-progress-section').style.display = 'none';
     }
 
-    if (node.owner) {
-      document.getElementById('details-owner-section').style.display = 'block';
-      document.getElementById('details-owner').textContent = node.owner;
+    const phaseSection = $('details-phase-section');
+    if (item.phaseId && phaseMap[item.phaseId]) {
+      phaseSection.style.display = 'block';
+      $('details-phase').textContent = phaseMap[item.phaseId].title;
     } else {
-      document.getElementById('details-owner-section').style.display = 'none';
+      phaseSection.style.display = 'none';
     }
 
-    if (node.priority) {
-      document.getElementById('details-priority-section').style.display = 'block';
-      document.getElementById('details-priority').textContent =
-        node.priority.charAt(0).toUpperCase() + node.priority.slice(1);
+    const ownerVal = item.assignee || item.owner;
+    if (ownerVal) {
+      $('details-owner-section').style.display = 'block';
+      $('details-owner').textContent = ownerVal;
     } else {
-      document.getElementById('details-priority-section').style.display = 'none';
+      $('details-owner-section').style.display = 'none';
     }
 
-    if (node.blockerReason) {
-      document.getElementById('details-blocker-section').style.display = 'block';
-      document.getElementById('details-blocker').textContent = node.blockerReason;
+    if (item.priority) {
+      $('details-priority-section').style.display = 'block';
+      $('details-priority').textContent =
+        item.priority.charAt(0).toUpperCase() + item.priority.slice(1);
     } else {
-      document.getElementById('details-blocker-section').style.display = 'none';
+      $('details-priority-section').style.display = 'none';
     }
 
-    if (node.acceptanceCriteria && node.acceptanceCriteria.length > 0) {
-      document.getElementById('details-criteria-section').style.display = 'block';
-      const criteriaList = document.getElementById('details-criteria');
-      criteriaList.innerHTML = node.acceptanceCriteria
+    if (item.targetRelease) {
+      const tr = $('details-release-section');
+      if (tr) {
+        tr.style.display = 'block';
+        $('details-release').textContent = item.targetRelease;
+      }
+    } else if ($('details-release-section')) {
+      $('details-release-section').style.display = 'none';
+    }
+
+    if (item.blockerReason) {
+      $('details-blocker-section').style.display = 'block';
+      $('details-blocker').textContent = item.blockerReason;
+    } else {
+      $('details-blocker-section').style.display = 'none';
+    }
+
+    if (item.acceptanceCriteria && item.acceptanceCriteria.length) {
+      $('details-criteria-section').style.display = 'block';
+      $('details-criteria').innerHTML = item.acceptanceCriteria
         .map((c) => '<li>' + escapeHtml(c) + '</li>')
         .join('');
     } else {
-      document.getElementById('details-criteria-section').style.display = 'none';
+      $('details-criteria-section').style.display = 'none';
     }
 
-    if (node.dependsOn && node.dependsOn.length > 0) {
-      document.getElementById('details-dependencies-section').style.display = 'block';
-      const depList = document.getElementById('details-dependencies');
-      depList.innerHTML = node.dependsOn
-        .map((id) => {
-          const dep = nodeMap[id] || roadmapData.phases.find((p) => p.id === id);
+    if (item.dependsOn && item.dependsOn.length) {
+      $('details-dependencies-section').style.display = 'block';
+      $('details-dependencies').innerHTML = item.dependsOn
+        .map((depId) => {
+          const dep = nodeMap[depId] || phaseMap[depId];
           return (
             '<li><button type="button" class="linkish" data-jump="' +
-            escapeHtml(id) +
+            escapeHtml(depId) +
             '">' +
-            escapeHtml(dep?.title || id) +
+            escapeHtml(dep?.title || depId) +
             '</button></li>'
           );
         })
         .join('');
-      depList.querySelectorAll('[data-jump]').forEach((btn) => {
-        btn.addEventListener('click', () => selectNode(btn.getAttribute('data-jump')));
+      $('details-dependencies').querySelectorAll('[data-jump]').forEach((btn) => {
+        btn.addEventListener('click', () => selectItem(btn.getAttribute('data-jump')));
       });
     } else {
-      document.getElementById('details-dependencies-section').style.display = 'none';
+      $('details-dependencies-section').style.display = 'none';
     }
 
-    if (node.children && node.children.length > 0) {
-      document.getElementById('details-children-section').style.display = 'block';
-      const childList = document.getElementById('details-children');
-      childList.innerHTML = node.children
-        .map((id) => {
-          const child = nodeMap[id] || roadmapData.phases.find((p) => p.id === id);
+    if (item.children && item.children.length) {
+      $('details-children-section').style.display = 'block';
+      $('details-children').innerHTML = item.children
+        .map((cid) => {
+          const child = nodeMap[cid] || phaseMap[cid];
           return (
             '<li><button type="button" class="linkish" data-jump="' +
-            escapeHtml(id) +
+            escapeHtml(cid) +
             '">' +
-            escapeHtml(child?.title || id) +
+            escapeHtml(child?.title || cid) +
             '</button></li>'
           );
         })
         .join('');
-      childList.querySelectorAll('[data-jump]').forEach((btn) => {
-        btn.addEventListener('click', () => selectNode(btn.getAttribute('data-jump')));
+      $('details-children').querySelectorAll('[data-jump]').forEach((btn) => {
+        btn.addEventListener('click', () => selectItem(btn.getAttribute('data-jump')));
       });
     } else {
-      document.getElementById('details-children-section').style.display = 'none';
+      $('details-children-section').style.display = 'none';
     }
 
-    if (node.documentationUrl) {
-      document.getElementById('details-docs-section').style.display = 'block';
-      const link = document.getElementById('details-docs-link');
-      link.href = resolveDocUrl(node.documentationUrl);
+    if (item.documentationUrl) {
+      $('details-docs-section').style.display = 'block';
+      $('details-docs-link').href = resolveDocUrl(item.documentationUrl);
     } else {
-      document.getElementById('details-docs-section').style.display = 'none';
+      $('details-docs-section').style.display = 'none';
     }
 
-    detailsEl.style.display = 'block';
+    panel.style.display = 'flex';
   }
 
   function resolveDocUrl(url) {
     if (!url) return '#';
     if (/^https?:\/\//i.test(url)) return url;
-    // Site is served from docs/; strip leading /docs/ and map / to index
-    if (url === '/' || url === '/index.html') return 'index.html';
+    if (url === '/' || url === '/index.html') return 'html/introduction.html';
     if (url.startsWith('/docs/')) return url.replace(/^\/docs\//, '');
     if (url.startsWith('/')) return url.slice(1);
     return url;
   }
 
-  function updateSummary() {
-    const nodeMap = buildNodeMap();
-    const counts = { completed: 0, 'in-progress': 0, planned: 0, blocked: 0 };
-
-    filteredNodeIds.forEach((id) => {
-      const node = nodeMap[id];
-      if (node && counts[node.status] !== undefined) counts[node.status]++;
-    });
-
-    document.getElementById('metric-completed').textContent = counts.completed;
-    document.getElementById('metric-in-progress').textContent = counts['in-progress'];
-    document.getElementById('metric-planned').textContent = counts.planned;
-    document.getElementById('metric-blocked').textContent = counts.blocked;
-
-    const current = roadmapData.phases.find((p) => p.id === roadmapData.currentPhaseId);
-    const currentEl = document.getElementById('metric-current-phase');
-    if (currentEl) currentEl.textContent = current ? current.title : '—';
-  }
-
-  function applyFilters(options) {
-    const opts = options || {};
-    const nodeMap = buildNodeMap();
-    const search = (document.getElementById('roadmap-search')?.value || '').toLowerCase().trim();
-    const phaseFilter = document.getElementById('filter-phase')?.value || '';
-    const statusFilter = document.getElementById('filter-status')?.value || '';
-    const typeFilter = document.getElementById('filter-type')?.value || '';
-    const ownerFilter = document.getElementById('filter-owner')?.value || '';
-
-    filteredNodeIds.clear();
-
-    roadmapData.nodes.forEach((node) => {
-      const matchSearch =
-        !search ||
-        node.title.toLowerCase().includes(search) ||
-        (node.description && node.description.toLowerCase().includes(search)) ||
-        (node.tags && node.tags.some((t) => t.toLowerCase().includes(search)));
-      const matchPhase = !phaseFilter || node.phaseId === phaseFilter;
-      const matchStatus = !statusFilter || node.status === statusFilter;
-      const matchType = !typeFilter || node.type === typeFilter;
-      const matchOwner = !ownerFilter || node.owner === ownerFilter;
-
-      if (matchSearch && matchPhase && matchStatus && matchType && matchOwner) {
-        filteredNodeIds.add(node.id);
-      }
-    });
-
-    roadmapData.phases.forEach((phase) => {
-      const hasVisibleChild = (phase.children || []).some((id) => filteredNodeIds.has(id));
-      const matchSearch =
-        !search ||
-        phase.title.toLowerCase().includes(search) ||
-        (phase.description && phase.description.toLowerCase().includes(search));
-      const matchStatus = !statusFilter || phase.status === statusFilter;
-      const matchType = !typeFilter || typeFilter === 'phase';
-      const matchOwner = !ownerFilter; // phases have no owner
-      const matchPhase = !phaseFilter || phase.id === phaseFilter;
-
-      if (
-        (hasVisibleChild && !search && !statusFilter && !typeFilter && !ownerFilter) ||
-        (matchSearch && matchStatus && matchType && matchOwner && matchPhase)
-      ) {
-        filteredNodeIds.add(phase.id);
-      }
-      if (hasVisibleChild) filteredNodeIds.add(phase.id);
-    });
-
-    if (nodesDataset) {
-      const updates = nodesDataset.getIds().map((id) => ({
-        id: id,
-        hidden: !filteredNodeIds.has(id),
-      }));
-      nodesDataset.update(updates);
-    }
-
-    if (edgesDataset) {
-      const edgeUpdates = edgesDataset.get().map((edge) => ({
-        id: edge.id,
-        hidden: !(filteredNodeIds.has(edge.from) && filteredNodeIds.has(edge.to)),
-      }));
-      edgesDataset.update(edgeUpdates);
-    }
-
-    updateListView();
-    updateSummary();
-    if (!opts.skipUrl) writeUrlState();
-
-    if (network && !opts.skipFit) {
-      requestAnimationFrame(() => {
-        if (network) network.fit({ animation: { duration: 250, easingFunction: 'easeInOutQuad' }, padding: 40 });
-      });
-    }
-  }
-
-  function updateListView() {
-    const nodeMap = buildNodeMap();
-    const listEl = document.getElementById('roadmap-list');
-    if (!listEl) return;
-
-    let html = '';
-    let visibleCount = 0;
-
-    roadmapData.phases
-      .slice()
-      .sort((a, b) => a.order - b.order)
-      .forEach((phase) => {
-        const childHtml = (phase.children || [])
-          .map((childId) => {
-            if (!filteredNodeIds.has(childId)) return '';
-            const node = nodeMap[childId];
-            if (!node) return '';
-            visibleCount++;
-            return (
-              '<button type="button" class="list-item" data-node-id="' +
-              escapeHtml(node.id) +
-              '">' +
-              '<div class="list-item-title">' +
-              escapeHtml(node.title) +
-              '</div>' +
-              '<div class="list-item-meta">' +
-              '<span class="list-item-type">' +
-              escapeHtml(node.type) +
-              '</span>' +
-              '<span class="list-item-status">' +
-              '<span class="status-dot ' +
-              escapeHtml(node.status) +
-              '"></span> ' +
-              escapeHtml(statusLabel[node.status] || node.status) +
-              '</span>' +
-              (node.owner
-                ? '<span class="list-item-owner">' + escapeHtml(node.owner) + '</span>'
-                : '') +
-              '</div></button>'
-            );
-          })
-          .join('');
-
-        if (!childHtml && !filteredNodeIds.has(phase.id)) return;
-
-        html +=
-          '<div class="list-group">' +
-          '<div class="list-group-title">' +
-          escapeHtml(phase.title) +
-          ' <span class="list-group-status">' +
-          escapeHtml(statusLabel[phase.status] || phase.status) +
-          '</span></div>' +
-          childHtml +
-          '</div>';
-      });
-
-    if (!html) {
-      html = '<p class="roadmap-empty">No roadmap nodes match the current filters.</p>';
-    }
-
-    listEl.innerHTML = html;
-    listEl.querySelectorAll('.list-item').forEach((item) => {
-      item.addEventListener('click', () => selectNode(item.dataset.nodeId));
-    });
-
-    const emptyNote = document.getElementById('filter-result-count');
-    if (emptyNote) emptyNote.textContent = visibleCount + ' features shown';
-  }
-
-  function writeUrlState() {
+  function writeUrl() {
     const params = new URLSearchParams();
-    const search = document.getElementById('roadmap-search')?.value.trim();
-    const phase = document.getElementById('filter-phase')?.value;
-    const status = document.getElementById('filter-status')?.value;
-    const type = document.getElementById('filter-type')?.value;
-    const owner = document.getElementById('filter-owner')?.value;
-    if (search) params.set('q', search);
+    const q = $('roadmap-search')?.value.trim();
+    const phase = $('filter-phase')?.value;
+    const status = $('filter-status')?.value;
+    const type = $('filter-type')?.value;
+    const owner = $('filter-owner')?.value;
+    if (q) params.set('q', q);
     if (phase) params.set('phase', phase);
     if (status) params.set('status', status);
     if (type) params.set('type', type);
     if (owner) params.set('owner', owner);
-    if (selectedNodeId) params.set('node', selectedNodeId);
-    if (viewMode === 'list' || viewMode === 'graph') params.set('view', viewMode);
-
+    if (viewMode !== 'timeline') params.set('view', viewMode);
+    if (selectedId) params.set('node', selectedId);
     const qs = params.toString();
-    const url = qs ? window.location.pathname + '?' + qs : window.location.pathname;
-    window.history.replaceState({}, '', url);
+    history.replaceState({}, '', location.pathname + (qs ? '?' + qs : ''));
   }
 
-  function readUrlState() {
-    const params = new URLSearchParams(window.location.search);
-    const searchEl = document.getElementById('roadmap-search');
-    const phaseEl = document.getElementById('filter-phase');
-    const statusEl = document.getElementById('filter-status');
-    const typeEl = document.getElementById('filter-type');
-    const ownerEl = document.getElementById('filter-owner');
-
-    if (searchEl && params.has('q')) searchEl.value = params.get('q') || '';
-    if (phaseEl && params.has('phase')) phaseEl.value = params.get('phase') || '';
-    if (statusEl && params.has('status')) statusEl.value = params.get('status') || '';
-    if (typeEl && params.has('type')) typeEl.value = params.get('type') || '';
-    if (ownerEl && params.has('owner')) ownerEl.value = params.get('owner') || '';
-    if (params.get('view') === 'list' || params.get('view') === 'graph') {
-      viewMode = params.get('view');
-    }
+  function readUrl() {
+    const params = new URLSearchParams(location.search);
+    if (params.has('q') && $('roadmap-search')) $('roadmap-search').value = params.get('q') || '';
+    if (params.has('phase') && $('filter-phase')) $('filter-phase').value = params.get('phase') || '';
+    if (params.has('status') && $('filter-status')) $('filter-status').value = params.get('status') || '';
+    if (params.has('type') && $('filter-type')) $('filter-type').value = params.get('type') || '';
+    if (params.has('owner') && $('filter-owner')) $('filter-owner').value = params.get('owner') || '';
+    const view = params.get('view');
+    if (view === 'list' || view === 'board' || view === 'timeline') viewMode = view;
     return params.get('node');
   }
 
-  function setView(mode) {
-    viewMode = mode;
-    const graphWrapper = document.getElementById('roadmap-graph')?.parentElement;
-    const listEl = document.getElementById('roadmap-list');
-    const showList = mode === 'list' || (mode === 'auto' && isMobileView());
-    if (graphWrapper) graphWrapper.style.display = showList ? 'none' : 'block';
-    if (listEl) listEl.style.display = showList ? 'block' : 'none';
-    if (showList) updateListView();
-    else if (network) {
-      requestAnimationFrame(() => network.fit({ animation: false, padding: 40 }));
-    }
-    writeUrlState();
-  }
-
-  function initFilters() {
-    const phaseSelect = document.getElementById('filter-phase');
-    if (phaseSelect) {
-      [...roadmapData.phases]
-        .sort((a, b) => a.order - b.order)
-        .forEach((phase) => {
-          const opt = document.createElement('option');
-          opt.value = phase.id;
-          opt.textContent = phase.title;
-          phaseSelect.appendChild(opt);
-        });
-      phaseSelect.addEventListener('change', () => applyFilters());
-    }
-
-    const ownerSelect = document.getElementById('filter-owner');
-    if (ownerSelect) {
-      const owners = [
-        ...new Set(roadmapData.nodes.map((n) => n.owner).filter(Boolean)),
-      ].sort();
-      owners.forEach((owner) => {
+  function initControls() {
+    const phaseSelect = $('filter-phase');
+    [...roadmap.phases]
+      .sort((a, b) => a.order - b.order)
+      .forEach((p) => {
         const opt = document.createElement('option');
-        opt.value = owner;
-        opt.textContent = owner;
-        ownerSelect.appendChild(opt);
+        opt.value = p.id;
+        opt.textContent = p.title;
+        phaseSelect.appendChild(opt);
       });
-      ownerSelect.addEventListener('change', () => applyFilters());
-    }
 
-    document.getElementById('filter-status')?.addEventListener('change', () => applyFilters());
-    document.getElementById('filter-type')?.addEventListener('change', () => applyFilters());
-    document.getElementById('roadmap-search')?.addEventListener('input', () => applyFilters());
+    const owners = [
+      ...new Set(
+        roadmap.nodes.flatMap((n) => [n.owner, n.assignee].filter(Boolean))
+      ),
+    ].sort();
+    const ownerSelect = $('filter-owner');
+    owners.forEach((o) => {
+      const opt = document.createElement('option');
+      opt.value = o;
+      opt.textContent = o;
+      ownerSelect.appendChild(opt);
+    });
 
-    document.getElementById('btn-reset')?.addEventListener('click', () => {
+    ['filter-phase', 'filter-status', 'filter-type', 'filter-owner'].forEach((id) => {
+      $(id)?.addEventListener('change', () => applyFilters());
+    });
+    $('roadmap-search')?.addEventListener('input', () => applyFilters());
+
+    $('btn-reset')?.addEventListener('click', () => {
       if (phaseSelect) phaseSelect.value = '';
-      const status = document.getElementById('filter-status');
-      const type = document.getElementById('filter-type');
-      const owner = document.getElementById('filter-owner');
-      const search = document.getElementById('roadmap-search');
-      if (status) status.value = '';
-      if (type) type.value = '';
-      if (owner) owner.value = '';
-      if (search) search.value = '';
+      ['filter-status', 'filter-type', 'filter-owner', 'roadmap-search'].forEach((id) => {
+        if ($(id)) $(id).value = '';
+      });
       closeDetails();
       applyFilters();
     });
 
-    document.getElementById('btn-fit-view')?.addEventListener('click', () => {
-      if (network) network.fit({ animation: { duration: 300 }, padding: 40 });
+    document.querySelectorAll('.view-switch button').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        viewMode = btn.dataset.view;
+        renderActiveView();
+        writeUrl();
+      });
     });
 
-    document.getElementById('btn-toggle-view')?.addEventListener('click', () => {
-      const graphWrapper = document.getElementById('roadmap-graph')?.parentElement;
-      const showingGraph = graphWrapper && graphWrapper.style.display !== 'none';
-      setView(showingGraph ? 'list' : 'graph');
+    $('btn-fit-view')?.addEventListener('click', () => {
+      const scroll = $('rm-timeline-scroll');
+      if (!scroll) return;
+      const today = new Date();
+      const todayUTC = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()));
+      const x = Math.max(0, xForDate(todayUTC) - scroll.clientWidth / 3);
+      scroll.scrollTo({ left: x, behavior: 'smooth' });
     });
 
-    document.getElementById('btn-close-details')?.addEventListener('click', closeDetails);
-
+    $('btn-close-details')?.addEventListener('click', closeDetails);
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeDetails();
     });
-  }
 
-  function isMobileView() {
-    return window.innerWidth <= 768;
-  }
-
-  function watchTheme() {
-    const observer = new MutationObserver(() => refreshNodeColors());
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['data-theme'],
+    // Default: collapse later phases for a cleaner first view
+    roadmap.phases.forEach((p) => {
+      if (p.order > 1) collapsed.add(p.id);
     });
   }
 
-  async function loadRoadmap() {
-    const response = await fetch(DATA_URL, { cache: 'no-cache' });
-    if (!response.ok) {
+  async function load() {
+    const res = await fetch(DATA_URL, { cache: 'no-cache' });
+    if (!res.ok) {
       throw new Error(
         'Failed to load roadmap data (' +
-          response.status +
+          res.status +
           '). Run `make sync-roadmap` so docs/data/roadmap.json exists.'
       );
     }
-    const data = await response.json();
+    const data = await res.json();
     validateRoadmap(data);
     return data;
   }
 
-  async function initializeRoadmap() {
+  async function boot() {
     try {
-      roadmapData = await loadRoadmap();
-      hideLoading();
+      roadmap = await load();
+      buildMaps();
+      computeRange();
+      $('roadmap-loading').style.display = 'none';
+      ['roadmap-summary', 'roadmap-toolbar', 'roadmap-legend', 'roadmap-content'].forEach((id) => {
+        const el = $(id);
+        if (el) el.style.display = id === 'roadmap-content' ? 'flex' : id === 'roadmap-summary' ? 'grid' : 'flex';
+      });
+      const legend = $('roadmap-legend');
+      if (legend) legend.style.display = 'flex';
 
-      filteredNodeIds.clear();
-      roadmapData.nodes.forEach((n) => filteredNodeIds.add(n.id));
-      roadmapData.phases.forEach((p) => filteredNodeIds.add(p.id));
-
-      initFilters();
-      const selectedFromUrl = readUrlState();
-      initGraph();
-      watchTheme();
-      applyFilters({ skipUrl: true, skipFit: false });
-
-      const contentEl = document.getElementById('roadmap-content');
-      const toolbarEl = document.getElementById('roadmap-toolbar');
-      const summaryEl = document.getElementById('roadmap-summary');
-      const legendEl = document.getElementById('roadmap-legend');
-
-      if (contentEl) contentEl.style.display = 'flex';
-      if (toolbarEl) toolbarEl.style.display = 'flex';
-      if (summaryEl) summaryEl.style.display = 'grid';
-      if (legendEl) legendEl.style.display = 'flex';
-
-      if (viewMode === 'list' || viewMode === 'graph') setView(viewMode);
-      else setView('auto');
-
-      if (selectedFromUrl) selectNode(selectedFromUrl);
+      initControls();
+      const nodeFromUrl = readUrl();
+      applyFilters({ skipUrl: true });
+      if (nodeFromUrl) selectItem(nodeFromUrl);
     } catch (err) {
-      console.error('Roadmap initialization error:', err);
+      console.error(err);
       showError(err.message || String(err));
     }
   }
 
-  document.addEventListener('DOMContentLoaded', initializeRoadmap);
-
-  window.addEventListener('resize', () => {
-    if (viewMode !== 'auto') return;
-    setView('auto');
-  });
+  document.addEventListener('DOMContentLoaded', boot);
 })();

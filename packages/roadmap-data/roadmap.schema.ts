@@ -11,6 +11,9 @@ export type RoadmapStatus =
 export type RoadmapNodeType = 'phase' | 'module' | 'feature' | 'milestone';
 export type RoadmapPriority = 'critical' | 'high' | 'medium' | 'low';
 
+/** ISO calendar date YYYY-MM-DD */
+export type IsoDate = string;
+
 export interface RoadmapNode {
   id: string;
   title: string;
@@ -23,8 +26,17 @@ export interface RoadmapNode {
   progress?: number;
   priority?: RoadmapPriority;
   owner?: string;
+  assignee?: string;
   targetRelease?: string;
   estimatedEffort?: string;
+  /** Inclusive start of the planned bar (YYYY-MM-DD). */
+  startDate?: IsoDate;
+  /** Inclusive end of the planned bar (YYYY-MM-DD). */
+  endDate?: IsoDate;
+  /** Planned duration in calendar days. */
+  durationDays?: number;
+  /** Point-in-time marker for milestone nodes (YYYY-MM-DD). */
+  milestoneDate?: IsoDate;
   dependsOn: string[];
   children: string[];
   tags: string[];
@@ -42,6 +54,8 @@ export interface RoadmapPhase {
   progress: number;
   children: string[];
   documentationUrl?: string;
+  startDate?: IsoDate;
+  endDate?: IsoDate;
 }
 
 export interface RoadmapDocument {
@@ -55,29 +69,74 @@ export interface RoadmapDocument {
   nodes: RoadmapNode[];
 }
 
-const statuses = new Set<RoadmapStatus>(['completed','in-progress','planned','blocked','deferred','cancelled']);
-const nodeTypes = new Set<RoadmapNodeType>(['phase','module','feature','milestone']);
+const statuses = new Set<RoadmapStatus>([
+  'completed',
+  'in-progress',
+  'planned',
+  'blocked',
+  'deferred',
+  'cancelled',
+]);
+const nodeTypes = new Set<RoadmapNodeType>(['phase', 'module', 'feature', 'milestone']);
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+function assertIsoDate(value: unknown, label: string): void {
+  if (value == null) return;
+  if (typeof value !== 'string' || !ISO_DATE.test(value)) {
+    throw new Error(`Invalid ${label}: expected YYYY-MM-DD`);
+  }
+  const t = Date.parse(value + 'T00:00:00Z');
+  if (Number.isNaN(t)) throw new Error(`Invalid ${label}: ${value}`);
+}
 
 export function validateRoadmap(input: unknown): asserts input is RoadmapDocument {
   if (!input || typeof input !== 'object') throw new Error('Roadmap must be an object.');
   const r = input as Partial<RoadmapDocument>;
-  if (r.schemaVersion !== ROADMAP_SCHEMA_VERSION) throw new Error(`Unsupported schemaVersion: ${String(r.schemaVersion)}`);
-  if (!Array.isArray(r.phases) || !Array.isArray(r.nodes)) throw new Error('Roadmap phases and nodes must be arrays.');
-  const phaseIds = new Set(r.phases.map(p => p.id));
-  const nodeIds = new Set(r.nodes.map(n => n.id));
+  if (r.schemaVersion !== ROADMAP_SCHEMA_VERSION) {
+    throw new Error(`Unsupported schemaVersion: ${String(r.schemaVersion)}`);
+  }
+  if (!Array.isArray(r.phases) || !Array.isArray(r.nodes)) {
+    throw new Error('Roadmap phases and nodes must be arrays.');
+  }
+  const phaseIds = new Set(r.phases.map((p) => p.id));
+  const nodeIds = new Set(r.nodes.map((n) => n.id));
   if (phaseIds.size !== r.phases.length) throw new Error('Duplicate phase IDs found.');
   if (nodeIds.size !== r.nodes.length) throw new Error('Duplicate node IDs found.');
+  if (!phaseIds.has(r.currentPhaseId as string)) {
+    throw new Error(`currentPhaseId references missing phase ${String(r.currentPhaseId)}`);
+  }
+
   for (const p of r.phases) {
     if (!statuses.has(p.status)) throw new Error(`Invalid phase status for ${p.id}`);
     if (p.progress < 0 || p.progress > 100) throw new Error(`Invalid phase progress for ${p.id}`);
-    for (const id of p.children) if (!nodeIds.has(id)) throw new Error(`Phase ${p.id} references missing child ${id}`);
+    assertIsoDate(p.startDate, `phase ${p.id} startDate`);
+    assertIsoDate(p.endDate, `phase ${p.id} endDate`);
+    for (const id of p.children) {
+      if (!nodeIds.has(id)) throw new Error(`Phase ${p.id} references missing child ${id}`);
+    }
   }
+
   for (const n of r.nodes) {
     if (!phaseIds.has(n.phaseId)) throw new Error(`Node ${n.id} references missing phase ${n.phaseId}`);
     if (!statuses.has(n.status)) throw new Error(`Invalid node status for ${n.id}`);
     if (!nodeTypes.has(n.type)) throw new Error(`Invalid node type for ${n.id}`);
-    if (n.progress != null && (n.progress < 0 || n.progress > 100)) throw new Error(`Invalid progress for ${n.id}`);
-    for (const id of [...n.dependsOn, ...n.children]) if (!nodeIds.has(id)) throw new Error(`Node ${n.id} references missing node ${id}`);
-    if (n.status === 'blocked' && !n.blockerReason) throw new Error(`Blocked node ${n.id} requires blockerReason`);
+    if (n.progress != null && (n.progress < 0 || n.progress > 100)) {
+      throw new Error(`Invalid progress for ${n.id}`);
+    }
+    assertIsoDate(n.startDate, `node ${n.id} startDate`);
+    assertIsoDate(n.endDate, `node ${n.id} endDate`);
+    assertIsoDate(n.milestoneDate, `node ${n.id} milestoneDate`);
+    if (n.durationDays != null && (typeof n.durationDays !== 'number' || n.durationDays < 0)) {
+      throw new Error(`Invalid durationDays for ${n.id}`);
+    }
+    if (n.startDate && n.endDate && n.startDate > n.endDate) {
+      throw new Error(`Node ${n.id} startDate is after endDate`);
+    }
+    for (const id of [...n.dependsOn, ...n.children]) {
+      if (!nodeIds.has(id)) throw new Error(`Node ${n.id} references missing node ${id}`);
+    }
+    if (n.status === 'blocked' && !n.blockerReason) {
+      throw new Error(`Blocked node ${n.id} requires blockerReason`);
+    }
   }
 }

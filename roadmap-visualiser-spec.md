@@ -23,11 +23,12 @@ The page contains:
 
 1. Header with overall progress, current phase and next milestone.
 2. Search and filters for phase, status, type and owner.
-3. Graph canvas with zoom, pan, fit-view and minimap.
-4. Details drawer for the selected node.
-5. Accessible list fallback for narrow screens and assistive technology.
+3. View switcher: timeline (default), list, and board.
+4. Horizontal Gantt-style canvas: hierarchical work items on the left, time scale and bars on the right.
+5. Details drawer for the selected node.
+6. Accessible list and board fallbacks for narrow screens and alternative scanning.
 
-Graph direction is top-to-bottom. Phases form the primary spine. Features branch from their phase and dependency edges communicate implementation order.
+Timeline direction is left-to-right by calendar date. Phases form collapsible groups. Feature bars and milestone diamonds communicate schedule; dependency connectors show implementation order.
 
 ## Node UI
 

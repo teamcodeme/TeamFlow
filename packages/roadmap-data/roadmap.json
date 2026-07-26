@@ -3,7 +3,7 @@
   "product": "TeamFlow",
   "title": "TeamFlow Product Delivery Roadmap",
   "description": "A dependency-driven roadmap from product foundation through requirement governance, QA, release readiness and CTO pilot.",
-  "updatedAt": "2026-07-24",
+  "updatedAt": "2026-07-26",
   "currentPhaseId": "phase-00",
   "phases": [
     {
@@ -24,7 +24,9 @@
         "claude-instructions",
         "foundation-review"
       ],
-      "documentationUrl": "/html/development-roadmap.html#phase-0"
+      "documentationUrl": "/html/development-roadmap.html#phase-0",
+      "startDate": "2026-01-06",
+      "endDate": "2026-02-04"
     },
     {
       "id": "phase-01",
@@ -42,7 +44,9 @@
         "ci-pipeline",
         "local-dev-environment"
       ],
-      "documentationUrl": "/html/development-roadmap.html#phase-1"
+      "documentationUrl": "/html/development-roadmap.html#phase-1",
+      "startDate": "2026-02-05",
+      "endDate": "2026-02-16"
     },
     {
       "id": "phase-02",
@@ -60,7 +64,9 @@
         "authorization-middleware",
         "audit-foundation"
       ],
-      "documentationUrl": "/html/user-roles.html"
+      "documentationUrl": "/html/user-roles.html",
+      "startDate": "2026-02-17",
+      "endDate": "2026-03-23"
     },
     {
       "id": "phase-03",
@@ -81,7 +87,9 @@
         "requirement-audit",
         "vertical-slice-1"
       ],
-      "documentationUrl": "/html/requirement-workflow.html"
+      "documentationUrl": "/html/requirement-workflow.html",
+      "startDate": "2026-03-24",
+      "endDate": "2026-05-08"
     },
     {
       "id": "phase-04",
@@ -96,7 +104,9 @@
         "decision-confirmation",
         "blocking-clarifications"
       ],
-      "documentationUrl": "/html/requirement-workflow.html#clarifications"
+      "documentationUrl": "/html/requirement-workflow.html#clarifications",
+      "startDate": "2026-05-09",
+      "endDate": "2026-05-28"
     },
     {
       "id": "phase-05",
@@ -113,7 +123,9 @@
         "affected-work-review",
         "change-metrics"
       ],
-      "documentationUrl": "/html/change-request-workflow.html"
+      "documentationUrl": "/html/change-request-workflow.html",
+      "startDate": "2026-05-29",
+      "endDate": "2026-06-27"
     },
     {
       "id": "phase-06",
@@ -130,7 +142,9 @@
         "dependency-blocker-tracking",
         "task-history"
       ],
-      "documentationUrl": "/html/mvp-scope.html"
+      "documentationUrl": "/html/mvp-scope.html",
+      "startDate": "2026-06-28",
+      "endDate": "2026-07-27"
     },
     {
       "id": "phase-07",
@@ -147,7 +161,9 @@
         "retest-flow",
         "coverage-reporting"
       ],
-      "documentationUrl": "/html/test-strategy.html"
+      "documentationUrl": "/html/test-strategy.html",
+      "startDate": "2026-07-28",
+      "endDate": "2026-08-26"
     },
     {
       "id": "phase-08",
@@ -164,7 +180,9 @@
         "technical-release-approval",
         "release-decision"
       ],
-      "documentationUrl": "/html/mvp-scope.html"
+      "documentationUrl": "/html/mvp-scope.html",
+      "startDate": "2026-08-27",
+      "endDate": "2026-09-25"
     },
     {
       "id": "phase-09",
@@ -181,7 +199,9 @@
         "rework-metrics",
         "report-exports"
       ],
-      "documentationUrl": "/html/cto-proposal.html"
+      "documentationUrl": "/html/cto-proposal.html",
+      "startDate": "2026-09-26",
+      "endDate": "2026-10-25"
     },
     {
       "id": "phase-10",
@@ -199,7 +219,9 @@
         "cto-demo",
         "pilot"
       ],
-      "documentationUrl": "/html/demo-scenario.html"
+      "documentationUrl": "/html/demo-scenario.html",
+      "startDate": "2026-10-26",
+      "endDate": "2026-11-21"
     }
   ],
   "nodes": [
@@ -225,7 +247,11 @@
         "Documentation navigation exposes all documents"
       ],
       "progress": 100,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-01-06",
+      "endDate": "2026-01-13",
+      "durationDays": 8,
+      "assignee": "Product"
     },
     {
       "id": "roadmap-visualiser-spec",
@@ -248,7 +274,11 @@
       "documentationUrl": "/roadmap-visualiser-spec.md",
       "acceptanceCriteria": [],
       "progress": 100,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-01-14",
+      "endDate": "2026-01-18",
+      "durationDays": 5,
+      "assignee": "Product/UX"
     },
     {
       "id": "architecture-documentation",
@@ -275,7 +305,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": 100,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-01-14",
+      "endDate": "2026-01-21",
+      "durationDays": 8,
+      "assignee": "Architecture"
     },
     {
       "id": "system-context",
@@ -298,7 +332,10 @@
       "documentationUrl": "/docs/architecture/system-context.md",
       "acceptanceCriteria": [],
       "progress": 100,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-01-14",
+      "endDate": "2026-01-18",
+      "durationDays": 5
     },
     {
       "id": "container-diagram",
@@ -321,7 +358,10 @@
       "documentationUrl": "/docs/architecture/container-diagram.md",
       "acceptanceCriteria": [],
       "progress": 100,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-01-19",
+      "endDate": "2026-01-23",
+      "durationDays": 5
     },
     {
       "id": "component-diagram",
@@ -344,7 +384,10 @@
       "documentationUrl": "/docs/architecture/component-diagram.md",
       "acceptanceCriteria": [],
       "progress": 100,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-01-24",
+      "endDate": "2026-01-28",
+      "durationDays": 5
     },
     {
       "id": "architecture-decisions",
@@ -367,7 +410,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": 100,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-01-22",
+      "endDate": "2026-01-29",
+      "durationDays": 8,
+      "assignee": "Architecture"
     },
     {
       "id": "claude-instructions",
@@ -390,7 +437,10 @@
       "documentationUrl": "/CLAUDE.md",
       "acceptanceCriteria": [],
       "progress": 100,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-01-30",
+      "endDate": "2026-02-03",
+      "durationDays": 5
     },
     {
       "id": "foundation-review",
@@ -418,7 +468,12 @@
         "Vertical Slice 1 implementation prompt approved"
       ],
       "progress": 40,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-02-04",
+      "endDate": "2026-02-04",
+      "milestoneDate": "2026-02-04",
+      "durationDays": 1,
+      "assignee": "Founder/CTO"
     },
     {
       "id": "monorepo-bootstrap",
@@ -441,7 +496,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": "1–3 days"
+      "estimatedEffort": "1–3 days",
+      "startDate": "2026-02-05",
+      "endDate": "2026-02-07",
+      "durationDays": 3,
+      "assignee": "Engineering"
     },
     {
       "id": "angular-bootstrap",
@@ -464,7 +523,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": "1–3 days"
+      "estimatedEffort": "1–3 days",
+      "startDate": "2026-02-08",
+      "endDate": "2026-02-10",
+      "durationDays": 3,
+      "assignee": "Engineering"
     },
     {
       "id": "go-api-bootstrap",
@@ -487,7 +550,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": "1–3 days"
+      "estimatedEffort": "1–3 days",
+      "startDate": "2026-02-08",
+      "endDate": "2026-02-10",
+      "durationDays": 3,
+      "assignee": "Engineering"
     },
     {
       "id": "postgres-foundation",
@@ -510,7 +577,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": "1–3 days"
+      "estimatedEffort": "1–3 days",
+      "startDate": "2026-02-11",
+      "endDate": "2026-02-13",
+      "durationDays": 3,
+      "assignee": "Engineering"
     },
     {
       "id": "openapi-foundation",
@@ -533,7 +604,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": "1–3 days"
+      "estimatedEffort": "1–3 days",
+      "startDate": "2026-02-11",
+      "endDate": "2026-02-13",
+      "durationDays": 3,
+      "assignee": "Engineering"
     },
     {
       "id": "ci-pipeline",
@@ -557,7 +632,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": "1–3 days"
+      "estimatedEffort": "1–3 days",
+      "startDate": "2026-02-11",
+      "endDate": "2026-02-13",
+      "durationDays": 3,
+      "assignee": "Engineering"
     },
     {
       "id": "local-dev-environment",
@@ -581,7 +660,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": "1–3 days"
+      "estimatedEffort": "1–3 days",
+      "startDate": "2026-02-14",
+      "endDate": "2026-02-16",
+      "durationDays": 3,
+      "assignee": "Engineering"
     },
     {
       "id": "authentication",
@@ -604,7 +687,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-02-17",
+      "endDate": "2026-02-21",
+      "durationDays": 5,
+      "assignee": "Platform"
     },
     {
       "id": "user-management",
@@ -627,7 +714,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-02-22",
+      "endDate": "2026-02-26",
+      "durationDays": 5,
+      "assignee": "Platform"
     },
     {
       "id": "role-permission-model",
@@ -650,7 +741,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-02-27",
+      "endDate": "2026-03-03",
+      "durationDays": 5,
+      "assignee": "Platform"
     },
     {
       "id": "project-management",
@@ -673,7 +768,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-03-04",
+      "endDate": "2026-03-08",
+      "durationDays": 5,
+      "assignee": "Platform"
     },
     {
       "id": "project-membership",
@@ -696,7 +795,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-03-09",
+      "endDate": "2026-03-13",
+      "durationDays": 5,
+      "assignee": "Platform"
     },
     {
       "id": "authorization-middleware",
@@ -719,7 +822,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-03-14",
+      "endDate": "2026-03-18",
+      "durationDays": 5,
+      "assignee": "Platform"
     },
     {
       "id": "audit-foundation",
@@ -742,7 +849,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-03-19",
+      "endDate": "2026-03-23",
+      "durationDays": 5,
+      "assignee": "Platform"
     },
     {
       "id": "requirement-draft",
@@ -765,7 +876,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-03-24",
+      "endDate": "2026-03-28",
+      "durationDays": 5,
+      "assignee": "Requirements Squad"
     },
     {
       "id": "acceptance-criteria",
@@ -788,7 +903,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-03-29",
+      "endDate": "2026-04-02",
+      "durationDays": 5,
+      "assignee": "Requirements Squad"
     },
     {
       "id": "requirement-submission",
@@ -811,7 +930,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-04-03",
+      "endDate": "2026-04-07",
+      "durationDays": 5,
+      "assignee": "Requirements Squad"
     },
     {
       "id": "review-workflow",
@@ -834,7 +957,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-04-08",
+      "endDate": "2026-04-12",
+      "durationDays": 5,
+      "assignee": "Requirements Squad"
     },
     {
       "id": "requirement-approval",
@@ -857,7 +984,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-04-13",
+      "endDate": "2026-04-17",
+      "durationDays": 5,
+      "assignee": "Requirements Squad"
     },
     {
       "id": "immutable-version",
@@ -880,7 +1011,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-04-18",
+      "endDate": "2026-04-22",
+      "durationDays": 5,
+      "assignee": "Requirements Squad"
     },
     {
       "id": "version-history",
@@ -903,7 +1038,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-04-23",
+      "endDate": "2026-04-27",
+      "durationDays": 5,
+      "assignee": "Requirements Squad"
     },
     {
       "id": "version-comparison",
@@ -926,7 +1065,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-04-28",
+      "endDate": "2026-05-02",
+      "durationDays": 5,
+      "assignee": "Requirements Squad"
     },
     {
       "id": "requirement-audit",
@@ -949,7 +1092,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-05-03",
+      "endDate": "2026-05-07",
+      "durationDays": 5,
+      "assignee": "Requirements Squad"
     },
     {
       "id": "vertical-slice-1",
@@ -972,7 +1119,12 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-05-08",
+      "endDate": "2026-05-08",
+      "milestoneDate": "2026-05-08",
+      "durationDays": 1,
+      "assignee": "Requirements Squad"
     },
     {
       "id": "clarification-create",
@@ -995,7 +1147,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-05-09",
+      "endDate": "2026-05-13",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "clarification-response",
@@ -1018,7 +1174,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-05-14",
+      "endDate": "2026-05-18",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "decision-confirmation",
@@ -1041,7 +1201,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-05-19",
+      "endDate": "2026-05-23",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "blocking-clarifications",
@@ -1064,7 +1228,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-05-24",
+      "endDate": "2026-05-28",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "change-request-create",
@@ -1087,7 +1255,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-05-29",
+      "endDate": "2026-06-02",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "impact-analysis",
@@ -1110,7 +1282,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-06-03",
+      "endDate": "2026-06-07",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "change-approval",
@@ -1133,7 +1309,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-06-08",
+      "endDate": "2026-06-12",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "new-version-from-change",
@@ -1156,7 +1336,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-06-13",
+      "endDate": "2026-06-17",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "affected-work-review",
@@ -1179,7 +1363,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-06-18",
+      "endDate": "2026-06-22",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "change-metrics",
@@ -1202,7 +1390,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-06-23",
+      "endDate": "2026-06-27",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "epic-management",
@@ -1225,7 +1417,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-06-28",
+      "endDate": "2026-07-02",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "sprint-management",
@@ -1248,7 +1444,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-07-03",
+      "endDate": "2026-07-07",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "task-management",
@@ -1271,7 +1471,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-07-08",
+      "endDate": "2026-07-12",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "developer-workspace",
@@ -1294,7 +1498,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-07-13",
+      "endDate": "2026-07-17",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "dependency-blocker-tracking",
@@ -1317,7 +1525,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-07-18",
+      "endDate": "2026-07-22",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "task-history",
@@ -1340,7 +1552,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-07-23",
+      "endDate": "2026-07-27",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "test-case-management",
@@ -1363,7 +1579,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-07-28",
+      "endDate": "2026-08-01",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "test-execution",
@@ -1386,7 +1606,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-08-02",
+      "endDate": "2026-08-06",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "evidence-management",
@@ -1409,7 +1633,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-08-07",
+      "endDate": "2026-08-11",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "defect-management",
@@ -1432,7 +1660,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-08-12",
+      "endDate": "2026-08-16",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "retest-flow",
@@ -1455,7 +1687,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-08-17",
+      "endDate": "2026-08-21",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "coverage-reporting",
@@ -1478,7 +1714,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-08-22",
+      "endDate": "2026-08-26",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "release-management",
@@ -1501,7 +1741,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-08-27",
+      "endDate": "2026-08-31",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "readiness-engine",
@@ -1524,7 +1768,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-09-01",
+      "endDate": "2026-09-05",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "ba-acceptance",
@@ -1547,7 +1795,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-09-06",
+      "endDate": "2026-09-10",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "qa-release-approval",
@@ -1570,7 +1822,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-09-11",
+      "endDate": "2026-09-15",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "technical-release-approval",
@@ -1593,7 +1849,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-09-16",
+      "endDate": "2026-09-20",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "release-decision",
@@ -1616,7 +1876,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-09-21",
+      "endDate": "2026-09-25",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "project-dashboard",
@@ -1639,7 +1903,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-09-26",
+      "endDate": "2026-09-30",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "team-dashboard",
@@ -1662,7 +1930,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-10-01",
+      "endDate": "2026-10-05",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "management-dashboard",
@@ -1685,7 +1957,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-10-06",
+      "endDate": "2026-10-10",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "stability-metrics",
@@ -1708,7 +1984,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-10-11",
+      "endDate": "2026-10-15",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "rework-metrics",
@@ -1731,7 +2011,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-10-16",
+      "endDate": "2026-10-20",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "report-exports",
@@ -1754,7 +2038,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-10-21",
+      "endDate": "2026-10-25",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "security-testing",
@@ -1777,7 +2065,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-10-26",
+      "endDate": "2026-10-30",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "performance-testing",
@@ -1800,7 +2092,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-10-31",
+      "endDate": "2026-11-04",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "accessibility-review",
@@ -1823,7 +2119,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-11-05",
+      "endDate": "2026-11-09",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "backup-restore",
@@ -1846,7 +2146,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-11-10",
+      "endDate": "2026-11-14",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "demo-data",
@@ -1869,7 +2173,11 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-11-15",
+      "endDate": "2026-11-19",
+      "durationDays": 5,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "cto-demo",
@@ -1892,7 +2200,12 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-11-20",
+      "endDate": "2026-11-20",
+      "milestoneDate": "2026-11-20",
+      "durationDays": 1,
+      "assignee": "TeamFlow Team"
     },
     {
       "id": "pilot",
@@ -1915,7 +2228,12 @@
       "documentationUrl": null,
       "acceptanceCriteria": [],
       "progress": null,
-      "estimatedEffort": null
+      "estimatedEffort": null,
+      "startDate": "2026-11-21",
+      "endDate": "2026-11-21",
+      "milestoneDate": "2026-11-21",
+      "durationDays": 1,
+      "assignee": "TeamFlow Team"
     }
   ]
 }
