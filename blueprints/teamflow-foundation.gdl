@@ -69,62 +69,62 @@ enum AuditActorType {
   SERVICE
 }
 
-@Audited
+@Audited @ActiveStatus 
 entity Organization {
-  string(50) code required unique
-  string(150) name required
-  RecordStatus status required
-  string(100) timezone
+  string(50) code  unique
+  string(150) name 
+  RecordStatus status 
+  string timezone
 }
 
-@Audited
+@Audited @ActiveStatus 
 entity UserAccount {
-  string(100) keycloakId required unique
-  string(100) username required unique
-  string(255) email
-  string(150) displayName required
-  RecordStatus status required
+  string keycloakId  unique
+  string username  unique
+  string email
+  string(150) displayName 
+  RecordStatus status 
   datetime lastLoginAt
 }
 
-@Audited
+@Audited @ActiveStatus 
 entity Project {
-  string(30) projectCode required unique
-  string(200) name required
+  string(30) projectCode  unique
+  string(200) name 
   text description
-  ProjectStatus status required
+  ProjectStatus status 
   localdate startDate
   localdate targetEndDate
   int rowVersion
 }
 
-@Audited
+@Audited @ActiveStatus 
 entity ProjectMember {
-  ProjectMemberRole projectRole required
-  boolean active required
-  datetime joinedAt required
+  ProjectMemberRole projectRole 
+  boolean active 
+  datetime joinedAt 
   datetime removedAt
 }
 
-@Audited
+@Audited @ActiveStatus 
 entity Requirement {
-  string(50) requirementNumber required unique
-  string(255) title required
-  RequirementPriority priority required
-  RequirementLifecycleStatus lifecycleStatus required
+  string(50) requirementNumber  unique
+  string title 
+  RequirementPriority priority 
+  RequirementLifecycleStatus lifecycleStatus 
   uuid currentApprovedVersionId
   uuid latestVersionId
   int rowVersion
 }
 
-@Audited
+@Audited @ActiveStatus 
 entity RequirementVersion {
-  int versionMajor required
-  int versionMinor required
-  string(20) versionLabel required
-  RequirementLifecycleStatus status required
-  text businessObjective required
-  text detailedDescription required
+  int versionMajor 
+  int versionMinor 
+  string(20) versionLabel 
+  RequirementLifecycleStatus status 
+  text businessObjective 
+  text detailedDescription 
   jsonb actors
   jsonb preconditions
   jsonb mainWorkflow
@@ -137,65 +137,65 @@ entity RequirementVersion {
   text performanceConsiderations
   text changeSummary
   uuid baseVersionId
-  string(128) approvedSnapshotHash
+  string approvedSnapshotHash
   datetime submittedAt
   datetime approvedAt
   int rowVersion
 }
 
-@Audited
+@Audited 
 entity AcceptanceCriterion {
-  string(30) criterionNumber required
+  string(30) criterionNumber 
   text givenText
   text whenText
   text thenText
   text description
   RequirementPriority priority
-  boolean active required
+  boolean active 
 }
 
 @Audited
 entity RequirementApproval {
-  RequirementReviewStage reviewStage required
-  ApprovalDecision decision required
-  string(100) reviewerRole required
+  RequirementReviewStage reviewStage 
+  ApprovalDecision decision 
+  string reviewerRole 
   text comment
-  int sequenceNumber required
-  datetime decidedAt required
+  int sequenceNumber 
+  datetime decidedAt 
 }
 
 // Keep a TeamFlow domain audit entity only if the generated @Audited system audit log
-// does not cover the required project-scoped fields. Avoid exposing update/delete APIs.
+// does not cover the  project-scoped fields. Avoid exposing update/delete APIs.
 entity TeamFlowAuditEvent {
   uuid organizationId
   uuid projectId
   uuid actorUserId
-  AuditActorType actorType required
-  string(100) action required
-  string(100) entityType required
-  string(100) entityId required
+  AuditActorType actorType 
+  string action 
+  string entityType 
+  string entityId 
   jsonb previousState
   jsonb newState
   text reason
-  string(100) traceId required
-  string(100) ipAddress
-  string(255) userAgent
-  string(128) previousHash
-  string(128) eventHash
+  string traceId 
+  string ipAddress
+  string userAgent
+  string previousHash
+  string eventHash
 }
 
 relationship ManyToOne {
-  UserAccount{organization} to Organization required
-  Project{organization} to Organization required
+  UserAccount{organization} to Organization 
+  Project{organization} to Organization 
   Project{projectManager} to UserAccount
-  ProjectMember{project} to Project required
-  ProjectMember{user} to UserAccount required
-  Requirement{project} to Project required
+  ProjectMember{project} to Project 
+  ProjectMember{user} to UserAccount 
+  Requirement{project} to Project 
   // Use author (not createdBy): @Audited already generates a CreatedBy string audit field.
-  Requirement{author} to UserAccount required
-  RequirementVersion{requirement} to Requirement required
-  RequirementVersion{author} to UserAccount required
-  AcceptanceCriterion{requirementVersion} to RequirementVersion required
-  RequirementApproval{requirementVersion} to RequirementVersion required
-  RequirementApproval{reviewer} to UserAccount required
+  Requirement{author} to UserAccount 
+  RequirementVersion{requirement} to Requirement 
+  RequirementVersion{author} to UserAccount 
+  AcceptanceCriterion{requirementVersion} to RequirementVersion 
+  RequirementApproval{requirementVersion} to RequirementVersion 
+  RequirementApproval{reviewer} to UserAccount 
 }
