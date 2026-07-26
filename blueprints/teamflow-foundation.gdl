@@ -1,0 +1,200 @@
+enum RecordStatus {
+  ACTIVE,
+  INACTIVE,
+  ARCHIVED
+}
+
+enum ProjectStatus {
+  DRAFT,
+  ACTIVE,
+  ON_HOLD,
+  COMPLETED,
+  ARCHIVED
+}
+
+enum ProjectMemberRole {
+  PROJECT_MANAGER,
+  BUSINESS_ANALYST,
+  TECHNICAL_LEAD,
+  DEVELOPER,
+  QA_ENGINEER,
+  VIEWER
+}
+
+enum RequirementPriority {
+  CRITICAL,
+  HIGH,
+  MEDIUM,
+  LOW
+}
+
+enum RequirementLifecycleStatus {
+  DRAFT,
+  SUBMITTED,
+  UNDER_BA_REVIEW,
+  UNDER_PM_REVIEW,
+  UNDER_TECHNICAL_REVIEW,
+  UNDER_QA_REVIEW,
+  CHANGES_REQUESTED,
+  APPROVED,
+  IN_DEVELOPMENT,
+  IMPLEMENTED,
+  QA_VERIFIED,
+  BA_ACCEPTED,
+  RELEASED,
+  REJECTED,
+  ON_HOLD,
+  CANCELLED,
+  SUPERSEDED
+}
+
+enum RequirementReviewStage {
+  BA_REVIEW,
+  PM_REVIEW,
+  TECHNICAL_REVIEW,
+  QA_REVIEW,
+  FINAL_APPROVAL
+}
+
+enum ApprovalDecision {
+  APPROVED,
+  REJECTED,
+  CHANGES_REQUESTED,
+  ON_HOLD
+}
+
+enum AuditActorType {
+  USER,
+  SYSTEM,
+  SERVICE
+}
+
+@Audited
+entity Organization {
+  string(50) code required unique
+  string(150) name required
+  RecordStatus status required
+  string(100) timezone
+}
+
+@Audited
+entity UserAccount {
+  string(100) keycloakId required unique
+  string(100) username required unique
+  string(255) email
+  string(150) displayName required
+  RecordStatus status required
+  datetime lastLoginAt
+}
+
+@Audited
+entity Project {
+  string(30) projectCode required unique
+  string(200) name required
+  text description
+  ProjectStatus status required
+  localdate startDate
+  localdate targetEndDate
+  int rowVersion
+}
+
+@Audited
+entity ProjectMember {
+  ProjectMemberRole projectRole required
+  boolean active required
+  datetime joinedAt required
+  datetime removedAt
+}
+
+@Audited
+entity Requirement {
+  string(50) requirementNumber required unique
+  string(255) title required
+  RequirementPriority priority required
+  RequirementLifecycleStatus lifecycleStatus required
+  uuid currentApprovedVersionId
+  uuid latestVersionId
+  int rowVersion
+}
+
+@Audited
+entity RequirementVersion {
+  int versionMajor required
+  int versionMinor required
+  string(20) versionLabel required
+  RequirementLifecycleStatus status required
+  text businessObjective required
+  text detailedDescription required
+  jsonb actors
+  jsonb preconditions
+  jsonb mainWorkflow
+  jsonb alternativeWorkflows
+  jsonb businessRules
+  jsonb assumptions
+  jsonb dependencies
+  jsonb outOfScope
+  text securityConsiderations
+  text performanceConsiderations
+  text changeSummary
+  uuid baseVersionId
+  string(128) approvedSnapshotHash
+  datetime submittedAt
+  datetime approvedAt
+  int rowVersion
+}
+
+@Audited
+entity AcceptanceCriterion {
+  string(30) criterionNumber required
+  text givenText
+  text whenText
+  text thenText
+  text description
+  RequirementPriority priority
+  boolean active required
+}
+
+@Audited
+entity RequirementApproval {
+  RequirementReviewStage reviewStage required
+  ApprovalDecision decision required
+  string(100) reviewerRole required
+  text comment
+  int sequenceNumber required
+  datetime decidedAt required
+}
+
+# Keep a TeamFlow domain audit entity only if the generated @Audited system audit log
+# does not cover the required project-scoped fields. Avoid exposing update/delete APIs.
+entity TeamFlowAuditEvent {
+  uuid organizationId
+  uuid projectId
+  uuid actorUserId
+  AuditActorType actorType required
+  string(100) action required
+  string(100) entityType required
+  string(100) entityId required
+  jsonb previousState
+  jsonb newState
+  text reason
+  string(100) traceId required
+  string(100) ipAddress
+  string(255) userAgent
+  string(128) previousHash
+  string(128) eventHash
+}
+
+relationship ManyToOne {
+  UserAccount{organization} to Organization required
+  Project{organization} to Organization required
+  Project{projectManager} to UserAccount
+  ProjectMember{project} to Project required
+  ProjectMember{user} to UserAccount required
+  Requirement{project} to Project required
+  Requirement{createdBy} to UserAccount required
+  RequirementVersion{requirement} to Requirement required
+  RequirementVersion{createdBy} to UserAccount required
+  AcceptanceCriterion{requirementVersion} to RequirementVersion required
+  RequirementApproval{requirementVersion} to RequirementVersion required
+  RequirementApproval{reviewer} to UserAccount required
+}

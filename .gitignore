@@ -1,0 +1,12 @@
+.env
+.DS_Store
+.idea/
+.vscode/
+*.log
+coverage/
+dist/
+bin/
+node_modules/
+
+# Keep GO-DUCK state committed unless your generator documentation explicitly says otherwise.
+# apps/api/.go-duck/
