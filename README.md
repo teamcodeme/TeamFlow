@@ -39,16 +39,20 @@ The source product documents are under `Product-Docs/`. The published static sit
 
 ## Roadmap Files
 
-- `roadmap.json`
-- `roadmap.schema.ts`
+Canonical source of truth:
+
+- `packages/roadmap-data/roadmap.json`
+- `packages/roadmap-data/roadmap.schema.ts`
 - `roadmap-visualiser-spec.md`
-- canonical copies under `packages/roadmap-data/`
+
+The documentation site loads a synced copy at `docs/data/roadmap.json` (produced by `make sync-roadmap` / the Vercel build). Do not edit the docs copy by hand.
 
 ## Initial Commands
 
 ```bash
 make help
 make validate-roadmap
+make sync-roadmap
 make docs-serve
 make doctor
 ```

@@ -302,6 +302,36 @@ html[data-theme="dark"] .brand-logo {
     grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
 }
 
+/* Interactive roadmap on the main landing page */
+.docs-shell.roadmap-shell {
+    max-width: none;
+    height: calc(100vh - var(--header-height) - var(--subnav-height));
+    min-height: 0;
+    overflow: hidden;
+}
+
+.docs-shell.roadmap-shell .docs-sidebar {
+    height: 100%;
+    top: 0;
+    position: relative;
+}
+
+body.roadmap-page {
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .docs-shell.roadmap-shell {
+        height: auto;
+        min-height: calc(100vh - var(--header-height) - var(--subnav-height));
+        overflow: visible;
+    }
+
+    body.roadmap-page {
+        overflow: auto;
+    }
+}
+
 /* ── Left sidebar ── */
 .docs-sidebar {
     position: sticky;

@@ -1,7 +1,8 @@
 /* TeamFlow docs — shared navigation, TOC, search, theme */
 (function () {
   const DOC_PAGES = [
-    { title: 'Home', section: 'Get started', href: 'index.html', path: '/' },
+    { title: 'Interactive Roadmap', section: 'Get started', href: 'index.html', path: '/' },
+    { title: 'Introduction', section: 'Get started', href: 'html/introduction.html' },
     { title: 'Product Vision', section: 'Overview', href: 'html/vision.html' },
     { title: 'Problem Statement', section: 'Overview', href: 'html/problem-statement.html' },
     { title: 'MVP Scope', section: 'Getting Started', href: 'html/mvp-scope.html' },
@@ -88,28 +89,34 @@
   /* Active nav + subnav */
   function initActiveNav() {
     const file = currentFile();
+    const onRoadmapHome =
+      file === 'index.html' || file === '' || file === 'docs' || file === 'roadmap.html';
+
     document.querySelectorAll('.nav-list a').forEach((link) => {
       const href = link.getAttribute('href') || '';
       const target = href.split('/').pop();
-      const isHome =
-        (file === 'index.html' || file === '' || file === 'docs') &&
-        (target === 'index.html' || href.endsWith('../index.html'));
-      const match = target === file || isHome;
+      const isRoadmapLink =
+        target === 'index.html' || href.endsWith('../index.html') || target === 'roadmap.html';
+      const match = onRoadmapHome ? isRoadmapLink : target === file;
       link.classList.toggle('active', match);
     });
 
     const subnav = document.querySelectorAll('.header-subnav a');
     let matched = false;
     subnav.forEach((link) => {
-      const target = (link.getAttribute('href') || '').split('/').pop();
-      const active = target === file;
+      const href = link.getAttribute('href') || '';
+      const target = href.split('/').pop();
+      const label = (link.textContent || '').trim().toLowerCase();
+      let active = target === file;
+      if (onRoadmapHome && (label === 'roadmap' || target === 'index.html')) active = label === 'roadmap';
       link.classList.toggle('active', active);
       if (active) matched = true;
     });
-    if (!matched) {
+    if (!matched && onRoadmapHome) {
       subnav.forEach((link) => {
-        const target = (link.getAttribute('href') || '').split('/').pop();
-        if (target === 'index.html') link.classList.add('active');
+        if ((link.textContent || '').trim().toLowerCase() === 'roadmap') {
+          link.classList.add('active');
+        }
       });
     }
   }

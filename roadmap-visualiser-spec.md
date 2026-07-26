@@ -6,7 +6,9 @@ Create an interactive, content-driven roadmap inspired by roadmap.sh that commun
 
 ## Source of Truth
 
-`packages/roadmap-data/roadmap.json` is the canonical roadmap dataset. `roadmap.schema.ts` defines its TypeScript contract and validation rules. The visualiser must not duplicate node definitions inside components.
+`packages/roadmap-data/roadmap.json` is the canonical roadmap dataset. `packages/roadmap-data/roadmap.schema.ts` defines its TypeScript contract and validation rules. The visualiser must not duplicate node definitions inside components or HTML.
+
+The static documentation site consumes a synced copy at `docs/data/roadmap.json`, produced by `make sync-roadmap` (also run by the Vercel `buildCommand`). Never edit the docs copy by hand.
 
 ## Recommended Implementation
 
