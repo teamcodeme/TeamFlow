@@ -164,8 +164,8 @@ entity RequirementApproval {
   datetime decidedAt required
 }
 
-# Keep a TeamFlow domain audit entity only if the generated @Audited system audit log
-# does not cover the required project-scoped fields. Avoid exposing update/delete APIs.
+// Keep a TeamFlow domain audit entity only if the generated @Audited system audit log
+// does not cover the required project-scoped fields. Avoid exposing update/delete APIs.
 entity TeamFlowAuditEvent {
   uuid organizationId
   uuid projectId
