@@ -39,7 +39,7 @@ container run \
     --env "POSTGRES_USER=${DB_USER}" \
     --env "POSTGRES_PASSWORD=${DB_PASSWORD}" \
     --env "POSTGRES_DB=${DB_NAME}" \
-    --volume "${DATA_DIR}:/var/lib/postgresql/data" \
+    --volume "${DATA_DIR}:/var/lib/postgresql" \
     --memory 2g \
     --cpus 2 \
     "$IMAGE"
