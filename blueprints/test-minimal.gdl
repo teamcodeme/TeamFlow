@@ -1,0 +1,11 @@
+enum RecordStatus {
+  ACTIVE,
+  INACTIVE,
+  ARCHIVED
+}
+
+entity Organization {
+  string(50) code required unique
+  string(150) name required
+  RecordStatus status required
+}

@@ -1,0 +1,34 @@
+.env
+.env.local
+.DS_Store
+.idea/
+.vscode/
+*.log
+coverage/
+dist/
+bin/
+node_modules/
+
+# Go build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Go test cache
+.testcache/
+
+# Binaries
+teamflow-api
+/apps/api/teamflow-api
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Keep GO-DUCK state committed unless your generator documentation explicitly says otherwise.
+# .go-duck/

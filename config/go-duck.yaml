@@ -1,0 +1,64 @@
+# TeamFlow GO-DUCK configuration template.
+# Validate this file against your installed GO-DUCK version/config wizard before generation.
+go-duck:
+  name: teamflow-api
+  version: 0.1.0
+
+  server:
+    port: 8080
+    read-timeout: 30s
+    write-timeout: 30s
+    grpc:
+      enabled: false
+    cors:
+      allow-origins:
+        - http://localhost:4200
+      allow-methods: [GET, POST, PUT, PATCH, DELETE, OPTIONS]
+      allow-headers: [Authorization, Content-Type, X-Request-ID]
+
+  datasource:
+    host: ${TEAMFLOW_DB_HOST}
+    port: 5432
+    username: ${TEAMFLOW_DB_USER}
+    password: ${TEAMFLOW_DB_PASSWORD}
+    database: ${TEAMFLOW_DB_NAME}
+    ssl-mode: ${TEAMFLOW_DB_SSL_MODE}
+    max-open-conns: 20
+    max-idle-conns: 5
+    mongodb:
+      enabled: false
+
+  security:
+    enabled: true
+    super-admin-role: TEAMFLOW_SYSTEM_ADMIN
+    oidc:
+      enabled: true
+      issuer: ${TEAMFLOW_OIDC_ISSUER}
+      client-id: ${TEAMFLOW_OIDC_CLIENT_ID}
+      jwks-url: ${TEAMFLOW_OIDC_JWKS_URL}
+
+  multitenancy:
+    enabled: false
+  redis:
+    enabled: false
+  messaging:
+    mqtt:
+      enabled: false
+    nats:
+      enabled: false
+  storage:
+    s3:
+      enabled: false
+    gcs:
+      enabled: false
+    minio:
+      enabled: false
+  elasticsearch:
+    enabled: false
+  observability:
+    tracing:
+      enabled: false
+    metrics:
+      enabled: true
+  audit:
+    enabled: true

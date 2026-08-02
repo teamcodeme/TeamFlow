@@ -1,15 +1,20 @@
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
 
-.PHONY: help doctor validate-roadmap sync-roadmap enrich-roadmap docs-serve clean dev test build format lint
+GO_DUCK ?= go-duck
+GDL := blueprints/teamflow-foundation.gdl
+CONFIG := config/go-duck.yaml
+API_DIR := apps/api
+
+.PHONY: help doctor validate-roadmap sync-roadmap enrich-roadmap docs-serve \
+	db-up db-down validate-gdl generate-api verify-api clean-api \
+	clean dev test build format lint
 
 help: ## Show available commands
 	@awk 'BEGIN {FS = ":.*## "; printf "TeamFlow commands:\n"} /^[a-zA-Z_-]+:.*## / {printf "  %-20s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 doctor: ## Check tools needed for the current repository phase
-	@command -v python3 >/dev/null || (echo "python3 is required" && exit 1)
-	@command -v git >/dev/null || (echo "git is required" && exit 1)
-	@echo "Foundation tooling is available."
+	@./scripts/doctor.sh
 
 validate-roadmap: ## Validate canonical roadmap JSON references and values
 	@python3 scripts/validate_roadmap.py
@@ -23,6 +28,25 @@ enrich-roadmap: ## Derive missing start/end dates from dependencies (canonical J
 
 docs-serve: sync-roadmap ## Serve the static documentation site locally on port 4173
 	@cd docs && python3 -m http.server 4173
+
+db-up: ## Start local PostgreSQL
+	@./scripts/db.sh up
+
+db-down: ## Stop local PostgreSQL
+	@./scripts/db.sh down
+
+validate-gdl: ## Validate GDL with installed GO-DUCK CLI
+	@./scripts/validate_gdl.sh "$(GO_DUCK)" "$(GDL)"
+
+generate-api: ## Generate API into apps/api
+	@./scripts/generate_api.sh "$(GO_DUCK)" "$(CONFIG)" "$(GDL)" "$(API_DIR)"
+
+verify-api: ## Run Go format/vet/test/build for apps/api
+	@./scripts/verify_api.sh "$(API_DIR)"
+
+clean-api: ## Refuse automatic API deletion (preserves .go-duck state)
+	@echo "Refusing to delete generated API automatically. Preserve apps/api/.go-duck state."
+	@exit 1
 
 dev: ## Start application development after apps are scaffolded
 	@echo "TODO: scaffold apps/web and apps/api, then wire this target."

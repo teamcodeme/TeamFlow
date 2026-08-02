@@ -13,39 +13,48 @@ This repository currently contains:
 - Complete TeamFlow product documentation
 - Published static documentation site
 - Roadmap visualiser schema and delivery dataset
-- Initial architecture documentation
-- Initial Architecture Decision Records
-- Claude Code repository instructions
-- Environment and Make targets for the engineering bootstrap
+- Initial architecture documentation and ADRs
+- GO-DUCK configuration, foundation GDL blueprint, and generation scripts
+- PostgreSQL and Keycloak local setup plans
+- Environment template and Make targets for engineering bootstrap
 
-The Angular web application and Go API are the next implementation phase.
+The first backend milestone is Vertical Slice 1:
 
-## Planned Structure
+`Project → Requirement Draft → Review → Approval → Immutable Version 1.0 → Audit History`
 
-```text
-apps/web              Angular application
-apps/api              Go modular-monolith API
-apps/documentation    Documentation and roadmap application
-packages/contracts    OpenAPI and generated contracts
-packages/roadmap-data Roadmap schema and data
-database               Migrations and seed data
-infrastructure         Containers, proxy and Kubernetes later
-scripts                Setup, tests and demo automation
+The Angular web application remains a later implementation phase.
+
+## Important (GO-DUCK)
+
+The generated Go backend depends on your installed GO-DUCK version. Preserve `.go-duck/` generator state and all needle markers. Do not regenerate over custom business logic without inspecting the diff.
+
+## Quick start
+
+```bash
+cp .env.example .env
+make doctor
+make db-up
+make validate-gdl
+make generate-api
 ```
 
-## Current Documentation
+Then:
 
-The source product documents are under `Product-Docs/`. The published static site is under `docs/`.
+```bash
+cd apps/api
+go mod tidy
+go test ./...
+go build ./...
+```
 
-## Roadmap Files
+## Documentation and roadmap
 
-Canonical source of truth:
-
-- `packages/roadmap-data/roadmap.json`
-- `packages/roadmap-data/roadmap.schema.ts`
-- `roadmap-visualiser-spec.md`
-
-The documentation site loads a synced copy at `docs/data/roadmap.json` via `make sync-roadmap` / `python3 scripts/sync_roadmap.py` (also the Vercel `buildCommand`). Do not edit the docs copy by hand.
+```bash
+make help
+make validate-roadmap
+make sync-roadmap
+make docs-serve
+```
 
 Optional schedule enrichment (writes only the canonical JSON):
 
@@ -53,24 +62,39 @@ Optional schedule enrichment (writes only the canonical JSON):
 make enrich-roadmap
 ```
 
-## Initial Commands
+Canonical roadmap source of truth:
 
-```bash
-make help
-make validate-roadmap
-make sync-roadmap
-make docs-serve
-make doctor
-```
+- `packages/roadmap-data/roadmap.json`
+- `packages/roadmap-data/roadmap.schema.ts`
+- `roadmap-visualiser-spec.md`
 
-After application scaffolding:
+The documentation site loads a synced copy at `docs/data/roadmap.json` via `make sync-roadmap`. Do not edit the docs copy by hand.
 
-```bash
-make dev
-make test
-make build
+Product documents live under `Product-Docs/` and are also mirrored under `docs/product/`. The published static site is under `docs/`.
+
+## Repository structure
+
+```text
+apps/api/                 GO-DUCK-generated Go backend
+apps/web/                 Angular app (future milestone)
+apps/documentation/       Documentation and roadmap application
+blueprints/               GDL source of truth
+config/                   GO-DUCK config
+packages/contracts/       OpenAPI and generated contracts
+packages/roadmap-data/    Roadmap schema and data
+Product-Docs/             Source product documents
+database/                 Migrations and seed data
+infrastructure/local/     Local PostgreSQL setup
+infrastructure/keycloak/  Keycloak setup plan
+docs/                     Static documentation site, architecture, ADRs
+scripts/                  Setup, generation, verification and demo automation
 ```
 
 ## First Engineering Milestone
 
 Vertical Slice 1 must support login, project creation, requirement drafting, submission, review, approval, immutable Version 1.0, version history and audit history.
+
+## Source references
+
+- GO-DUCK documentation: https://goduck.theheavenscode.com/
+- TeamFlow documentation: https://teamflow-documentation.vercel.app/

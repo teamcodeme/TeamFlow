@@ -1,0 +1,201 @@
+enum RecordStatus {
+  ACTIVE,
+  INACTIVE,
+  ARCHIVED
+}
+
+enum ProjectStatus {
+  DRAFT,
+  ACTIVE,
+  ON_HOLD,
+  COMPLETED,
+  ARCHIVED
+}
+
+enum ProjectMemberRole {
+  PROJECT_MANAGER,
+  BUSINESS_ANALYST,
+  TECHNICAL_LEAD,
+  DEVELOPER,
+  QA_ENGINEER,
+  VIEWER
+}
+
+enum RequirementPriority {
+  CRITICAL,
+  HIGH,
+  MEDIUM,
+  LOW
+}
+
+enum RequirementLifecycleStatus {
+  DRAFT,
+  SUBMITTED,
+  UNDER_BA_REVIEW,
+  UNDER_PM_REVIEW,
+  UNDER_TECHNICAL_REVIEW,
+  UNDER_QA_REVIEW,
+  CHANGES_REQUESTED,
+  APPROVED,
+  IN_DEVELOPMENT,
+  IMPLEMENTED,
+  QA_VERIFIED,
+  BA_ACCEPTED,
+  RELEASED,
+  REJECTED,
+  ON_HOLD,
+  CANCELLED,
+  SUPERSEDED
+}
+
+enum RequirementReviewStage {
+  BA_REVIEW,
+  PM_REVIEW,
+  TECHNICAL_REVIEW,
+  QA_REVIEW,
+  FINAL_APPROVAL
+}
+
+enum ApprovalDecision {
+  APPROVED,
+  REJECTED,
+  CHANGES_REQUESTED,
+  ON_HOLD
+}
+
+enum AuditActorType {
+  USER,
+  SYSTEM,
+  SERVICE
+}
+
+@Audited @ActiveStatus 
+entity Organization {
+  string(50) code  unique
+  string(150) name 
+  RecordStatus status 
+  string timezone
+}
+
+@Audited @ActiveStatus 
+entity UserAccount {
+  string keycloakId  unique
+  string username  unique
+  string email
+  string(150) displayName 
+  RecordStatus status 
+  datetime lastLoginAt
+}
+
+@Audited @ActiveStatus 
+entity Project {
+  string(30) projectCode  unique
+  string(200) name 
+  text description
+  ProjectStatus status 
+  localdate startDate
+  localdate targetEndDate
+  int rowVersion
+}
+
+@Audited @ActiveStatus 
+entity ProjectMember {
+  ProjectMemberRole projectRole 
+  boolean active 
+  datetime joinedAt 
+  datetime removedAt
+}
+
+@Audited @ActiveStatus 
+entity Requirement {
+  string(50) requirementNumber  unique
+  string title 
+  RequirementPriority priority 
+  RequirementLifecycleStatus lifecycleStatus 
+  uuid currentApprovedVersionId
+  uuid latestVersionId
+  int rowVersion
+}
+
+@Audited @ActiveStatus 
+entity RequirementVersion {
+  int versionMajor 
+  int versionMinor 
+  string(20) versionLabel 
+  RequirementLifecycleStatus status 
+  text businessObjective 
+  text detailedDescription 
+  jsonb actors
+  jsonb preconditions
+  jsonb mainWorkflow
+  jsonb alternativeWorkflows
+  jsonb businessRules
+  jsonb assumptions
+  jsonb dependencies
+  jsonb outOfScope
+  text securityConsiderations
+  text performanceConsiderations
+  text changeSummary
+  uuid baseVersionId
+  string approvedSnapshotHash
+  datetime submittedAt
+  datetime approvedAt
+  int rowVersion
+}
+
+@Audited 
+entity AcceptanceCriterion {
+  string(30) criterionNumber 
+  text givenText
+  text whenText
+  text thenText
+  text description
+  RequirementPriority priority
+  boolean active 
+}
+
+@Audited
+entity RequirementApproval {
+  RequirementReviewStage reviewStage 
+  ApprovalDecision decision 
+  string reviewerRole 
+  text comment
+  int sequenceNumber 
+  datetime decidedAt 
+}
+
+// Keep a TeamFlow domain audit entity only if the generated @Audited system audit log
+// does not cover the  project-scoped fields. Avoid exposing update/delete APIs.
+entity TeamFlowAuditEvent {
+  uuid organizationId
+  uuid projectId
+  uuid actorUserId
+  AuditActorType actorType 
+  string action 
+  string entityType 
+  string entityId 
+  jsonb previousState
+  jsonb newState
+  text reason
+  string traceId 
+  string ipAddress
+  string userAgent
+  string previousHash
+  string eventHash
+}
+
+relationship ManyToOne {
+  UserAccount{organization} to Organization 
+  Project{organization} to Organization 
+  Project{projectManager} to UserAccount
+  ProjectMember{project} to Project 
+  ProjectMember{user} to UserAccount 
+  Requirement{project} to Project 
+  // Use author (not createdBy): @Audited already generates a CreatedBy string audit field.
+  Requirement{author} to UserAccount 
+  RequirementVersion{requirement} to Requirement 
+  RequirementVersion{author} to UserAccount 
+  AcceptanceCriterion{requirementVersion} to RequirementVersion 
+  RequirementApproval{requirementVersion} to RequirementVersion 
+  RequirementApproval{reviewer} to UserAccount 
+}
