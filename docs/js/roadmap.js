@@ -420,23 +420,6 @@
       });
     });
 
-    const tree = $('rm-tree');
-    const scroll = $('rm-timeline-scroll');
-    if (tree && scroll) {
-      let syncing = false;
-      tree.addEventListener('scroll', () => {
-        if (syncing) return;
-        syncing = true;
-        scroll.scrollTop = tree.scrollTop;
-        syncing = false;
-      });
-      scroll.addEventListener('scroll', () => {
-        if (syncing) return;
-        syncing = true;
-        tree.scrollTop = scroll.scrollTop;
-        syncing = false;
-      });
-    }
   }
 
   function drawDependencies() {

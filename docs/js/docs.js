@@ -1,7 +1,6 @@
 /* TeamFlow docs — shared navigation, TOC, search, theme */
 (function () {
   const DOC_PAGES = [
-    { title: 'Interactive Roadmap', section: 'Get started', href: 'index.html', path: '/' },
     { title: 'Introduction', section: 'Get started', href: 'html/introduction.html' },
     { title: 'Product Vision', section: 'Overview', href: 'html/vision.html' },
     { title: 'Problem Statement', section: 'Overview', href: 'html/problem-statement.html' },
@@ -59,21 +58,29 @@
     });
   }
 
-  /* Sidebar mobile */
+  /* Sidebar: mobile drawer everywhere; also drawer on roadmap (desktop) so the Gantt gets full width */
   function initSidebar() {
     const toggle = document.getElementById('sidebar-toggle');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebar-overlay');
     if (!toggle || !sidebar) return;
 
+    const isRoadmapPage = document.body.classList.contains('roadmap-page');
+
     const close = () => {
       sidebar.classList.remove('active');
       if (overlay) overlay.classList.remove('active');
+      toggle.setAttribute('aria-expanded', 'false');
     };
     const open = () => {
       sidebar.classList.add('active');
       if (overlay) overlay.classList.add('active');
+      toggle.setAttribute('aria-expanded', 'true');
     };
+
+    /* Roadmap starts collapsed so the timeline is not squeezed by the docs tree */
+    if (isRoadmapPage) close();
+    else toggle.setAttribute('aria-expanded', 'false');
 
     toggle.addEventListener('click', () => {
       if (sidebar.classList.contains('active')) close();

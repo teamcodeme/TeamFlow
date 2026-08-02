@@ -308,12 +308,30 @@ html[data-theme="dark"] .brand-logo {
     height: calc(100vh - var(--header-height) - var(--subnav-height));
     min-height: 0;
     overflow: hidden;
+    /* Give the Gantt full width — docs tree is drawer-only here */
+    grid-template-columns: minmax(0, 1fr);
 }
 
-.docs-shell.roadmap-shell .docs-sidebar {
-    height: 100%;
-    top: 0;
-    position: relative;
+body.roadmap-page #sidebar-toggle {
+    display: inline-flex;
+}
+
+body.roadmap-page .docs-sidebar {
+    position: fixed;
+    top: calc(var(--header-height) + var(--subnav-height));
+    left: 0;
+    width: min(300px, 88vw);
+    height: calc(100vh - var(--header-height) - var(--subnav-height));
+    z-index: 90;
+    transform: translateX(-105%);
+    transition: transform 0.2s ease;
+    box-shadow: none;
+    border-right: 1px solid var(--border);
+}
+
+body.roadmap-page .docs-sidebar.active {
+    transform: translateX(0);
+    box-shadow: 8px 0 24px rgba(0, 0, 0, 0.08);
 }
 
 body.roadmap-page {
