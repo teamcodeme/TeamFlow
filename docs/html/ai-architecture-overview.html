@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Architecture — TeamFlow</title>
+    <meta name="description" content="TeamFlow documentation — requirement governance, controlled change requests, and full delivery traceability.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="TeamFlow">
+    <meta property="og:title" content="AI Architecture — TeamFlow">
+    <meta property="og:description" content="TeamFlow documentation — requirement governance, controlled change requests, and full delivery traceability.">
+    <meta property="og:url" content="https://teamflow-docs.vercel.app/html/vision">
+    <meta property="og:image" content="https://teamflow-docs.vercel.app/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="TeamFlow logo">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI Architecture — TeamFlow">
+    <meta name="twitter:description" content="TeamFlow documentation — requirement governance, controlled change requests, and full delivery traceability.">
+    <meta name="twitter:image" content="https://teamflow-docs.vercel.app/assets/og-image.png">
+    <link rel="stylesheet" href="../css/styles.css?v=ailayer1">
+    <link rel="icon" href="../assets/teamflow-icon-sm.png">
+    <link rel="apple-touch-icon" href="../assets/teamflow-icon.png">
+    <script>try{var t=localStorage.getItem('tf-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body data-root="nested">
+    <header class="site-header">
+        <div class="header-top">
+            <button id="sidebar-toggle" class="icon-btn" aria-label="Toggle navigation"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+            <a class="brand" href="../index.html">
+                <img class="brand-logo" src="../assets/teamflow-logo-header.png" alt="TeamFlow" width="157" height="48">
+            </a>
+            <div class="header-search">
+                <span class="search-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+                <input id="docs-search" type="search" placeholder="Search..." autocomplete="off" aria-label="Search documentation">
+                <span class="search-kbd">⌘K</span>
+                <div id="search-results" class="search-results" role="listbox"></div>
+            </div>
+            <div class="header-actions">
+                <button class="ask-btn" type="button" onclick="document.getElementById('docs-search')?.focus()"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5L12 2z"/></svg> <span>Ask Assistant</span></button>
+                <a class="header-link" href="cto-proposal.html">Proposal</a>
+                <a class="header-link" href="demo-scenario.html">Demo</a>
+                <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle theme"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></button>
+            </div>
+        </div>
+        <nav class="header-subnav" aria-label="Section">
+            <a href="introduction.html">Documentation</a>
+            <a href="mvp-scope.html">MVP Scope</a>
+            <a href="api-contract.html">API</a>
+            <a href="data-model.html">Data Model</a>
+            <a href="security-model.html">Security</a>
+            <a href="ai-architecture-overview.html" class="active">AI Layer</a>
+            <a href="../index.html">Roadmap</a>
+        </nav>
+    </header>
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <div class="docs-shell">
+        <aside id="sidebar" class="docs-sidebar">
+            <nav aria-label="Documentation">
+                <div class="nav-group">
+<div class="nav-group-title">Get started</div>
+<ul class="nav-list">
+<li><a href="introduction.html">Introduction</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Overview</div>
+<ul class="nav-list">
+<li><a href="vision.html">Product Vision</a></li>
+<li><a href="problem-statement.html">Problem Statement</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Getting Started</div>
+<ul class="nav-list">
+<li><a href="mvp-scope.html">MVP Scope</a></li>
+<li><a href="user-roles.html">User Roles</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Core Workflows</div>
+<ul class="nav-list">
+<li><a href="requirement-workflow.html">Requirement Workflow</a></li>
+<li><a href="change-request-workflow.html">Change Request Workflow</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Requirements</div>
+<ul class="nav-list">
+<li><a href="functional-requirements.html">Functional Requirements</a></li>
+<li><a href="non-functional-requirements.html">Non-Functional Requirements</a></li>
+<li><a href="api-contract.html">API Contract</a></li>
+<li><a href="data-model.html">Data Model</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Planning & Execution</div>
+<ul class="nav-list">
+<li><a href="development-roadmap.html">Development Roadmap</a></li>
+<li><a href="demo-scenario.html">Demo Scenario</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Quality & Security</div>
+<ul class="nav-list">
+<li><a href="security-model.html">Security Model</a></li>
+<li><a href="test-strategy.html">Test Strategy</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">AI Layer</div>
+<ul class="nav-list">
+<li><a href="ai-architecture-overview.html">AI Architecture</a></li>
+<li><a href="ai-agent-specifications.html">Agent Specifications</a></li>
+<li><a href="ai-automation-surfaces.html">Automation Surfaces</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Executive</div>
+<ul class="nav-list">
+<li><a href="cto-proposal.html">CTO Proposal</a></li>
+</ul></div>
+            </nav>
+        </aside>
+
+        <main class="docs-main">
+            <article class="docs-content">
+                <div class="page-eyebrow">AI Layer</div>
+                <div class="page-header">
+                    <h1>TeamFlow AI Layer Architecture</h1>
+                    <div class="page-actions">
+                        <button id="copy-page" class="copy-btn" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> <span>Copy page</span></button>
+                    </div>
+                </div>
+<h2>1. Executive Summary</h2>
+<p>The AI layer automates capture, transcription, structuring, and drafting while preserving TeamFlow's core principle: <strong>nothing becomes canonical without human approval</strong>. AI output always remains <code>PROPOSED</code> status until explicitly accepted by authorized users. This layer enhances efficiency without bypassing the approval gates that make TeamFlow trustworthy.</p>
+<p>The AI layer is not a replacement for the approval workflow—it is a pre-workflow service layer that eliminates tedious manual transcription and structuring, so reviewers can focus on judgment calls rather than data entry.</p>
+<h2>2. Design Principles</h2>
+<ul>
+<li><strong>Evidence over opinion</strong>: AI output is versioned, stored with confidence scores, and traceable back to source (recording timestamp, transcript segment, model version)</li>
+<li><strong>Humans hold approval authority</strong>: AI proposals are <code>PROPOSED</code> status in all contexts; only explicit human action promotes them to <code>ACCEPTED</code> or moves them through workflow states</li>
+<li><strong>Immutable audit trail</strong>: Every AI-generated artifact includes model ID, prompt, timestamp, and confidence; rejected AI proposals remain in the audit log</li>
+<li><strong>Separation of concerns</strong>: Narrow, single-purpose agents (one LLM call per agent) rather than one mega-agent; each output is independently reviewable</li>
+<li><strong>Role-based automation surfaces</strong>: Different roles see different automation; a PM sees auto-generated burndown, a BA sees clarification-question drafts</li>
+<li><strong>Graceful degradation</strong>: If AI extraction fails or confidence is too low, the work flows to a human review queue rather than silently inserted</li>
+</ul>
+<h2>3. Core Architecture</h2>
+<h3>3.1 Voice-to-Requirement Pipeline</h3>
+<pre><code class="language-">Meeting/Call Audio
+    ↓
+[Recorder Service] ──→ Audio storage + metadata
+    ↓
+[Speech-to-Text Service] ──→ Language detection, continuous transcription
+    ↓
+[Diarization Agent] ──→ Speaker attribution (who said what)
+    ↓
+[Transcript Storage] ──→ Raw, immutable, timestamped
+    ↓
+[AI Agent Pipeline] (see §4)
+    ├─→ [Requirement Extraction Agent]
+    ├─→ [Ambiguity Detector Agent]
+    ├─→ [UX Gap-Filler Agent]
+    └─→ [Change Impact Agent]
+    ↓
+[AIExtraction Records] (status = PROPOSED, pending human approval)
+    ↓
+[Human Review Queue]
+    ├─ BA reviews requirement drafts → ACCEPTED / REJECTED / MODIFIED
+    ├─ PM reviews impact analysis → ACCEPTED / FLAGGED
+    └─ QA reviews test-case suggestions → ACCEPTED / SKIPPED
+    ↓
+[Workflow Entry Points]
+    ├─→ RequirementVersion (DRAFT) ──→ approval workflow
+    ├─→ Clarification (open) ──→ BA response queue
+    └─→ ChangeImpact (logged) ──→ executive dashboards</code></pre>
+<h3>3.2 Data Model Additions</h3>
+<p>All AI-related entities include:</p>
+<ul>
+<li><code>createdAt</code>, <code>updatedAt</code> timestamps</li>
+<li><code>createdBy</code> (AI agent ID, not a user)</li>
+<li><code>modelVersion</code> (Claude 5, Opus, Haiku, etc.)</li>
+<li><code>confidence</code> score (0–1)</li>
+<li><code>status</code> enum: <code>PROPOSED | ACCEPTED | REJECTED | MODIFIED | EXPIRED</code></li>
+<li><code>reviewedBy</code>, <code>reviewedAt</code> (null until human action)</li>
+</ul>
+<h4>Recording</h4>
+<pre><code class="language-json">{
+  "id": "recording_abc123",
+  "projectId": "proj_xyz",
+  "meetingType": "REQUIREMENTS_KICKOFF | STAKEHOLDER_SYNC | DESIGN_REVIEW",
+  "participants": ["user_ba1", "user_dev1"],
+  "audioUrl": "s3://bucket/recordings/recording_abc123.mp3",
+  "durationSeconds": 3600,
+  "language": "en-US",
+  "createdAt": "2026-08-02T14:00:00Z",
+  "status": "PROCESSING | COMPLETE"
+}</code></pre>
+<h4>Transcript</h4>
+<pre><code class="language-json">{
+  "id": "transcript_abc123",
+  "recordingId": "recording_abc123",
+  "rawText": "full raw transcript...",
+  "speakerSegments": [
+    {
+      "speaker": "Speaker_1 (identified as: user_ba1)",
+      "timeRange": "00:00:00–00:05:30",
+      "text": "segment text...",
+      "confidence": 0.95
+    }
+  ],
+  "overallConfidence": 0.92,
+  "language": "en-US",
+  "wordCount": 4250,
+  "createdAt": "2026-08-02T14:10:00Z",
+  "status": "COMPLETE"
+}</code></pre>
+<h4>AIExtraction</h4>
+<pre><code class="language-json">{
+  "id": "extraction_abc123",
+  "transcriptId": "transcript_abc123",
+  "extractionType": "REQUIREMENT_DRAFT | CLARIFICATION | DECISION | ACTION_ITEM | RISK",
+  "payload": {
+    // structure depends on extractionType (see §5)
+  },
+  "confidence": 0.87,
+  "modelId": "claude-opus-5",
+  "prompt": "You are a BA extracting requirements...",
+  "status": "PROPOSED",
+  "reviewedBy": null,
+  "reviewedAt": null,
+  "createdAt": "2026-08-02T14:12:00Z"
+}</code></pre>
+<h4>ChangeImpact</h4>
+<pre><code class="language-json">{
+  "id": "impact_abc123",
+  "oldVersionId": "req_v12",
+  "newExtractionId": "extraction_abc123",
+  "projectId": "proj_xyz",
+  "diffSummary": {
+    "fieldsChanged": ["acceptanceCriteria", "actors"],
+    "linesAdded": 15,
+    "linesRemoved": 3
+  },
+  "affectedModules": ["user-auth", "dashboard"],
+  "effortDelta": "+8 hours",
+  "effortConfidence": 0.78,
+  "risk": "MEDIUM",
+  "status": "PROPOSED",
+  "createdAt": "2026-08-02T14:14:00Z"
+}</code></pre>
+<h2>4. Agent Roles</h2>
+<p>Each agent is a narrow, focused LLM call producing structured JSON output. Agents do not communicate with each other; all outputs are independent and reviewed separately.</p>
+<div class="table-wrap"><table><thead><tr>
+<th>Agent</th>
+<th>Input</th>
+<th>Output</th>
+<th>Produces</th>
+<th>Status</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>Transcription</strong></td>
+<td>Raw audio</td>
+<td>Diarized transcript</td>
+<td><code>Transcript</code></td>
+<td>COMPLETE</td>
+</tr>
+<tr>
+<td><strong>Requirement Extraction</strong></td>
+<td>Transcript</td>
+<td>Draft obj., actors, workflow, rules, scope</td>
+<td><code>AIExtraction</code> (type=REQUIREMENT_DRAFT)</td>
+<td>PROPOSED</td>
+</tr>
+<tr>
+<td><strong>Ambiguity Detector</strong></td>
+<td>Transcript + draft requirement</td>
+<td>Flagged vague terms + clarifying questions</td>
+<td><code>AIExtraction</code> (type=CLARIFICATION)</td>
+<td>PROPOSED</td>
+</tr>
+<tr>
+<td><strong>UX Gap-Filler</strong></td>
+<td>Requirement + industry patterns</td>
+<td>Wireframe suggestions, flow diagrams</td>
+<td>Attached as artifact to AIExtraction</td>
+<td>PROPOSED</td>
+</tr>
+<tr>
+<td><strong>Change Impact</strong></td>
+<td>New extraction vs. old approved version</td>
+<td>Diff, affected modules, effort delta</td>
+<td><code>ChangeImpact</code></td>
+<td>PROPOSED</td>
+</tr>
+<tr>
+<td><strong>Task Breakdown</strong></td>
+<td>Approved <code>RequirementVersion</code></td>
+<td>Suggested task list w/ estimates</td>
+<td><code>Task</code> (DRAFT)</td>
+<td>DRAFT</td>
+</tr>
+<tr>
+<td><strong>Test Case Generator</strong></td>
+<td>Approved <code>RequirementVersion</code> + criteria</td>
+<td>Draft test cases in GHERKIN format</td>
+<td><code>TestCase</code> (DRAFT)</td>
+<td>DRAFT</td>
+</tr>
+<tr>
+<td><strong>Standup Digest</strong></td>
+<td>Task activity + AuditLog</td>
+<td>Daily digest per role</td>
+<td>Notification feed</td>
+<td>N/A</td>
+</tr>
+</tbody></table></div>
+<h2>5. Human Review Surfaces</h2>
+<h3>5.1 BA Dashboard: Requirement Review Queue</h3>
+<ul>
+<li>Shows <code>AIExtraction</code> records with type=REQUIREMENT_DRAFT, status=PROPOSED</li>
+<li>Displays confidence score and source transcript timestamp</li>
+<li>Actions: ACCEPT (creates RequirementVersion in DRAFT, links AIExtraction), REJECT, MODIFY (drafts changes and re-submits)</li>
+<li>All actions are audit-logged; rejection includes reason</li>
+</ul>
+<h3>5.2 PM Dashboard: Impact Analysis</h3>
+<ul>
+<li>Shows <code>ChangeImpact</code> records pending review</li>
+<li>Displays affected modules, effort delta, risk level</li>
+<li>Actions: APPROVE (change request can proceed), REQUEST_ANALYSIS (re-runs agent with feedback), HOLD</li>
+<li>Lower-confidence extractions are routed here automatically</li>
+</ul>
+<h3>5.3 QA Dashboard: Test Case Drafts</h3>
+<ul>
+<li>Shows <code>TestCase</code> (DRAFT) records auto-generated from approved requirements</li>
+<li>Can review GHERKIN format, link to requirement version</li>
+<li>Actions: ACCEPT, MODIFY, DELETE (mark "manual coverage only")</li>
+</ul>
+<h3>5.4 Developer Task Queue</h3>
+<ul>
+<li>Auto-assigned tasks from Task Breakdown Agent</li>
+<li>Shows estimated hours (auto-generated) and priority</li>
+<li>Can request clarification; flags go back to BA review queue</li>
+</ul>
+<h3>5.5 Executive Dashboards</h3>
+<ul>
+<li><strong>Portfolio Health</strong>: % requirements with AI-assisted capture, % change requests pending, delivery variance</li>
+<li><strong>Risk Summary</strong>: high-confidence ambiguity flags, high-impact changes pending approval</li>
+<li><strong>Burndown</strong>: auto-updated from task status (read-only for execs, but generated from AI)</li>
+</ul>
+<h2>6. Confidence Thresholds and Routing</h2>
+<p>AI extractions are routed based on confidence:</p>
+<div class="table-wrap"><table><thead><tr>
+<th>Confidence</th>
+<th>Routing</th>
+<th>Action</th>
+</tr></thead><tbody>
+<tr>
+<td>≥ 0.85</td>
+<td>Direct to assigned reviewer</td>
+<td>Review normally</td>
+</tr>
+<tr>
+<td>0.70–0.84</td>
+<td>Flagged queue (high-touch review)</td>
+<td>Human adds context, then review</td>
+</tr>
+<tr>
+<td>&lt; 0.70</td>
+<td>Human re-work queue</td>
+<td>BA rewrites manually or requests clarification</td>
+</tr>
+</tbody></table></div>
+<p>The threshold is configurable per agent and per organization.</p>
+<h2>7. Example: Requirements Kickoff Meeting</h2>
+<h3>7.1 Scenario</h3>
+<ul>
+<li>Friday 2 PM: 90-minute stakeholder meeting on a new user onboarding flow.</li>
+<li>Attendees: BA, PM, Product Designer, CTO, two stakeholders from Customer Success.</li>
+<li>Call is recorded and auto-transcribed in real-time (optional, users can mute).</li>
+</ul>
+<h3>7.2 AI Workflow (happens ~15 min after meeting ends)</h3>
+<ol>
+<li><strong>Diarization Agent</strong> identifies 5 speakers and timestamps who said what</li>
+<li><strong>Requirement Extraction Agent</strong> generates a draft requirement:</li>
+</ol>
+<p>``<code>json { "title": "User Onboarding Flow – Profile Setup Module", "objective": "Reduce time-to-first-value for new users from 8 minutes to &lt; 3 minutes", "actors": ["New User", "Customer Success Manager"], "mainWorkflow": ["Sign up → Verify email → Create profile → Connect org → See dashboard"], "businessRules": [ "Profile picture is optional", "Org connection must validate domain", "CSM can trigger guided tour" ], "acceptanceCriteria": [ "Flow completes in &lt; 3 min 90% of the time", "Mobile and desktop supported", "Offline email verification queue added" ], "outOfScope": ["SSO integration (deferred)", "Bulk user import"] } </code>``</p>
+<ol>
+<li><strong>Ambiguity Detector</strong> flags:</li>
+</ol>
+<p>- "&lt; 3 minutes" — baseline measurement needed; confidence varies by network speed - "See dashboard" — which dashboard? Admin or user dashboard? - "Offline email verification queue" — was this a definite requirement or a suggestion? - Auto-generated clarification questions for BA to address</p>
+<ol>
+<li><strong>UX Gap-Filler</strong> suggests:</li>
+</ol>
+<p>- Wireframe: mobile-first onboarding with 4-step progress bar - Accessibility note: WCAG 2.1 AA compliance recommended - Suggested component reuse: LoginFlow exists; can wrap</p>
+<ol>
+<li><strong>Change Impact Agent</strong> compares to existing "User Signup (v3)" requirement:</li>
+</ol>
+<p>- New requirement expands scope (org connection added) - Effort delta: +5–8 hours (if UI designer is involved) - Risk: medium (new third-party org-validation API)</p>
+<h3>7.3 BA Review (Monday morning)</h3>
+<p>BA opens the review queue:</p>
+<ul>
+<li>Reads the extracted requirement (auto-summarized from 90-min recording)</li>
+<li>Reviews the clarification questions</li>
+<li>Accepts the requirement with minor edits: "&lt; 3 minutes" becomes "&lt; 3 minutes for standard broadband (≥ 5 Mbps)"</li>
+<li>AIExtraction is marked ACCEPTED; RequirementVersion is created in DRAFT</li>
+<li>Requirement is now ready for submission → PM review</li>
+</ul>
+<h3>7.4 Audit Trail</h3>
+<p>The requirement's history includes:</p>
+<ul>
+<li>Recording (immutable)</li>
+<li>Transcript (immutable, with diarization)</li>
+<li>AIExtraction (PROPOSED)</li>
+<li>AIExtraction (ACCEPTED after BA edit)</li>
+<li>RequirementVersion v1 (DRAFT, auto-linked to AIExtraction)</li>
+<li>All decisions logged with timestamps and user IDs</li>
+</ul>
+<p>If the AI had mis-heard something, the BA's edit is visible; if a stakeholder later disputes the requirement, the BA and CTO can replay the exact timestamp in the recording and see the transcript segment that led to the extraction.</p>
+<h2>8. Integration Points with Existing Workflows</h2>
+<ul>
+<li><strong>Requirement Workflow</strong>: AIExtraction feeds into RequirementVersion creation; the proposal is added as a linked artifact</li>
+<li><strong>Change Management</strong>: ChangeImpact proposals inform Change Request creation; impact analysis is pre-filled</li>
+<li><strong>QA Workflow</strong>: TestCase proposals are reviewed before linking to RequirementVersion</li>
+<li><strong>Task Management</strong>: Task Breakdown Agent only runs on APPROVED requirements; drafts are visible but not in the active task queue</li>
+<li><strong>Audit Log</strong>: Every AI action is logged with model ID, confidence, human review outcome, and rejection reason (if any)</li>
+</ul>
+<h2>9. Security and Governance Constraints</h2>
+<ul>
+<li><strong>No silent approval</strong>: AI output never auto-transitions workflow states; human action is always required</li>
+<li><strong>No credential entry</strong>: Transcripts do not include passwords, API keys, or PII capture; if detected, sanitized from storage</li>
+<li><strong>PII handling</strong>: Transcripts are org-scoped; only assigned project members see them; legal teams can request deletion</li>
+<li><strong>Transparency</strong>: Executives can audit % of requirements captured via AI vs. manual, confidence distributions, rejection rates per agent</li>
+<li><strong>Cost transparency</strong>: Each agent call logs token usage; dashboards show cost per project, cost per requirement, ROI vs. manual BA effort</li>
+</ul>
+<h2>10. Non-Goals (Out of Scope)</h2>
+<ul>
+<li><strong>Auto-approval</strong>: AI does not approve requirements, change requests, or releases</li>
+<li><strong>Replacement of human judgment</strong>: AI generates structure and flags ambiguity; humans make the call</li>
+<li><strong>Real-time meeting transcription visibility</strong>: Raw transcripts may be stored but not shown live to meeting participants (UX clutter; BAs review asynchronously)</li>
+<li><strong>Chatbot as a single source of truth</strong>: General-purpose chat is separate from governed project data</li>
+<li><strong>Automatic remediation of compliance issues</strong>: Compliance flagging is automated; fixing is manual</li>
+</ul>
+            </article>
+        </main>
+
+        <aside class="docs-toc" aria-label="On this page">
+            <div class="toc-title">On this page</div>
+            <ul id="toc-list" class="toc-list"></ul>
+        </aside>
+    </div>
+
+    <footer class="site-footer">
+        <p>© 2026 TeamFlow Documentation. Requirement governance. Delivery flow. Team confidence.</p>
+    </footer>
+    
+    <script src="../js/docs.js?v=ailayer1"></script>
+</body>
+</html>

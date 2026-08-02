@@ -16,6 +16,9 @@
     { title: 'Demo Scenario', section: 'Planning & Execution', href: 'html/demo-scenario.html' },
     { title: 'Security Model', section: 'Quality & Security', href: 'html/security-model.html' },
     { title: 'Test Strategy', section: 'Quality & Security', href: 'html/test-strategy.html' },
+    { title: 'AI Architecture', section: 'AI Layer', href: 'html/ai-architecture-overview.html' },
+    { title: 'Agent Specifications', section: 'AI Layer', href: 'html/ai-agent-specifications.html' },
+    { title: 'Automation Surfaces', section: 'AI Layer', href: 'html/ai-automation-surfaces.html' },
     { title: 'CTO Proposal', section: 'Executive', href: 'html/cto-proposal.html' },
   ];
 
@@ -98,6 +101,7 @@
     const file = currentFile();
     const onRoadmapHome =
       file === 'index.html' || file === '' || file === 'docs' || file === 'roadmap.html';
+    const onAiLayer = file.startsWith('ai-');
 
     document.querySelectorAll('.nav-list a').forEach((link) => {
       const href = link.getAttribute('href') || '';
@@ -116,6 +120,8 @@
       const label = (link.textContent || '').trim().toLowerCase();
       let active = target === file;
       if (onRoadmapHome && (label === 'roadmap' || target === 'index.html')) active = label === 'roadmap';
+      if (onAiLayer && label === 'ai layer') active = true;
+      if (onAiLayer && label !== 'ai layer') active = false;
       link.classList.toggle('active', active);
       if (active) matched = true;
     });
@@ -134,48 +140,58 @@
     const content = document.querySelector('.docs-content');
     if (!tocList || !content) return;
 
-    const headings = content.querySelectorAll('h2');
-    if (!headings.length) {
+    function build() {
+      tocList.innerHTML = '';
+      const headings = content.querySelectorAll('h2');
       const toc = document.querySelector('.docs-toc');
       const shell = document.querySelector('.docs-shell');
-      if (toc) toc.hidden = true;
-      if (shell) shell.classList.add('no-toc');
-      return;
+      if (!headings.length) {
+        if (toc) toc.hidden = true;
+        if (shell) shell.classList.add('no-toc');
+        return;
+      }
+      if (toc) toc.hidden = false;
+      if (shell) shell.classList.remove('no-toc');
+
+      const ids = new Set();
+      headings.forEach((h) => {
+        if (!h.id) {
+          let id = slugify(h.textContent || 'section');
+          let n = 1;
+          while (ids.has(id)) {
+            id = `${slugify(h.textContent || 'section')}-${n++}`;
+          }
+          h.id = id;
+        }
+        ids.add(h.id);
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = `#${h.id}`;
+        a.textContent = h.textContent;
+        li.appendChild(a);
+        tocList.appendChild(li);
+      });
+
+      const links = tocList.querySelectorAll('a');
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            links.forEach((l) => l.classList.remove('active'));
+            const active = tocList.querySelector(`a[href="#${entry.target.id}"]`);
+            if (active) active.classList.add('active');
+          });
+        },
+        { rootMargin: '-20% 0px -70% 0px', threshold: 0 }
+      );
+      headings.forEach((h) => observer.observe(h));
+      if (links[0]) links[0].classList.add('active');
     }
 
-    const ids = new Set();
-    headings.forEach((h) => {
-      if (!h.id) {
-        let id = slugify(h.textContent || 'section');
-        let n = 1;
-        while (ids.has(id)) {
-          id = `${slugify(h.textContent || 'section')}-${n++}`;
-        }
-        h.id = id;
-      }
-      ids.add(h.id);
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = `#${h.id}`;
-      a.textContent = h.textContent;
-      li.appendChild(a);
-      tocList.appendChild(li);
-    });
-
-    const links = tocList.querySelectorAll('a');
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          links.forEach((l) => l.classList.remove('active'));
-          const active = tocList.querySelector(`a[href="#${entry.target.id}"]`);
-          if (active) active.classList.add('active');
-        });
-      },
-      { rootMargin: '-20% 0px -70% 0px', threshold: 0 }
-    );
-    headings.forEach((h) => observer.observe(h));
-    if (links[0]) links[0].classList.add('active');
+    build();
+    window.TeamFlowDocs = window.TeamFlowDocs || {};
+    window.TeamFlowDocs.refreshToc = build;
+    document.addEventListener('tf:content-ready', build);
   }
 
   /* Search */

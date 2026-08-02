@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation Surfaces — TeamFlow</title>
+    <meta name="description" content="TeamFlow documentation — requirement governance, controlled change requests, and full delivery traceability.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="TeamFlow">
+    <meta property="og:title" content="Automation Surfaces — TeamFlow">
+    <meta property="og:description" content="TeamFlow documentation — requirement governance, controlled change requests, and full delivery traceability.">
+    <meta property="og:url" content="https://teamflow-docs.vercel.app/html/vision">
+    <meta property="og:image" content="https://teamflow-docs.vercel.app/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="TeamFlow logo">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Automation Surfaces — TeamFlow">
+    <meta name="twitter:description" content="TeamFlow documentation — requirement governance, controlled change requests, and full delivery traceability.">
+    <meta name="twitter:image" content="https://teamflow-docs.vercel.app/assets/og-image.png">
+    <link rel="stylesheet" href="../css/styles.css?v=ailayer1">
+    <link rel="icon" href="../assets/teamflow-icon-sm.png">
+    <link rel="apple-touch-icon" href="../assets/teamflow-icon.png">
+    <script>try{var t=localStorage.getItem('tf-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body data-root="nested">
+    <header class="site-header">
+        <div class="header-top">
+            <button id="sidebar-toggle" class="icon-btn" aria-label="Toggle navigation"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+            <a class="brand" href="../index.html">
+                <img class="brand-logo" src="../assets/teamflow-logo-header.png" alt="TeamFlow" width="157" height="48">
+            </a>
+            <div class="header-search">
+                <span class="search-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+                <input id="docs-search" type="search" placeholder="Search..." autocomplete="off" aria-label="Search documentation">
+                <span class="search-kbd">⌘K</span>
+                <div id="search-results" class="search-results" role="listbox"></div>
+            </div>
+            <div class="header-actions">
+                <button class="ask-btn" type="button" onclick="document.getElementById('docs-search')?.focus()"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5L12 2z"/></svg> <span>Ask Assistant</span></button>
+                <a class="header-link" href="cto-proposal.html">Proposal</a>
+                <a class="header-link" href="demo-scenario.html">Demo</a>
+                <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle theme"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></button>
+            </div>
+        </div>
+        <nav class="header-subnav" aria-label="Section">
+            <a href="introduction.html">Documentation</a>
+            <a href="mvp-scope.html">MVP Scope</a>
+            <a href="api-contract.html">API</a>
+            <a href="data-model.html">Data Model</a>
+            <a href="security-model.html">Security</a>
+            <a href="ai-architecture-overview.html" class="active">AI Layer</a>
+            <a href="../index.html">Roadmap</a>
+        </nav>
+    </header>
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <div class="docs-shell">
+        <aside id="sidebar" class="docs-sidebar">
+            <nav aria-label="Documentation">
+                <div class="nav-group">
+<div class="nav-group-title">Get started</div>
+<ul class="nav-list">
+<li><a href="introduction.html">Introduction</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Overview</div>
+<ul class="nav-list">
+<li><a href="vision.html">Product Vision</a></li>
+<li><a href="problem-statement.html">Problem Statement</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Getting Started</div>
+<ul class="nav-list">
+<li><a href="mvp-scope.html">MVP Scope</a></li>
+<li><a href="user-roles.html">User Roles</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Core Workflows</div>
+<ul class="nav-list">
+<li><a href="requirement-workflow.html">Requirement Workflow</a></li>
+<li><a href="change-request-workflow.html">Change Request Workflow</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Requirements</div>
+<ul class="nav-list">
+<li><a href="functional-requirements.html">Functional Requirements</a></li>
+<li><a href="non-functional-requirements.html">Non-Functional Requirements</a></li>
+<li><a href="api-contract.html">API Contract</a></li>
+<li><a href="data-model.html">Data Model</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Planning & Execution</div>
+<ul class="nav-list">
+<li><a href="development-roadmap.html">Development Roadmap</a></li>
+<li><a href="demo-scenario.html">Demo Scenario</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Quality & Security</div>
+<ul class="nav-list">
+<li><a href="security-model.html">Security Model</a></li>
+<li><a href="test-strategy.html">Test Strategy</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">AI Layer</div>
+<ul class="nav-list">
+<li><a href="ai-architecture-overview.html">AI Architecture</a></li>
+<li><a href="ai-agent-specifications.html">Agent Specifications</a></li>
+<li><a href="ai-automation-surfaces.html" class="active">Automation Surfaces</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-group-title">Executive</div>
+<ul class="nav-list">
+<li><a href="cto-proposal.html">CTO Proposal</a></li>
+</ul></div>
+            </nav>
+        </aside>
+
+        <main class="docs-main">
+            <article class="docs-content">
+                <div class="page-eyebrow">AI Layer</div>
+                <div class="page-header">
+                    <h1>TeamFlow AI – Role-Based Automation Surfaces</h1>
+                    <div class="page-actions">
+                        <button id="copy-page" class="copy-btn" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> <span>Copy page</span></button>
+                    </div>
+                </div>
+<h2>1. Overview</h2>
+<p>Each role in TeamFlow sees a customized automation surface—AI-generated work that's relevant to their responsibilities. This document describes what each role sees, how they interact with AI outputs, and what remains in their hands.</p>
+<hr>
+<h2>2. BUSINESS_ANALYST Surface</h2>
+<h3>2.1 Requirement Review Queue</h3>
+<p><strong>Where</strong>: New section in Requirement Dashboard: "AI Proposals – Ready for Review"</p>
+<p><strong>What BAs see</strong>:</p>
+<pre><code class="language-">┌─────────────────────────────────────────────────────────────────┐
+│ AI Proposals – Ready for Review (3 pending)                       │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│ ✓ User Onboarding Flow – Profile Setup Module                   │
+│   Status: PROPOSED (from transcript_abc123)                     │
+│   Confidence: 87%                  Timestamp: 2026-08-02 14:12  │
+│   Recording: [Play] (90 min)       Transcript: [View]           │
+│   ───────────────────────────────────────────────────────────── │
+│   Business Objective: Reduce time-to-first-value from 8 to &lt; 3 │
+│   Actors: New User, Customer Success Manager                    │
+│   Main Workflow: 5 steps (signup → verify → profile → org → ...) │
+│   Acceptance Criteria: 3 items (90% &lt; 3 min, mobile + desktop, │
+│                         async email queue)                      │
+│   Out of Scope: SSO integration, bulk user import               │
+│   ───────────────────────────────────────────────────────────── │
+│                                                                  │
+│   Ambiguity Flags (2 found):                                     │
+│   ⚠ "&lt; 3 minutes" – needs baseline network speed                │
+│     Questions: [1] Standard broadband? [2] Includes email time? │
+│   ⚠ "See dashboard" – which dashboard?                          │
+│     Questions: [1] User or admin dashboard?                     │
+│                                                                  │
+│   UX Suggestions:                                                │
+│   📐 4-step mobile-first flow, reuse LoginForm component        │
+│   [View Full UX Suggestion]                                      │
+│   ───────────────────────────────────────────────────────────── │
+│                                                                  │
+│   [ACCEPT] [REJECT] [MODIFY] [MORE CONTEXT]                    │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘</code></pre>
+<h3>2.2 BA Actions on AI Proposals</h3>
+<h4>Accept</h4>
+<ul>
+<li>Creates a <code>RequirementVersion</code> in DRAFT status</li>
+<li>Links AIExtraction as a source artifact ("AI-Generated from Recording")</li>
+<li>Copies all extracted fields into the requirement</li>
+<li>Logs: "BA_ACCEPTED_AI_PROPOSAL" with BA user ID, timestamp</li>
+<li>Next step: BA can now submit requirement for PM review</li>
+</ul>
+<h4>Modify</h4>
+<ul>
+<li>Opens an edit form pre-filled with AI-extracted data</li>
+<li>BA can update any field: title, objective, acceptance criteria, scope, etc.</li>
+<li>After edits, BA clicks "ACCEPT AS MODIFIED"</li>
+<li>Logs: "BA_MODIFIED_AI_PROPOSAL" with diff of changes</li>
+<li>All modifications are visible in requirement version history</li>
+</ul>
+<h4>Reject</h4>
+<ul>
+<li>Opens a dialog: "Why are you rejecting this proposal?"</li>
+<li>Reason options: "Low quality", "Incomplete", "Out of scope for this project", "Off-topic", "Other"</li>
+<li>If "Other", BA provides text</li>
+<li>Logs: "BA_REJECTED_AI_PROPOSAL" with reason, timestamp</li>
+<li>Extraction remains in audit log; not deleted</li>
+<li>Recommended action: BA manually creates requirement, or records new meeting</li>
+</ul>
+<h4>More Context</h4>
+<ul>
+<li>Plays the recording segment that led to this extraction</li>
+<li>Shows the full transcript with speaker attribution and timestamps</li>
+<li>BA can jump to a specific time in the recording to hear surrounding conversation</li>
+</ul>
+<h3>2.3 Clarification Response Workflow</h3>
+<p><strong>Where</strong>: "Clarifications – AI-Flagged" section in Requirement Dashboard</p>
+<pre><code class="language-">┌─────────────────────────────────────────────────────────────────┐
+│ Clarifications – AI-Flagged (2 pending response)                 │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│ ✓ "&lt; 3 minutes" – how is this measured?                         │
+│   Status: OPEN                                                   │
+│   AI Confidence in Ambiguity: 92%                               │
+│   Suggested Questions:                                           │
+│   1. Is this measured on standard broadband (5 Mbps+)?          │
+│   2. Does this include email delivery time?                    │
+│   3. Is 90% of users a hard SLA or a goal?                     │
+│                                                                  │
+│   Historical Context: Similar term "fast" in req_456 was        │
+│   resolved to "&lt; 2 sec response time"                          │
+│                                                                  │
+│   ┌─────────────────────────────────────────────────────────┐  │
+│   │ Your Response:                                           │  │
+│   │ The 3-minute target is measured on standard broadband    │  │
+│   │ (≥ 5 Mbps). It includes only user actions (form fill,   │  │
+│   │ clicks); email delivery is not counted in the 3 minutes. │  │
+│   │ This is a goal, not an SLA—90% is our target but not    │  │
+│   │ contractual.                                             │  │
+│   │                                                           │  │
+│   │ [SUBMIT RESPONSE]                                       │  │
+│   └─────────────────────────────────────────────────────────┘  │
+│                                                                  │
+│ ✓ "See dashboard" – which dashboard?                            │
+│   Status: OPEN                                                   │
+│   ...                                                            │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘</code></pre>
+<p><strong>BA Action</strong>: Type clarification response → SUBMIT</p>
+<ul>
+<li>Links response to Clarification record</li>
+<li>Logs: "BA_CLARIFIED" with timestamp</li>
+<li>Requirement can now move forward with ambiguities resolved</li>
+</ul>
+<h3>2.4 Acceptance Criteria Suggestions</h3>
+<p>When editing acceptance criteria, AI offers auto-complete suggestions based on:</p>
+<ul>
+<li>Historical acceptance criteria from similar requirements</li>
+<li>Industry best practices (e.g., "Page load &lt; 2 sec", "Mobile + desktop")</li>
+<li>Project glossary and past clarifications</li>
+</ul>
+<hr>
+<h2>3. PROJECT_MANAGER Surface</h2>
+<h3>3.1 Change Impact Dashboard</h3>
+<p><strong>Where</strong>: "Changes &amp; Impact – AI Analysis" section in Project Dashboard</p>
+<pre><code class="language-">┌──────────────────────────────────────────────────────────────────┐
+│ Changes &amp; Impact – AI Analysis (1 pending PM review)              │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                   │
+│ ✓ User Onboarding Flow – Change from v2 to v3                   │
+│   Status: PROPOSED (from extraction_abc123)                     │
+│   Changed From: req_v12 (APPROVED, dated 2026-07-30)           │
+│   ───────────────────────────────────────────────────────────── │
+│                                                                   │
+│   📋 SCOPE CHANGE: MEDIUM                                         │
+│   New workflow step: Org connection (validated by domain)        │
+│                                                                   │
+│   💼 EFFORT IMPACT: +10 hours (confidence: 72%)                 │
+│   • user-auth module: +2 hrs (email async queue)                │
+│   • org-api module: +5 hrs (new API integration, MEDIUM risk)   │
+│   • ui-onboarding module: +3 hrs (mobile responsiveness)        │
+│                                                                   │
+│   ⚠ RISKS:                                                        │
+│   • Third-party org validation API is new (vendor integration)  │
+│   • Mobile responsiveness adds complexity                        │
+│   • Email async queue is new pattern in codebase                │
+│                                                                   │
+│   📊 HISTORICAL CONTEXT:                                          │
+│   Similar requirement (req_456) was estimated at 12 hrs,        │
+│   took 14 hrs (original estimate: 8 hrs). Scope grew 15%.       │
+│                                                                   │
+│   ✅ RECOMMENDED ACTIONS:                                         │
+│   • Schedule design review before implementation                 │
+│   • Verify org validation API contract with vendor              │
+│   • Create spike for email async queue pattern                  │
+│   ───────────────────────────────────────────────────────────── │
+│                                                                   │
+│   [APPROVE CHANGE] [REQUEST MORE ANALYSIS] [HOLD]               │
+│                                                                   │
+└──────────────────────────────────────────────────────────────────┘</code></pre>
+<h3>3.2 PM Actions on Change Impact Analysis</h3>
+<h4>Approve Change</h4>
+<ul>
+<li>Creates a Change Request (manual follow-up still needed for business approval)</li>
+<li>Effort impact is pre-filled from AI analysis</li>
+<li>Logs: "PM_APPROVED_CHANGE_IMPACT"</li>
+<li>Change request workflow proceeds normally (PM → BA → CTO review)</li>
+</ul>
+<h4>Request More Analysis</h4>
+<ul>
+<li>Re-runs Change Impact Agent with feedback</li>
+<li>Example feedback: "Focus on third-party API integration risks" or "Get actual org-api team estimate"</li>
+<li>AI re-analyzes and provides revised impact summary</li>
+</ul>
+<h4>Hold</h4>
+<ul>
+<li>Marks ChangeImpact as HOLD (doesn't create Change Request)</li>
+<li>Reason: PM waits for more context or decides change is not viable</li>
+<li>Change can be un-held later if decision changes</li>
+</ul>
+<h3>3.3 Sprint Burndown (Auto-Generated)</h3>
+<p><strong>Where</strong>: "Sprint Burndown – AI-Updated" in Project Dashboard</p>
+<pre><code class="language-">┌──────────────────────────────────────────────────────────────────┐
+│ Sprint 15 Burndown – AI-Updated (last updated 30 min ago)        │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                   │
+│ Task Status Breakdown:                                            │
+│ • Completed: 6 / 40 (15%)                                        │
+│ • In Progress: 8 / 40 (20%)                                      │
+│ • To Do: 26 / 40 (65%)                                           │
+│                                                                   │
+│ Burndown Curve:                                                   │
+│ Ideal: ─────────────  (40 → 0 over 10 days)                     │
+│ Actual: ════════════  (40 → 26 after 3 days, on pace)          │
+│                                                                   │
+│ Blockers (3):                                                     │
+│ 1. Org API Integration – waiting on vendor API key               │
+│ 2. Onboarding UI – waiting on design review approval             │
+│ 3. Requirement clarification – "See dashboard" ambiguity         │
+│                                                                   │
+│ At-Risk Tasks (2):                                                │
+│ 1. Email Async Queue – estimate 3 hrs, no owner assigned        │
+│ 2. Mobile Responsiveness – estimate 3 hrs, high complexity       │
+│                                                                   │
+│ Velocity Forecast:                                                │
+│ Sprint avg velocity: 38 pts                                       │
+│ This sprint (current): 36 pts (on pace to match)                │
+│ Forecasted completion: Aug 5 (on schedule)                      │
+│                                                                   │
+│ 💡 Insights from AI:                                              │
+│ • Sprint is on track; no rework detected                        │
+│ • Two blockers identified 3 hours earlier than team would have  │
+│ • One at-risk task could benefit from pair programming         │
+│                                                                   │
+└──────────────────────────────────────────────────────────────────┘</code></pre>
+<p>The burndown is <strong>read-only</strong> for PM; actual task completion is manual. AI just aggregates task status and highlights anomalies.</p>
+<h3>3.4 Risk &amp; Change Request Queue</h3>
+<p><strong>Where</strong>: "Risk &amp; Requests – Pending" in Project Dashboard</p>
+<pre><code class="language-">┌──────────────────────────────────────────────────────────────────┐
+│ Risk &amp; Change Requests – Pending (5 items)                       │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                   │
+│ 🚨 HIGH RISK – Third-party org validation API integration       │
+│    (flagged by Change Impact Agent)                              │
+│    Mitigation: Schedule design review, verify API contract      │
+│    [View change request]                                         │
+│                                                                   │
+│ ⚠ MEDIUM RISK – Email async queue is new pattern                │
+│    (flagged by Change Impact Agent)                              │
+│    Mitigation: Create spike to evaluate existing solutions       │
+│    [View change request]                                         │
+│                                                                   │
+│ 📋 CHANGE REQUEST – Org connection step (new workflow)          │
+│    Impact: +10 hours                                             │
+│    Status: PROPOSED (AI-generated)                              │
+│    [Review] [Approve] [Defer]                                    │
+│                                                                   │
+└──────────────────────────────────────────────────────────────────┘</code></pre>
+<hr>
+<h2>4. DEVELOPER Surface</h2>
+<h3>4.1 Task Assignment &amp; Auto-Estimate Queue</h3>
+<p><strong>Where</strong>: "My Tasks – AI-Suggested" in Developer Dashboard</p>
+<pre><code class="language-">┌──────────────────────────────────────────────────────────────────┐
+│ My Tasks – AI-Suggested (2 new, estimated)                       │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                   │
+│ ✓ Implement Email Verification Async Queue                      │
+│   Requirement: User Onboarding Flow (req_v12)                  │
+│   Estimated: 3 hours (AI: 72% confidence)                       │
+│   Priority: HIGH                                                  │
+│   Status: NOT_STARTED                                            │
+│                                                                   │
+│   Suggested Subtasks:                                            │
+│   • Set up queue infrastructure (1.5 hrs)                        │
+│   • Write verification email handler (1 hr)                     │
+│   • Add tests (0.5 hrs)                                          │
+│                                                                   │
+│   [ACCEPT ESTIMATE] [ADJUST ESTIMATE] [ACCEPT TASK]            │
+│   ───────────────────────────────────────────────────────────── │
+│                                                                   │
+│ ✓ Integrate Org Validation API                                  │
+│   Requirement: User Onboarding Flow (req_v12)                  │
+│   Estimated: 4 hours (AI: 68% confidence)                       │
+│   Priority: HIGH                                                  │
+│   Status: BLOCKED (waiting on org_api team)                     │
+│                                                                   │
+│   Blockers:                                                       │
+│   • Vendor API key not yet provided                              │
+│   • Org validation API contract needs review                     │
+│   Unblock: Notify PM for vendor follow-up                        │
+│                                                                   │
+│   [ACCEPT ESTIMATE] [ADJUST ESTIMATE]                           │
+│   ───────────────────────────────────────────────────────────── │
+│                                                                   │
+└──────────────────────────────────────────────────────────────────┘</code></pre>
+<h3>4.2 Developer Actions on AI-Suggested Tasks</h3>
+<h4>Accept Estimate</h4>
+<ul>
+<li>Acknowledges AI-suggested effort; uses it in sprint planning</li>
+<li>Logs: "DEVELOPER_ACCEPTED_ESTIMATE"</li>
+<li>Developer can now ACCEPT TASK to start work</li>
+</ul>
+<h4>Adjust Estimate</h4>
+<ul>
+<li>Opens estimate editor</li>
+<li>Developer provides their own estimate (if they think AI is off)</li>
+<li>Logs: "DEVELOPER_ADJUSTED_ESTIMATE" with old and new values</li>
+<li>AI learns from this feedback (used in future model training)</li>
+</ul>
+<h3>4.3 Daily Digest (Standup Digest Agent)</h3>
+<p><strong>Where</strong>: Slack / Email, sent at 9 AM</p>
+<pre><code class="language-">Good morning dev_dev1! Here's your TeamFlow standup for Project Onboarding (Aug 2, 2026):
+
+📋 YOUR TASKS (4)
+✓ Completed: 1 task (Email verification module, 3 hrs spent vs. 3 hrs estimated)
+⏳ In Progress: 2 tasks (Org API integration, Email async queue - no blockers)
+⏱ To Do: 1 task (Mobile responsiveness testing, starts tomorrow)
+
+🚨 YOUR BLOCKERS (1)
+- Org API Integration blocked on vendor API key
+  → PM has been notified; expected response Aug 2 EOD
+
+💬 CLARIFICATIONS WAITING (1)
+- Requirement "Onboarding Flow" needs BA clarification on "dashboard display"
+  → Response expected by EOD; may affect UI task scope
+
+📊 TEAM NEWS (1 item affecting you)
+- QA team flagged a defect in LoginForm component (req_v5)
+  → Your org validation task may depend on LoginForm refactoring
+  → Check defect PRJ-456 for details
+
+✏ UPDATE YOUR STATUS
+   Reply in Slack or log time in TeamFlow</code></pre>
+<hr>
+<h2>5. QA_ENGINEER Surface</h2>
+<h3>5.1 Test Case Review Queue</h3>
+<p><strong>Where</strong>: "Test Cases – AI-Generated" in QA Dashboard</p>
+<pre><code class="language-">┌──────────────────────────────────────────────────────────────────┐
+│ Test Cases – AI-Generated (1 pending QA review)                  │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                   │
+│ ✓ User Onboarding Flow – Test Case Suite                        │
+│   Requirement: req_v12 (APPROVED)                               │
+│   Status: DRAFT (AI-generated)                                  │
+│   Estimated Total Execution Time: 15 minutes                    │
+│   ───────────────────────────────────────────────────────────── │
+│                                                                   │
+│   Test Cases (7 total):                                          │
+│                                                                   │
+│   ✓ Happy Path: New user completes onboarding                   │
+│     GHERKIN: Given new user → When completes all steps → Then  │
+│     sees dashboard &amp; time &lt; 3 min                               │
+│     Automatable: Yes (Playwright)                               │
+│     Est. Time: 2 min                                             │
+│     [ACCEPT] [MODIFY] [DELETE]                                 │
+│                                                                   │
+│   ✓ Error Path: Invalid organization domain                     │
+│     GHERKIN: Given invalid domain → When clicks Validate →      │
+│     Then sees error message &amp; remains on org step               │
+│     Automatable: Yes (Playwright)                               │
+│     Est. Time: 1 min                                             │
+│     [ACCEPT] [MODIFY] [DELETE]                                 │
+│                                                                   │
+│   ✓ Accessibility: Mobile layout (iOS)                          │
+│     GHERKIN: Given iPhone 12 → When navigates flow → Then       │
+│     all inputs visible, touch targets ≥ 48x48 dp                │
+│     Automatable: No (requires manual QA)                        │
+│     Est. Time: 5 min                                             │
+│     [ACCEPT] [MODIFY] [DELETE]                                 │
+│                                                                   │
+│   [ACCEPT ALL] [REJECT ALL] [CUSTOM SELECTION]                 │
+│                                                                   │
+└──────────────────────────────────────────────────────────────────┘</code></pre>
+<h3>5.2 QA Actions on AI-Generated Test Cases</h3>
+<h4>Accept</h4>
+<ul>
+<li>Moves test case to ACCEPTED status</li>
+<li>Test case is now linked to RequirementVersion</li>
+<li>QA can execute test case immediately (or schedule for later)</li>
+<li>Logs: "QA_ACCEPTED_TEST_CASE"</li>
+</ul>
+<h4>Modify</h4>
+<ul>
+<li>Opens test case editor</li>
+<li>QA can refine GHERKIN syntax, change automation flag, adjust estimated time</li>
+<li>After edits: clicks ACCEPT</li>
+<li>Logs: "QA_MODIFIED_TEST_CASE" with changes</li>
+</ul>
+<h4>Delete</h4>
+<ul>
+<li>Marks test case as deleted (not removed from audit log)</li>
+<li>Reason: QA determines coverage is unnecessary or duplicate</li>
+<li>Logs: "QA_DELETED_TEST_CASE" with reason</li>
+</ul>
+<h4>Custom Selection</h4>
+<ul>
+<li>QA can accept some test cases and reject others</li>
+<li>Useful if AI over-generated or missed nuances</li>
+<li>Example: accept automatable cases, manually create edge-case cases</li>
+</ul>
+<h3>5.3 Requirement Testability Review</h3>
+<p><strong>Before BA submits a requirement for approval</strong>, QA can review it and flag testability concerns:</p>
+<pre><code class="language-">┌──────────────────────────────────────────────────────────────────┐
+│ Testability Review – User Onboarding Flow (req_v12, DRAFT)       │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                   │
+│ ✅ TESTABLE: This requirement has clear acceptance criteria     │
+│                                                                   │
+│ Issues Found (0):                                                 │
+│ (None – no vague acceptance criteria)                            │
+│                                                                   │
+│ Suggested Test Gaps:                                             │
+│ • Network timeout scenario (what if email service is down?)     │
+│ • Concurrent user scenario (multiple users onboarding at once)  │
+│ • Retry logic for failed org validation                         │
+│                                                                   │
+│ Coverage Estimate: 7 automated + 3 manual test cases            │
+│ Estimated QA Time: 30 minutes per release                       │
+│                                                                   │
+│ [FLAG TESTABILITY CONCERN] [APPROVE FOR SUBMISSION]             │
+│                                                                   │
+└──────────────────────────────────────────────────────────────────┘</code></pre>
+<hr>
+<h2>6. CTO / MANAGEMENT Surface</h2>
+<h3>6.1 Portfolio Health Dashboard</h3>
+<p><strong>Where</strong>: Executive Dashboard, read-only</p>
+<pre><code class="language-">┌──────────────────────────────────────────────────────────────────┐
+│ Portfolio Health – AI-Aggregated (as of 2026-08-02 4:00 PM)      │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                   │
+│ 📊 REQUIREMENTS CAPTURE                                           │
+│ • Total requirements (all projects): 247                         │
+│ • AI-assisted: 127 (51%)                                         │
+│ • Manual entry: 120 (49%)                                        │
+│ • Trend: AI adoption +15% this quarter                          │
+│                                                                   │
+│ 📝 AI EXTRACTION QUALITY                                         │
+│ • Avg confidence score: 0.83 (target: &gt; 0.80) ✓                │
+│ • BA acceptance rate: 84% (target: &gt; 80%) ✓                    │
+│ • Rejection rate: 12% (target: &lt; 20%) ✓                         │
+│ • Rework rate: 4% (BA modifies AI output)                       │
+│                                                                   │
+│ 🚨 RISK &amp; CHANGE REQUESTS                                        │
+│ • Open change requests: 8                                        │
+│ • High-risk changes: 2 (third-party API, new email pattern)   │
+│ • Avg approval cycle time: 2.5 days                              │
+│ • Blocked due to clarifications: 1 (waiting on BA response)     │
+│                                                                   │
+│ ⏱ DELIVERY VARIANCE                                              │
+│ • Requirements on-time: 91% (target: &gt; 90%) ✓                   │
+│ • Tasks on-time: 87% (target: &gt; 90%) ⚠                         │
+│ • QA cycle time: 3.2 days avg                                    │
+│ • Rework rate: 8% (AI-assisted reqs: 6%, manual: 10%)          │
+│                                                                   │
+│ 💰 AI ROI                                                         │
+│ • Cost/month: $2,400 (AI agent compute)                         │
+│ • BA time saved: ~40 hours/month (manual transcription)         │
+│ • BA hourly rate: $100/hr → $4,000 value/month                 │
+│ • ROI: +67% (savings exceed costs)                              │
+│                                                                   │
+│ 📉 TRENDS                                                         │
+│ • Rework is down 12% since AI adoption (July vs. June)          │
+│ • Clarification response time: down 2 days (async Q&amp;A)          │
+│ • First-pass requirement quality: up 8% (confidence correlation) │
+│                                                                   │
+└──────────────────────────────────────────────────────────────────┘</code></pre>
+<h3>6.2 Agent Performance Dashboard</h3>
+<p><strong>Where</strong>: Engineering / AI Team Only</p>
+<pre><code class="language-">┌──────────────────────────────────────────────────────────────────┐
+│ Agent Performance – Engineering View (last 7 days)               │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                   │
+│ Requirement Extraction Agent                                     │
+│ • Calls: 42  Success: 41  Errors: 1 (timeout)                  │
+│ • Avg confidence: 0.85  Acceptance rate: 86%                   │
+│ • Avg latency: 8.3 sec  Cost/call: $0.045                      │
+│ • Top error type: Low confidence (&lt;0.70), 5 instances          │
+│                                                                   │
+│ Change Impact Agent                                              │
+│ • Calls: 8  Success: 8  Errors: 0                              │
+│ • Accuracy vs. manual estimates: 78% within ±20%                │
+│ • Avg latency: 12.1 sec  Cost/call: $0.089                     │
+│                                                                   │
+│ Test Case Generator Agent                                        │
+│ • Calls: 12  Success: 11  Errors: 1 (invalid GHERKIN)         │
+│ • QA acceptance rate: 92%  Coverage adequacy: 89%              │
+│ • Avg latency: 15.2 sec  Cost/call: $0.125                     │
+│                                                                   │
+│ Token Usage (weekly):                                            │
+│ • Input tokens: 1.2M  Output tokens: 892K                      │
+│ • Model: Claude Opus 5 (100%), cost: $48                       │
+│                                                                   │
+│ [View Logs] [Tune Thresholds] [Fine-tune Model?]               │
+│                                                                   │
+└──────────────────────────────────────────────────────────────────┘</code></pre>
+<hr>
+<h2>7. Notification &amp; Alert Strategy</h2>
+<h3>7.1 Role-Based Notifications</h3>
+<div class="table-wrap"><table><thead><tr>
+<th>Role</th>
+<th>Event</th>
+<th>Channel</th>
+<th>Urgency</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>BA</strong></td>
+<td>AI proposal ready for review</td>
+<td>In-app + Slack</td>
+<td>Normal</td>
+</tr>
+<tr>
+<td><strong>BA</strong></td>
+<td>Clarification auto-flagged</td>
+<td>In-app + Email</td>
+<td>Normal</td>
+</tr>
+<tr>
+<td><strong>PM</strong></td>
+<td>Change impact analysis ready</td>
+<td>In-app + Slack</td>
+<td>Normal</td>
+</tr>
+<tr>
+<td><strong>PM</strong></td>
+<td>High-risk change detected</td>
+<td>In-app + Slack + Email</td>
+<td>High</td>
+</tr>
+<tr>
+<td><strong>Dev</strong></td>
+<td>Task assigned (AI-suggested)</td>
+<td>In-app + Email</td>
+<td>Normal</td>
+</tr>
+<tr>
+<td><strong>Dev</strong></td>
+<td>Task blocked (AI-detected)</td>
+<td>In-app + Slack</td>
+<td>High</td>
+</tr>
+<tr>
+<td><strong>QA</strong></td>
+<td>Test case suite ready for review</td>
+<td>In-app + Email</td>
+<td>Normal</td>
+</tr>
+<tr>
+<td><strong>QA</strong></td>
+<td>Testability concern flagged</td>
+<td>In-app + Slack</td>
+<td>Normal</td>
+</tr>
+<tr>
+<td><strong>CTO</strong></td>
+<td>Portfolio metrics updated (daily)</td>
+<td>Email digest</td>
+<td>Low</td>
+</tr>
+<tr>
+<td><strong>CTO</strong></td>
+<td>Agent error rate spike</td>
+<td>Slack + PagerDuty</td>
+<td>Critical</td>
+</tr>
+</tbody></table></div>
+<h3>7.2 Notification Frequency</h3>
+<ul>
+<li><strong>Real-time</strong>: Blockers, high-risk changes, critical errors</li>
+<li><strong>Hourly digest</strong>: Task status updates, minor AI completions</li>
+<li><strong>Daily digest</strong>: Standup summaries, portfolio metrics, agent health</li>
+<li><strong>Weekly digest</strong>: Trend analysis, AI ROI, team velocity</li>
+</ul>
+<hr>
+<h2>8. Feedback Loop (AI Learns from Humans)</h2>
+<p>Every human action on AI output is logged and used to improve future extractions:</p>
+<ul>
+<li><strong>BA rejects a requirement</strong> → AI learns what caused rejection; feedback is used to adjust confidence score on similar future extractions</li>
+<li><strong>BA modifies an AI extraction</strong> → Diff is logged; AI can learn from the delta</li>
+<li><strong>Dev adjusts an AI estimate</strong> → New data point added to effort model</li>
+<li><strong>QA modifies test case</strong> → AI learns about real-world testability gaps</li>
+</ul>
+<p>This data is aggregated monthly and used to:</p>
+<ul>
+<li>Retrain or fine-tune agent models</li>
+<li>Adjust confidence thresholds</li>
+<li>Identify systematic gaps (e.g., "AI always underestimates mobile work")</li>
+</ul>
+<hr>
+<h2>9. Audit Trail for All AI Actions</h2>
+<p>Every AI-driven action is logged with:</p>
+<ul>
+<li><code>timestamp</code>, <code>userId</code> (if human review), <code>agentId</code> (if AI)</li>
+<li><code>action_type</code> (PROPOSED, ACCEPTED, REJECTED, MODIFIED)</li>
+<li><code>confidence_score</code>, <code>model_id</code>, <code>tokens_used</code></li>
+<li><code>reason</code> (if rejected/modified)</li>
+<li><code>output_artifact_id</code> (link to what was created/modified)</li>
+</ul>
+<p>Example audit log entry:</p>
+<pre><code class="language-json">{
+  "id": "audit_12345",
+  "timestamp": "2026-08-02T14:12:00Z",
+  "eventType": "AI_EXTRACTION_CREATED",
+  "agentType": "REQUIREMENT_EXTRACTION",
+  "extractionId": "extraction_abc123",
+  "transcriptId": "transcript_abc123",
+  "confidence": 0.87,
+  "modelId": "claude-opus-5",
+  "inputTokens": 4250,
+  "outputTokens": 892,
+  "status": "PROPOSED"
+}</code></pre>
+<p>Followed by:</p>
+<pre><code class="language-json">{
+  "id": "audit_12346",
+  "timestamp": "2026-08-02T16:30:00Z",
+  "eventType": "BA_ACCEPTED_EXTRACTION",
+  "extractionId": "extraction_abc123",
+  "userId": "user_ba1",
+  "changesApplied": ["acceptanceCriteria"],
+  "resultingRequirementId": "req_v12",
+  "resultingStatus": "DRAFT"
+}</code></pre>
+<hr>
+<h2>10. Configuration by Organization</h2>
+<p>Different organizations may want:</p>
+<ul>
+<li>Different confidence thresholds</li>
+<li>Different notification channels (Slack vs. email vs. SMS)</li>
+<li>Different approval workflows (some may auto-approve low-risk changes)</li>
+<li>Different role-based surfaces (e.g., a startup might not have QA; a large enterprise might have multiple CTO dashboards)</li>
+</ul>
+<p><strong>Recommendation</strong>: Expose a configuration panel (for SYSTEM_ADMIN) to customize all of the above.</p>
+            </article>
+        </main>
+
+        <aside class="docs-toc" aria-label="On this page">
+            <div class="toc-title">On this page</div>
+            <ul id="toc-list" class="toc-list"></ul>
+        </aside>
+    </div>
+
+    <footer class="site-footer">
+        <p>© 2026 TeamFlow Documentation. Requirement governance. Delivery flow. Team confidence.</p>
+    </footer>
+    
+    <script src="../js/docs.js?v=ailayer1"></script>
+</body>
+</html>

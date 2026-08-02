@@ -575,6 +575,15 @@ body.roadmap-page {
     overflow: hidden;
 }
 
+.docs-content .table-wrap {
+    overflow-x: auto;
+    margin: 1.25rem 0;
+}
+
+.docs-content .table-wrap table {
+    margin: 0;
+}
+
 .docs-content th {
     background: var(--bg-muted);
     color: var(--text);

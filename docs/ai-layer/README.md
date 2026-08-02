@@ -53,7 +53,7 @@ docs/ai-layer/
 └── 03-automation-surfaces.md
 ```
 
-These mirror `architecture/` and `adr/`: engineering markdown references, not yet wired into the published HTML docs site under `docs/html/`.
+These are now linked in the docs site under **AI Layer** (sidebar + top subnav). HTML pages in `docs/html/ai-*.html` load these markdown files at runtime.
 
 ## Next steps (docs site integration)
 
